@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="setting">
+        <item>알람</item>
+        <item>계정연결</item>
+        <item>언어</item>
+        <item>도움말</item>
+    </string-array>
+    
+</resources>

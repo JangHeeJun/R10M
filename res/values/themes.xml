@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyAppTheme_init" parent="AppBaseTheme">
+	    <item name="android:windowNoTitle">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowBackground">@drawable/logo_splash</item>
+	</style>
+	<style name="MyAppTheme_all" parent="AppBaseTheme">
+	    <item name="android:windowNoTitle">true</item>
+	    <item name="android:windowContentOverlay">@null</item>
+	    <item name="android:windowBackground">@drawable/background_main</item>
+	</style>
+</resources>
