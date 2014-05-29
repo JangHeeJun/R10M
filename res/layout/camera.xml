@@ -57,14 +57,14 @@
          android:handle="@+id/handle"
          android:orientation="horizontal"
          android:rotation="180"
-         android:topOffset="0dp" >
+         android:topOffset="30dp" >
 
          <ImageView
              android:id="@+id/handle"
-             android:layout_width="45dp"
-             android:layout_height="45dp"
+             android:layout_width="30dp"
+             android:layout_height="30dp"
              android:rotation="180"
-             android:src="@drawable/arrow" />
+             android:src="@drawable/arrowright" />
 
          <LinearLayout
              android:id="@+id/content"
