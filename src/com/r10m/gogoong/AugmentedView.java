@@ -24,7 +24,7 @@ public class AugmentedView extends View {
     private static final float[] locationArray = new float[3];
     /** 화면을 그리는 동안 임시로 사용되는 캐시 */
     private static final List<Marker> cache = new ArrayList<Marker>();
-    /** 데디터 소스가 업데이트 되었을때 사용 */
+    /** 데이터 소스가 업데이트 되었을때 사용 */
     private static final TreeSet<Marker> updated = new TreeSet<Marker>();
     /** 화면상에서 마커의 위치를 조절해서 겹치지 않도록 배치하는데 사용 */
     private static final int COLLISION_ADJUSTMENT = 100;

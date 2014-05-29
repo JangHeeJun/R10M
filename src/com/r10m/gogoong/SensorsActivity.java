@@ -49,7 +49,7 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
     
     /** GeomagneticField의 인스턴스 저장*/
     private static GeomagneticField gmf = null;
-    /** grac와 mag의 값에 로우패스 필터 적용시 사용*/
+    /** grav와 mag의 값에 로우패스 필터 적용시 사용*/
     private static float smooth[] = new float[3];
     /** SensorManager*/
     private static SensorManager sensorMgr = null;

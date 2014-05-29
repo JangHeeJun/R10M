@@ -137,7 +137,7 @@ public class GgDataSource extends NetworkDataSource {
 		
 		Marker ma = null;
 		try {
-			ma = new IconMarker(
+			ma = new Marker(
 //					jo.getJSONObject("gangnam").getString("locationName"), 
 //					Double.parseDouble(jo.getJSONObject("gangnam").getString("lat")), 
 //					Double.parseDouble(jo.getJSONObject("gangnam").getString("lng")), 
@@ -147,7 +147,7 @@ public class GgDataSource extends NetworkDataSource {
 					Double.parseDouble(jo.getString("lng")), 
 					Double.parseDouble(jo.getString("altitude")),
 					Color.RED,
-					icon);
+					jo.getString("locationDetail"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

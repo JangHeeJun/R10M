@@ -54,6 +54,8 @@ public class Marker implements Comparable<Marker> {
     protected volatile PaintablePosition symbolContainer = null;
     /** 각 마커에 대한 고유 식별자이며 제이슨에서 받아온 샤싣을 이용해서 설정 */
     protected String name = null;
+    /** 각 마커에 대한 자세한 설명 */
+    protected String detail = null;
     /** 마커의 실제 세계에서의 물리적인 위치 */
     protected volatile PhysicalLocationUtility physicalLocation = new PhysicalLocationUtility();
     /** 사용자의 위치부터 목표 거리를 미터단위로 저장 */
@@ -80,16 +82,21 @@ public class Marker implements Comparable<Marker> {
     private static PaintableBox collisionBox = null;
     private static PaintablePosition collisionPosition = null;
 
-	public Marker(String name, double latitude, double longitude, double altitude, int color) {
-		set(name, latitude, longitude, altitude, color);
+    public Marker(String name, double latitude, double longitude, double altitude, int color) {
+		set(name, latitude, longitude, altitude, color, "no infomation");
+	}
+    
+	public Marker(String name, double latitude, double longitude, double altitude, int color, String detail) {
+		set(name, latitude, longitude, altitude, color, detail);
 	}
 
-	public synchronized void set(String name, double latitude, double longitude, double altitude, int color) {
+	public synchronized void set(String name, double latitude, double longitude, double altitude, int color, String detail) {
 		if (name==null) throw new NullPointerException();
 
 		this.name = name;
 		this.physicalLocation.set(latitude,longitude,altitude);
 		this.color = color;
+		this.detail = detail;
 		this.isOnRadar = false;
 		this.isInView = false;
 		this.symbolXyzRelativeToCameraView.set(0, 0, 0);
@@ -100,6 +107,10 @@ public class Marker implements Comparable<Marker> {
 
 	public synchronized String getName(){
 		return this.name;
+	}
+	
+	public synchronized String getDetail(){
+		return this.detail;
 	}
 
     public synchronized int getColor() {

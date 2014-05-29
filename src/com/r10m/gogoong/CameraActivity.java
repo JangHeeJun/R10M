@@ -9,6 +9,7 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -88,6 +89,10 @@ public class CameraActivity extends AugmentedActivity {
         Toast t = Toast.makeText(getApplicationContext(), marker.getName(), Toast.LENGTH_SHORT);
         t.setGravity(Gravity.CENTER, 0, 0);
         t.show();
+        
+        Intent intent = new Intent(this, DetailPopUp.class);
+		intent.putExtra("detail", marker.getDetail());
+		startActivity(intent);
 	}
 
     @Override
