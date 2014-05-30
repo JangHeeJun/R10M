@@ -3,8 +3,8 @@ package com.r10m.gogoong.ui;
 import android.graphics.Canvas;
 /** 화면에 한개의 점을 찍을때 사용 - 레이더를 그릴때 사용하는 클래스 */
 public class PaintablePoint extends PaintableObject {
-    private static int width=2;
-    private static int height=2;
+    private static int width=5;
+    private static int height=5;
     private int color = 0;
     private boolean fill = false;
     

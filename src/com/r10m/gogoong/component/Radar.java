@@ -16,13 +16,13 @@ import com.r10m.gogoong.util.PitchAzimuthCalculator;
 /** 레이더를 그리는 클래스 , 마커를 표시하는 점,선들을 그리기도 함 */
 public class Radar {
 	// 레이더의 색상,지름,글자색,간격등 설정
-    public static final float RADIUS = 48;
+    public static final float RADIUS = 100;
     private static final int LINE_COLOR = Color.argb(150,0,0,220);
     private static final float PAD_X = 10;
     private static final float PAD_Y = 20;
     private static final int RADAR_COLOR = Color.argb(100, 0, 0, 200);
     private static final int TEXT_COLOR = Color.rgb(255,255,255);
-    private static final int TEXT_SIZE = 12;
+    private static final int TEXT_SIZE = 16;
     
     private static ScreenPositionUtility leftRadarLine = null;
     private static ScreenPositionUtility rightRadarLine = null;

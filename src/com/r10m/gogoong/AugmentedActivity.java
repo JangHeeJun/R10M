@@ -7,12 +7,14 @@ import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.wizet.VerticalSeekBar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -23,6 +25,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
@@ -50,6 +53,13 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
     public static boolean useCollisionDetection = true;
     public static boolean showRadar = true;
     public static boolean showZoomBar = true;
+    
+    
+    private float startX;
+    private float startY;
+    private float endX;
+    private float endY;
+    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -173,12 +183,40 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
     }
 
 	public boolean onTouch(View view, MotionEvent me) {
-	    for (Marker marker : ARData.getMarkers()) {
+		switch(me.getAction()){
+		    case MotionEvent.ACTION_DOWN:
+		    	startX=me.getX();
+		    	startY=me.getY();
+		    	break;
+		    case MotionEvent.ACTION_UP:
+		    	endX=me.getX();
+		    	endY=me.getY();
+		    	break;
+	    }
+		
+		if(Math.abs(startX-endX)<100 && Math.abs(startY-endY)>100){
+			Toast t = Toast.makeText(getApplicationContext(), "카메라 성공", Toast.LENGTH_SHORT);
+	        t.setGravity(Gravity.CENTER, 0, 0);
+	        t.show();
+	        
+//			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
+//			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+//			startActivity(intent); 
+		}else{
+			Toast t = Toast.makeText(getApplicationContext(), "터치 인식", Toast.LENGTH_SHORT);
+	        t.setGravity(Gravity.CENTER, 0, 0);
+	        t.show();
+		}
+		
+		
+		
+		for (Marker marker : ARData.getMarkers()) {
 	        if (marker.handleClick(me.getX(), me.getY())) {
 	            if (me.getAction() == MotionEvent.ACTION_UP) markerTouched(marker);
 	            return true;
 	        }
 	    }
+	    
 		return super.onTouchEvent(me);
 	};
 	// 구현 필요

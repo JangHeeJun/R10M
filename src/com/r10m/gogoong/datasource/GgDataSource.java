@@ -41,7 +41,7 @@ public class GgDataSource extends NetworkDataSource {
 	protected void createIcon(Resources res) {
 		if (res==null) throw new NullPointerException();
 		
-		icon=BitmapFactory.decodeResource(res, R.drawable.ic_launcher);
+		icon=BitmapFactory.decodeResource(res, R.drawable.ic_marker);
 	}
 	
 	@Override
@@ -137,7 +137,7 @@ public class GgDataSource extends NetworkDataSource {
 		
 		Marker ma = null;
 		try {
-			ma = new Marker(
+			ma = new IconMarker(
 //					jo.getJSONObject("gangnam").getString("locationName"), 
 //					Double.parseDouble(jo.getJSONObject("gangnam").getString("lat")), 
 //					Double.parseDouble(jo.getJSONObject("gangnam").getString("lng")), 
@@ -147,6 +147,7 @@ public class GgDataSource extends NetworkDataSource {
 					Double.parseDouble(jo.getString("lng")), 
 					Double.parseDouble(jo.getString("altitude")),
 					Color.RED,
+					icon,
 					jo.getString("locationDetail"));
 		} catch (Exception e) {
 			e.printStackTrace();

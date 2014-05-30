@@ -86,9 +86,9 @@ public class CameraActivity extends AugmentedActivity {
 
 	@Override
 	protected void markerTouched(Marker marker) {
-        Toast t = Toast.makeText(getApplicationContext(), marker.getName(), Toast.LENGTH_SHORT);
-        t.setGravity(Gravity.CENTER, 0, 0);
-        t.show();
+//        Toast t = Toast.makeText(getApplicationContext(), marker.getName(), Toast.LENGTH_SHORT);
+//        t.setGravity(Gravity.CENTER, 0, 0);
+//        t.show();
         
         Intent intent = new Intent(this, DetailPopUp.class);
 		intent.putExtra("detail", marker.getDetail());
