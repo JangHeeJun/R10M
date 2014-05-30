@@ -54,11 +54,12 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
     public static boolean showRadar = true;
     public static boolean showZoomBar = true;
     
-    
+    private int mY;
     private float startX;
     private float startY;
     private float endX;
     private float endY;
+    SurfaceHolder mpHolder;
     
 
 	@Override
@@ -72,7 +73,7 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
         //layout 적용시 SurfaceHolder 사용
         setContentView(R.layout.camera);
         camScreen = (CameraSurface)findViewById(R.id.surface1);
-        SurfaceHolder mpHolder = camScreen.getHolder();
+        mpHolder = camScreen.getHolder();
         mpHolder.addCallback(camScreen);
         mpHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); 
         
@@ -123,9 +124,12 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
 	@Override
 	public void onPause() {
 		super.onPause();
-
+		camScreen.surfaceDestroyed(mpHolder);
 		wakeLock.release();
 	}
+	
+	
+	
 	
 	@Override
     public void onSensorChanged(SensorEvent evt) {
@@ -191,17 +195,20 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
 		    case MotionEvent.ACTION_UP:
 		    	endX=me.getX();
 		    	endY=me.getY();
+		    	startX=endX;
+		    	startY=endY;
 		    	break;
 	    }
-		
-		if(Math.abs(startX-endX)<100 && Math.abs(startY-endY)>100){
+				
+		if(startY>endY){
+		//if(Math.abs(startX-endX)<100 && Math.abs(startY-endY)>100){
 			Toast t = Toast.makeText(getApplicationContext(), "카메라 성공", Toast.LENGTH_SHORT);
 	        t.setGravity(Gravity.CENTER, 0, 0);
 	        t.show();
 	        
-//			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
-//			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-//			startActivity(intent); 
+			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
+			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+			startActivity(intent); 
 		}else{
 			Toast t = Toast.makeText(getApplicationContext(), "터치 인식", Toast.LENGTH_SHORT);
 	        t.setGravity(Gravity.CENTER, 0, 0);
