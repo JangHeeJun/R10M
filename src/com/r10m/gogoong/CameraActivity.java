@@ -9,9 +9,13 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -46,6 +50,36 @@ public class CameraActivity extends AugmentedActivity {
         Drawable alpha = ((ImageView)findViewById(R.id.imageView1)).getDrawable();
         alpha.setAlpha(50);
 		
+        String context = Context.LOCATION_SERVICE;
+        LocationManager locationManager = (LocationManager)getSystemService(context);
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            alertCheckGPS();
+        }
+    }
+	
+	private void alertCheckGPS() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS is disabled! Would you like to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Enable GPS",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                moveConfigGPS();
+                            }
+                    })
+                .setNegativeButton("Do nothing",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                    });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+    // GPS 설정화면으로 이동
+    private void moveConfigGPS() {
+        Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(gpsOptionsIntent);
     }
 
 	@Override
