@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,6 +18,7 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -40,6 +42,10 @@ public class CameraActivity extends AugmentedActivity {
         
         NetworkDataSource gG = new GgDataSource(this.getResources());
         sources.put("gG",gG);
+        
+        Drawable alpha = ((ImageView)findViewById(R.id.imageView1)).getDrawable();
+        alpha.setAlpha(50);
+		
     }
 
 	@Override
