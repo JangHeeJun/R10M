@@ -1,6 +1,5 @@
 package com.r10m.gogoong;
 
-import java.io.File;
 import java.text.DecimalFormat;
 
 import com.r10m.gogoong.camera.CameraSurface;
@@ -12,9 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.provider.MediaStore;
@@ -22,8 +19,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
-import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -34,7 +29,7 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /** 3. SensorsActivity를 확장, 터치 구현한 액티비티 */
-public class AugmentedActivity extends SensorsActivity implements OnTouchListener {
+public class AugmentedActivity extends SensorsActivity {
     private static final String TAG = "AugmentedActivity";
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
     private static final int ZOOMBAR_BACKGROUND_COLOR = Color.argb(125,55,55,55);
@@ -85,7 +80,6 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
         mpHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); 
         
         augmentedView = new AugmentedView(this);
-        augmentedView.setOnTouchListener(this);
         LayoutParams augLayout = new LayoutParams(  LayoutParams.WRAP_CONTENT, 
                                                     LayoutParams.WRAP_CONTENT);
         addContentView(augmentedView,augLayout);
@@ -199,16 +193,28 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
         ARData.setZoomProgress(myZoomBar.getProgress());
     }
 
-	public boolean onTouch(View view, MotionEvent me) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+    	//마커 터치시
+    	for (Marker marker : ARData.getMarkers()) {
+	        if (marker.handleClick(event.getX(), event.getY())) {
+	            if (event.getAction() == MotionEvent.ACTION_UP) markerTouched(marker);
+	            return true;
+	        }
+	    }
+		
 		//카메라 연동하기
-		if(me.getAction()==MotionEvent.ACTION_DOWN){	
-			startX=(int) me.getX();	
-			startY=(int) me.getY();		    	
+		if(event.getAction()==MotionEvent.ACTION_DOWN){	
+			startX=(int) event.getX();	
+			startY=(int) event.getY();
+//			Toast t = Toast.makeText(getApplicationContext(), "터치 다운", Toast.LENGTH_SHORT);
+//	        t.setGravity(Gravity.CENTER, 0, 0);
+//	        t.show();
 		}
-		if(me.getAction()==MotionEvent.ACTION_UP){
-			endX=(int) me.getX();
-			endY=(int) me.getY();
-		    	
+		if(event.getAction()==MotionEvent.ACTION_UP){
+			endX=(int) event.getX();
+			endY=(int) event.getY();
+			
 	    	if(startY>endY+200 && Math.abs(startX-endX)<50){
     			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
 //		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
@@ -220,21 +226,9 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
 	    	startX=endX;
 	    	startY=endY;
 	    }
-				
-		
-		
-		
-		//마커 터치시
-		for (Marker marker : ARData.getMarkers()) {
-	        if (marker.handleClick(me.getX(), me.getY())) {
-	            if (me.getAction() == MotionEvent.ACTION_UP) markerTouched(marker);
-	            return true;
-	        }
-	    }
-	    
-		//return super.onTouchEvent(me);
-		return true;
-	};
+    	return super.onTouchEvent(event);
+    }
+    
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
