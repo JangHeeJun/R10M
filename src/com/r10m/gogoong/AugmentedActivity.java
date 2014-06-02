@@ -1,5 +1,6 @@
 package com.r10m.gogoong;
 
+import java.io.File;
 import java.text.DecimalFormat;
 
 import com.r10m.gogoong.camera.CameraSurface;
@@ -11,7 +12,9 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.provider.MediaStore;
@@ -23,6 +26,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -54,12 +58,15 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
     public static boolean showRadar = true;
     public static boolean showZoomBar = true;
     
-    private int mY;
-    private float startX;
-    private float startY;
-    private float endX;
-    private float endY;
+    //카메라 프리뷰에서 터치 인식
+    private int startX;
+    private int startY;
+    private int endX;
+    private int endY;
     SurfaceHolder mpHolder;
+    //카메라 연동하여 이미지 받기
+    ImageView mImage;
+//	String mPath;
     
 
 	@Override
@@ -112,6 +119,12 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
 
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "DimScreen");
+        
+      //카메라 연동하여 이미지 받기
+//        mImage = (ImageView)findViewById(R.id.attachimage);
+//    	mPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
+//    			"/attachimage.jpg";
+        
     }
 
 	@Override
@@ -187,36 +200,31 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
     }
 
 	public boolean onTouch(View view, MotionEvent me) {
-		switch(me.getAction()){
-		    case MotionEvent.ACTION_DOWN:
-		    	startX=me.getX();
-		    	startY=me.getY();
-		    	break;
-		    case MotionEvent.ACTION_UP:
-		    	endX=me.getX();
-		    	endY=me.getY();
-		    	startX=endX;
-		    	startY=endY;
-		    	break;
+		//카메라 연동하기
+		if(me.getAction()==MotionEvent.ACTION_DOWN){	
+			startX=(int) me.getX();	
+			startY=(int) me.getY();		    	
+		}
+		if(me.getAction()==MotionEvent.ACTION_UP){
+			endX=(int) me.getX();
+			endY=(int) me.getY();
+		    	
+	    	if(startY>endY+200 && Math.abs(startX-endX)<50){
+    			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
+//		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
+//		    		startActivity(intent); 
+
+//		    		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mPath)));
+    			startActivityForResult(intent, 0);
+    		}
+	    	startX=endX;
+	    	startY=endY;
 	    }
 				
-		if(startY>endY){
-		//if(Math.abs(startX-endX)<100 && Math.abs(startY-endY)>100){
-			Toast t = Toast.makeText(getApplicationContext(), "카메라 성공", Toast.LENGTH_SHORT);
-	        t.setGravity(Gravity.CENTER, 0, 0);
-	        t.show();
-	        
-			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
-			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-			startActivity(intent); 
-		}else{
-			Toast t = Toast.makeText(getApplicationContext(), "터치 인식", Toast.LENGTH_SHORT);
-	        t.setGravity(Gravity.CENTER, 0, 0);
-	        t.show();
-		}
 		
 		
 		
+		//마커 터치시
 		for (Marker marker : ARData.getMarkers()) {
 	        if (marker.handleClick(me.getX(), me.getY())) {
 	            if (me.getAction() == MotionEvent.ACTION_UP) markerTouched(marker);
@@ -224,8 +232,21 @@ public class AugmentedActivity extends SensorsActivity implements OnTouchListene
 	        }
 	    }
 	    
-		return super.onTouchEvent(me);
+		//return super.onTouchEvent(me);
+		return true;
 	};
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			if(requestCode==0){
+				//mImage.setImageBitmap((Bitmap)data.getExtras().get("data"));
+				//mImage.setImageBitmap(BitmapFactory.decodeFile(mPath));
+			}
+			
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
 	// 구현 필요
 	protected void markerTouched(Marker marker) {
 		Log.w(TAG,"markerTouched() not implemented.");
