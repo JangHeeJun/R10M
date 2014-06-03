@@ -38,22 +38,12 @@ public class CameraActivity extends AugmentedActivity {
     private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
-	private static final int REQUEST_ENABLE_BT = 0;    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //bluetooth
-        BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (mBTAdapter == null) {
-        // device does not support Bluetooth
-        }
-        if (!mBTAdapter.isEnabled()) {
-        	Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-        	startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        	}
-        ////////////
+        
         
         LocalDataSource localData = new LocalDataSource(this.getResources());
         ARData.addMarkers(localData.getMarkers());
@@ -64,37 +54,10 @@ public class CameraActivity extends AugmentedActivity {
         Drawable alpha = ((ImageView)findViewById(R.id.imageView1)).getDrawable();
         alpha.setAlpha(50);
 		
-        String context = Context.LOCATION_SERVICE;
-        LocationManager locationManager = (LocationManager)getSystemService(context);
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alertCheckGPS();
-        }
+        
     }
 	
-	private void alertCheckGPS() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS is disabled! Would you like to enable it?")
-                .setCancelable(false)
-                .setPositiveButton("Enable GPS",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                moveConfigGPS();
-                            }
-                    })
-                .setNegativeButton("Do nothing",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                    });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-    // GPS 설정화면으로 이동
-    private void moveConfigGPS() {
-        Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(gpsOptionsIntent);
-    }
+	
 
 	@Override
     public void onStart() {
