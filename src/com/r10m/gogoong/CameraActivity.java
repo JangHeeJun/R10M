@@ -10,6 +10,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 import android.app.AlertDialog;
+import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,11 +37,24 @@ public class CameraActivity extends AugmentedActivity {
     private static final String locale = "en";
     private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);
-	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();    
+	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
+	private static final int REQUEST_ENABLE_BT = 0;    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        //bluetooth
+        BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (mBTAdapter == null) {
+        // device does not support Bluetooth
+        }
+        if (!mBTAdapter.isEnabled()) {
+        	Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        	startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+        	}
+        ////////////
+        
         LocalDataSource localData = new LocalDataSource(this.getResources());
         ARData.addMarkers(localData.getMarkers());
         
