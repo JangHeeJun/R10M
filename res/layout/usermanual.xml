@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00000000"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:layout_width="105dp"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="67dp"
+            android:src="@drawable/help_lefttext" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="160dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.78" >
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/help_bottomtext" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_above="@+id/imageView3"
+            android:layout_alignLeft="@+id/imageView3"
+            android:layout_marginBottom="19dp"
+            android:src="@drawable/help_centertext" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/help_toptext" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="139dp"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/help_topdowntext" />
+
+    </RelativeLayout>
+
+</LinearLayout>
