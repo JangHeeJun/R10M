@@ -16,6 +16,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+	
+	public static boolean flag=false;
 
 	private static final int REQUEST_ENABLE_BT = 0;
 
@@ -52,6 +54,12 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 			    startActivity(intent); 
+			    
+			    if(flag==false){
+					   Intent ManualIntent = new Intent(MainActivity.this,Manual.class);
+					   startActivity(ManualIntent);
+					   	flag=true;
+				   }
 			}  
 		}); 
 		

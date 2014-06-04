@@ -42,6 +42,11 @@
 			android:theme="@android:style/Theme.Dialog"
 			android:windowSoftInputMode="stateHidden" android:configChanges="orientation|keyboardHidden">
 		</activity>
+		
+        
+        <activity android:name="com.r10m.gogoong.Manual"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Translucent"></activity>
     </application>
 
 </manifest>
