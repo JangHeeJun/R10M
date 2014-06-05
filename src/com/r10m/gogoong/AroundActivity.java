@@ -1,293 +1,143 @@
 package com.r10m.gogoong;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Matrix;
-import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.util.FloatMath;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnTouchListener;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class AroundActivity extends Activity {
+import com.nhn.android.maps.NMapActivity;
+import com.nhn.android.maps.NMapController;
+import com.nhn.android.maps.NMapOverlay;
+import com.nhn.android.maps.NMapOverlayItem;
+import com.nhn.android.maps.NMapView;
+import com.nhn.android.maps.NMapView.OnMapStateChangeListener;
+import com.nhn.android.maps.maplib.NGeoPoint;
+import com.nhn.android.maps.nmapmodel.NMapError;
+import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
+import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
+import com.nhn.android.mapviewer.overlay.NMapOverlayManager.OnCalloutOverlayListener;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+
+public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnCalloutOverlayListener {
+
+	// API-KEY
+	public static final String API_KEY = "94cbae417dfa6aa0f0b9f103e04dd903";
+	// 네이버 맵 객체
+	NMapView mMapView = null;
+	// 맵 컨트롤러
+	NMapController mMapController = null;
+	// 맵을 추가할 레이아웃
+	LinearLayout MapContainer;
+	
+	// 오버레이의 리소스를 제공하기 위한 객체
+	AroundMapViewerResourceProvider mMapViewerResourceProvider = null;
+	// 오버레이 관리자
+	NMapOverlayManager mOverlayManager;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		setContentView(R.layout.aroundmap);
+		
+		/******************* 지도 초기화 시작 ********************/
+		// 네이버 지도를 넣기 위한 LinearLayout 컴포넌트
+		MapContainer = (LinearLayout) findViewById(R.id.MapContainer);
 
-		// Create a RelativeLayout container that will hold a SurfaceView,
-		// and set it as the content of our activity.
-		MoveView moveView = new MoveView(this);
-		moveView.setImageResource(R.drawable.map_around);
-		setContentView(moveView);
+		// 네이버 지도 객체 생성
+		mMapView = new NMapView(this);
+		
+		// 지도 객체로부터 컨트롤러 추출
+		mMapController = mMapView.getMapController();
+
+		// 네이버 지도 객체에 APIKEY 지정
+		mMapView.setApiKey(API_KEY);
+
+		// 생성된 네이버 지도 객체를 LinearLayout에 추가시킨다.
+		MapContainer.addView(mMapView);
+
+		// 지도를 터치할 수 있도록 옵션 활성화
+		mMapView.setClickable(true);
+		
+		// 확대/축소를 위한 줌 컨트롤러 표시 옵션 활성화
+		mMapView.setBuiltInZoomControls(true, null);	
+
+		// 지도에 대한 상태 변경 이벤트 연결
+		mMapView.setOnMapStateChangeListener(this);
+		/******************* 지도 초기화 끝 ********************/
+		
+		
+		/******************* 오버레이 관련 코드 시작 ********************/
+		// 오버레이 리소스 관리객체 할당
+		mMapViewerResourceProvider = new AroundMapViewerResourceProvider(this);
+
+		// 오버레이 관리자 추가
+		mOverlayManager = new NMapOverlayManager(this, mMapView, mMapViewerResourceProvider);
+		
+		// 오버레이들을 관리하기 위한 id값 생성
+		int markerId = AroundMapPOIflagType.PIN;
+
+		// 표시할 위치 데이터를 지정한다. -- 마지막 인자가 오버레이를 인식하기 위한 id값
+		NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
+		poiData.beginPOIdata(2);
+		poiData.addPOIitem(126.977000, 37.576866, "광화문입니다.", markerId, 0);
+		poiData.addPOIitem(126.991023, 37.579468, "창덕궁입니다.", markerId, 0);
+		poiData.addPOIitem(126.983083, 37.575395, "인사동입니다.", markerId, 0);
+		poiData.endPOIdata();
+
+		// 위치 데이터를 사용하여 오버레이 생성
+		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
+		
+		// id값이 0으로 지정된 모든 오버레이가 표시되고 있는 위치로 지도의 중심과 ZOOM을 재설정
+		poiDataOverlay.showAllPOIdata(0);
+		
+		// 오버레이 이벤트 등록
+		mOverlayManager.setOnCalloutOverlayListener(this);
+		/******************* 오버레이 관련 코드 끝 ********************/
 	}
 
+	/**
+	 * 지도가 초기화된 후 호출된다.
+	 * 정상적으로 초기화되면 errorInfo 객체는 null이 전달되며,
+	 * 초기화 실패 시 errorInfo객체에 에러 원인이 전달된다
+	 */
+	@Override
+	public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
+		if (errorInfo == null) { // success
+			//mMapController.setMapCenter(new NGeoPoint(126.978371, 37.5666091), 11);
+		} else { // fail
+			android.util.Log.e("NMAP", "onMapInitHandler: error=" + errorInfo.toString());
+		}
+	}
 
+	/**
+	 * 지도 레벨 변경 시 호출되며 변경된 지도 레벨이 파라미터로 전달된다.
+	 */
+	@Override
+	public void onZoomLevelChange(NMapView mapview, int level) {}
 
-	public class MoveView extends ImageView implements OnTouchListener{
-		
-		// These matrices will be used to move and zoom image
-		private Matrix matrix = new Matrix();
-		private Matrix moveMatrix = new Matrix();
-		
-		// We can be in one of these 3 states
-		private static final int NONE = 0;
-		private static final int DRAG = 1;
-		private static final int ZOOM = 2;
-		private int mode = NONE;
-		
-		// Remember some things for zooming
-		private PointF start = new PointF();
-		private PointF mid = new PointF();
-		private float oldDist = 1f;
-		
-		private static final int WIDTH = 0;
-		private static final int HEIGHT = 1;
-		
-		//matrix constants
-		private float[] value = new float[9];
-		
-		private Drawable drawable;
-		
-		//imageView size
-		private int width;
-		private int height;
-		//image size
-		private int imageWidth;
-		private int imageHeight;
-		//zoomIn image max size
-		private int scaledImageWidth;
-		private int scaledImageHeight;
-		
-		//Constructor
-		public MoveView(Context context, AttributeSet attrs, int defStyle){
-			super(context, attrs, defStyle);
-		}
-		
-		public MoveView(Context context, AttributeSet attrs){
-			this(context, attrs, 0);
-		}
-		
-		public MoveView(Context context){
-			this(context, null);
-			setOnTouchListener(this);
-			setScaleType(ScaleType.MATRIX);
-		}
-		
-		//image layout 화면배치
-		@Override
-		protected void onLayout(boolean changed, int left, int top, int right, int bottom){
-			super.onLayout(changed, left, top, right, bottom);
-			init();
-		}
-		
-		//image setter
-		@Override
-		public void setImageBitmap(Bitmap bm){
-			super.setImageBitmap(bm);
-		}
-		
-		@Override
-		public void setImageDrawable(Drawable drawable){
-			super.setImageDrawable(drawable);
-		}
-		
-		@Override
-		public void setImageResource(int resId){
-			super.setImageResource(resId);
-		}
-		
-		//initialize
-		protected void init()
-		{
-		
-			this.matrix.getValues(value); // 매트릭스 값
-			// 뷰크기
-			width = this.getWidth(); 
-			height = this.getHeight();
-			drawable = this.getDrawable();
-			
-			if (drawable == null)  return;
-			
-			imageWidth = drawable.getIntrinsicWidth(); //실제 이미지 너비
-			imageHeight = drawable.getIntrinsicHeight(); //실제 이미지 높이
-			
-			if (imageWidth > width || imageHeight > height)	{
-				setImageFitOnView();
-			}
-		
-			setCenter();
-			matrix.setValues(value);
-			setImageMatrix(matrix);
-		}
-		
-		public void initImageReal()	{
-			value[0] = 1;
-			value[4] = 1;
-			value[2] = 0;
-			value[5] = 0;
-			matrix.setValues(value);
-			setImageMatrix(matrix);
-		}
-		
-		public void initImageFit()	{
-		
-			if (imageWidth > width || imageHeight > height)	{
-				setImageFitOnView();
-			}
-			setCenter();
-			value[2] = 0;
-			value[5] = 0;
-			matrix.setValues(value);
-			setImageMatrix(matrix);
-		
-		}
-		
-		// 뷰에 맞게 이미지 사이즈 설정
-		private void setImageFitOnView()	{// 이미지의 가로와 세로의 길이 비교하여 target 설정
-			int target = WIDTH;
-	//	        if (imageWidth < imageHeight)
-	//	          target = HEIGHT;
-		
-	// 너비와 높이 중 큰값을 뷰에 맞도록 value 값 설정
-			if (target == WIDTH)	{
-			value[4] = (float)width / imageWidth;
-			value[0] = value[4];
-		
-	//	        else if (target == HEIGHT)
-	//	      {
-	//	          value[4] = (float)height / imageHeight;
-	//	          value[0] = value[4];
-	//	      }
-		
-			scaledImageWidth = (int) (imageWidth * value[0]);
-			scaledImageHeight = (int) (imageHeight * value[4]);
-		// 너비(높이)가 뷰와 같지만 높이(너비)는 뷰보다 클 경우 이미지 크기를 높이(너비)에 맞게 조정
-	//	        if (scaledImageWidth > width)
-	//	      {
-	//	          value[4] = (float) width / imageWidth;
-	//	          value[0] = value[4];
-	//	      }
-	//	        if (scaledImageHeight > height)
-	//	        {
-	//	          value[4] = (float)height / imageHeight;
-	//	          value[0] = value[4];
-	//	        }
-			}
-		}
-		
-		private void setCenter()	{
-			scaledImageWidth = (int) (imageWidth * value[0]);
-			scaledImageHeight = (int) (imageHeight * value[4]);
-			
-			if (scaledImageWidth < width)
-			{
-			value[2] = (float) (width / 2) - (float) (scaledImageWidth / 2);
-			}
-			if (scaledImageHeight < height)	{
-			value[5] = (float) (height / 2) - (float) (scaledImageHeight / 2);
-			}
-		}
-		
-		@Override
-		public boolean onTouch(View v, MotionEvent event){
-			ImageView view = (ImageView) v;
-			switch (event.getAction() & MotionEvent.ACTION_MASK){
-				case MotionEvent.ACTION_DOWN:	//first finger down only
-					moveMatrix.set(matrix);
-					start.set(event.getX(), event.getY());
-					mode = DRAG;
-					break;
-				
-				case MotionEvent.ACTION_POINTER_DOWN:	//second finger down
-					oldDist = spacing(event);
-					if (oldDist > 20f){ // 20f를 변경하여 줌을 인식하는 두 손가락의 거리값을 변경함
-						moveMatrix.set(matrix);
-						midPoint(mid, event);
-						mode = ZOOM;
-					}
-					break;
-				case MotionEvent.ACTION_UP:			//first finger lifted
-				case MotionEvent.ACTION_POINTER_UP:	//second finger lifted
-					mode = NONE;
-					if (scaledImageWidth < width){
-						fixView();
-					}
-					break;
-				 
-				case MotionEvent.ACTION_MOVE:
-					if (mode == DRAG) {	//movement of first finger
-			
-					matrix.set(moveMatrix);
-					matrix.postTranslate(event.getX() - start.x, event.getY() - start.y);
-					}else if (mode == ZOOM) {	//pinch zooming
-						float newDist = spacing(event);
-						if (newDist > 5f)	{
-							matrix.set(moveMatrix);
-							float scale = newDist / oldDist;
-							matrix.postScale(scale, scale, mid.x, mid.y);
-						}
-					}
-					break;
-				}
-			
-				changeMatrixValue(matrix, view);
-				// Perform the transformation
-				//view.setImageMatrix(matrix);
-				return true;	// indicate event was handled
-			}
-		
-		// 화면보다 작게 축소 하지 않도록
-		private void fixView() {
-			matrix.getValues(value);
-			setImageFitOnView();
-			setCenter();
-			matrix.setValues(value);
-			setImageMatrix(matrix);
-			
-		}
-				
-		private void changeMatrixValue(Matrix matrix, ImageView view){
-			matrix.getValues(value);
-			if (drawable == null)  return;
-	
-		// 이미지가 바깥으로 나가지 않도록.
-			if (value[2] < width - scaledImageWidth)   value[2] = width - scaledImageWidth;
-			if (value[5] < height - scaledImageHeight)   value[5] = height - scaledImageHeight;
-			if (value[2] > 0)   value[2] = 0;
-			if (value[5] > 0)   value[5] = 0;
-		
-		// 실제크기 2배 이상 확대 되지 않도록
-			if (value[0] > 2 || value[4] > 2)	{
-			value[0] = 2;
-			value[4] = 2;
-			}
-		
-			setCenter();
-			matrix.setValues(value);
-			setImageMatrix(matrix);
-		}
-		
-		//pinch 시 두손가락의 거리
-		private float spacing(MotionEvent event){
-			float x = event.getX(0) - event.getX(1);
-			float y = event.getY(0) - event.getY(1);
-			return FloatMath.sqrt(x * x + y * y);
-		}
-		
-		//zoomIn midPoint 확대 | 축소 되는 점
-		private void midPoint(PointF point, MotionEvent event){
-			float x = event.getX(0) + event.getX(1);
-			float y = event.getY(0) + event.getY(1);
-			point.set(x / 2, y / 2);
-		}
+	/**
+	 * 지도 중심 변경 시 호출되며 변경된 중심 좌표가 파라미터로 전달된다.
+	 */
+	@Override
+	public void onMapCenterChange(NMapView mapview, NGeoPoint center) {}
+
+	/**
+	 * 지도 애니메이션 상태 변경 시 호출된다.
+	 * animType : ANIMATION_TYPE_PAN or ANIMATION_TYPE_ZOOM
+	 * animState : ANIMATION_STATE_STARTED or ANIMATION_STATE_FINISHED
+	 */
+	@Override
+	public void onAnimationStateChange(NMapView arg0, int animType, int animState) {}
+
+	@Override
+	public void onMapCenterChangeFine(NMapView arg0) {}
+
+	/** 오버레이가 클릭되었을 때의 이벤트 */
+	@Override
+	public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0,
+			NMapOverlayItem arg1, Rect arg2) {
+		Toast.makeText(this, arg1.getTitle(), Toast.LENGTH_SHORT).show();
+		return null;
 	}
 }
