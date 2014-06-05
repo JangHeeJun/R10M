@@ -36,11 +36,9 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         
-        if (PreferenceManager.getDefaultSharedPreferences(this)!=null) {
-        	System.out.println("111111111111111111111111111111111111111111111");
-        	 mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-        	 setLocale(mainPreference.getString("LanguageList", "ko"));					//언어설정
-		}
+    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	setLocale(mainPreference.getString("LanguageList", "ko"));					//언어설정
+
 		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -51,7 +49,7 @@ public class MainActivity extends Activity {
         	Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
         	startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         	}
-        ////////////
+      
         
         String context = Context.LOCATION_SERVICE;
         LocationManager locationManager = (LocationManager)getSystemService(context);
@@ -165,6 +163,5 @@ public class MainActivity extends Activity {
       	Configuration config = new Configuration();
       	config.locale = locale;
       	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-      	System.out.println(locale+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
       }
 }
