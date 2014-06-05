@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="langlist_value">
+        <item >ko</item>
+        <item >en</item>
+    </string-array>
+    <string-array name="langlist_desc">
+        <item >한국어</item>
+        <item >영어</item>
+    </string-array>
+    
+    <string name="Setting_key">Setting</string>
+    <string name="Setting_title">환경설정</string>
+    
+    <string name="Alarm_key">SwitchAlarm</string>
+    <string name="Alarm_title">알람 설정</string>
+    
+    <string name="Language_key">LanguageList</string>
+    <string name="Language_title">언어 설정</string>
+    
+    <string name="Account_key">Account</string>
+    <string name="Account_title">계정설정</string>
+    
+    <string name="Facebook_key">Facebook</string>
+    <string name="Facebook_title">페이스북</string>
+    
+    <string name="Twitter_key">Twitter</string>
+    <string name="Twitter_title">트위터</string>
+    
+    <string name="Help_key">Help</string>
+    <string name="Help_title">도움말</string>
+    
+    <string name="Serviceterms_key">Serviceterms</string>
+    <string name="Serviceterms_title">이용약관</string>
+    
+    <string name="Servicehelp_key">Servicehelp</string>
+    <string name="Servicehelp_title">서비스도움말</string>
+    
+    <string name="Contactus_key">Contactus</string>
+    <string name="Contactus_title">문의하기</string>
+    
+</resources>
