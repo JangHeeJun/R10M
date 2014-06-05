@@ -2,12 +2,14 @@ package com.r10m.gogoong;
 
 import java.text.DecimalFormat;
 
+import com.facebook.AppEventsLogger;
 import com.r10m.gogoong.camera.CameraSurface;
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.wizet.VerticalSeekBar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -124,7 +126,7 @@ public class AugmentedActivity extends SensorsActivity {
 	@Override
 	public void onResume() {
 		super.onResume();
-
+		AppEventsLogger.activateApp(this);
 		wakeLock.acquire();
 	}
 
@@ -233,8 +235,11 @@ public class AugmentedActivity extends SensorsActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
 			if(requestCode==0){
-				//mImage.setImageBitmap((Bitmap)data.getExtras().get("data"));
-				//mImage.setImageBitmap(BitmapFactory.decodeFile(mPath));
+				Bitmap cImage=(Bitmap)data.getExtras().get("data");
+				
+				Intent intent=new Intent(this,PostingPopup.class);
+				intent.putExtra("cImage", cImage);
+				startActivityForResult(intent, 0);
 			}
 			
 		}

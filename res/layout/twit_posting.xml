@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff" >
+    
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+	    android:background="#87cedf" >
+        
+	    <TextView
+	        android:id="@+id/textView_twit_posting"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="9"
+	        android:text="트윗하기"
+	        android:textColor="#ffffff"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    
+		<Button
+		       android:id="@+id/btn_twit_write"
+		       android:layout_width="wrap_content"
+		       android:layout_height="wrap_content"
+		       android:layout_weight="1"
+		       android:text="게시"
+		       android:textColor="#ffffff" />
+		
+	</LinearLayout>
+	
+	<EditText
+        android:id="@+id/write_twit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:layout_below="@id/linearLayout"/>
+	
+    <ImageView
+        android:id="@+id/imageView_twit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/write_twit" />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10" 
+        android:background="#87cedf"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
