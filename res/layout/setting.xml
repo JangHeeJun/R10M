@@ -42,9 +42,10 @@
         android:orientation="vertical" >
 
         <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" >
         </ListView>
 
     </LinearLayout>
