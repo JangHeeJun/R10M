@@ -1,21 +1,28 @@
 package com.r10m.gogoong;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class MainActivity extends Activity {
+	
+	SharedPreferences mainPreference;
 	
 	public static boolean flag=false;
 
@@ -29,6 +36,12 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         
+        if (PreferenceManager.getDefaultSharedPreferences(this)!=null) {
+        	System.out.println("111111111111111111111111111111111111111111111");
+        	 mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+        	 setLocale(mainPreference.getString("LanguageList", "ko"));					//언어설정
+		}
+		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBTAdapter == null) {
@@ -144,4 +157,14 @@ public class MainActivity extends Activity {
         Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
     }
+   
+    //언어설정
+  	public void setLocale(String character) {
+      	Locale locale = new Locale(character); 
+      	Locale.setDefault(locale);
+      	Configuration config = new Configuration();
+      	config.locale = locale;
+      	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+      	System.out.println(locale+"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+      }
 }
