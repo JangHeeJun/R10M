@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="langlist_value">
+        <item >ko</item>
+        <item >en</item>
+    </string-array>
+    <string-array name="langlist_desc">
+        <item >Korean</item>
+        <item >English</item>
+    </string-array>
+    
+    <string name="Setting_key">Setting</string>
+    <string name="Setting_title">Setting</string>
+    
+    <string name="Alarm_key">SwitchAlarm</string>
+    <string name="Alarm_title">Alarm Setting</string>
+    
+    <string name="Language_key">LanguageList</string>
+    <string name="Language_title">Language Setting</string>
+    
+    <string name="Account_key">Account</string>
+    <string name="Account_title">Account</string>
+    
+    <string name="Facebook_key">Facebook</string>
+    <string name="Facebook_title">FaceBook</string>
+    
+    <string name="Twitter_key">Twitter</string>
+    <string name="Twitter_title">Twitter</string>
+    
+    <string name="Help_key">Help</string>
+    <string name="Help_title">Help</string>
+    
+    <string name="Serviceterms_key">Serviceterms</string>
+    <string name="Serviceterms_title">Terms of Service</string>
+    
+    <string name="Servicehelp_key">Servicehelp</string>
+    <string name="Servicehelp_title">Service Help</string>
+    
+    <string name="Contactus_key">Contactus</string>
+    <string name="Contactus_title">Contact us</string>
+    
+</resources>
