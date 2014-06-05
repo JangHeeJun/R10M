@@ -3,7 +3,7 @@
     android:id="@+id/container1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#00000000"
+    android:background="#a0000000"
     android:orientation="horizontal" >
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="67dp"
-            android:src="@drawable/help_lefttext" />
+            android:src="@drawable/help_leftyellowtext" />
 
     </RelativeLayout>
 
@@ -32,7 +32,7 @@
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/help_bottomtext" />
+            android:src="@drawable/help_bottomyellowtext" />
 
         <ImageView
             android:id="@+id/imageView2"
@@ -41,7 +41,7 @@
             android:layout_above="@+id/imageView3"
             android:layout_alignLeft="@+id/imageView3"
             android:layout_marginBottom="19dp"
-            android:src="@drawable/help_centertext" />
+            android:src="@drawable/help_centeryellowtext" />
 
         <ImageView
             android:id="@+id/imageView1"
@@ -50,7 +50,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
-            android:src="@drawable/help_toptext" />
+            android:src="@drawable/help_pyellowtext" />
 
     </RelativeLayout>
 
@@ -64,7 +64,7 @@
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/help_topdowntext" />
+            android:src="@drawable/help_topdownyellowtext" />
 
     </RelativeLayout>
 
