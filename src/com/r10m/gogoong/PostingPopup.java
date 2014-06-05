@@ -79,7 +79,7 @@ public class PostingPopup extends Activity {
 			@Override
 			public void onClick(View v) {
 				Session session = Session.getActiveSession();
-		        if (!session.isOpened()) {
+		        if (session != null && session.isOpened()) {
 		        	postPhoto(cImage);
 		        } else {
 		        	Toast.makeText(PostingPopup.this, "facebook 로그인을 하셔야 합니다.", Toast.LENGTH_SHORT).show();
