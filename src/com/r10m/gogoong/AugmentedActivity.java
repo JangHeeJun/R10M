@@ -64,6 +64,7 @@ public class AugmentedActivity extends SensorsActivity {
     //카메라 연동하여 이미지 받기
     ImageView mImage;
 //	String mPath;
+	public static boolean flag=false;
     
 
 	@Override
@@ -128,16 +129,19 @@ public class AugmentedActivity extends SensorsActivity {
 		super.onResume();
 		AppEventsLogger.activateApp(this);
 		wakeLock.acquire();
+		
+		if(flag==false){
+			Intent ManualIntent = new Intent(AugmentedActivity.this,Manual.class);
+			   startActivity(ManualIntent);
+		   	flag=true;
+	   }
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-		camScreen.surfaceDestroyed(mpHolder);
 		wakeLock.release();
-	}
-	
-	
+	}	
 	
 	
 	@Override
@@ -218,6 +222,7 @@ public class AugmentedActivity extends SensorsActivity {
 			endY=(int) event.getY();
 			
 	    	if(startY>endY+200 && Math.abs(startX-endX)<50){
+	    		camScreen.surfaceDestroyed(mpHolder);
     			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
 //		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
 //		    		startActivity(intent); 
@@ -233,6 +238,8 @@ public class AugmentedActivity extends SensorsActivity {
     
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
 		if (resultCode == RESULT_OK) {
 			if(requestCode==0){
 				Bitmap cImage=(Bitmap)data.getExtras().get("data");
@@ -241,9 +248,7 @@ public class AugmentedActivity extends SensorsActivity {
 				intent.putExtra("cImage", cImage);
 				startActivityForResult(intent, 0);
 			}
-			
 		}
-		super.onActivityResult(requestCode, resultCode, data);
 	}
 
 	// 구현 필요

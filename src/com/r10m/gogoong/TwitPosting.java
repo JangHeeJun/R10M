@@ -21,6 +21,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +32,7 @@ public class TwitPosting extends Activity {
 	EditText writeTwit;
 	Configuration config;
 	Bitmap cImage;
+	ProgressBar progBar;
 	Handler mHandler = new Handler();
 	
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,11 @@ public class TwitPosting extends Activity {
         nameText 	= (TextView) findViewById(R.id.textView_twit_posting);
         nameText.setText(BasicInfo.TwitScreenName);
         
+        //프로그레스바
+        progBar=(ProgressBar)findViewById(R.id.progressBar_twit);
+		progBar.setVisibility(View.INVISIBLE);
+		
+        // 이미지뷰
         img 		= (ImageView) findViewById(R.id.imageView_twit);
         Intent intentFb = getIntent();
 		cImage=(Bitmap)intentFb.getExtras().get("cImage");
@@ -68,25 +75,26 @@ public class TwitPosting extends Activity {
     }
 	
 	 private void connect() {
-			// 인증 되어있을때
-			if (BasicInfo.TwitLogin) {
-				try {
-					ConfigurationBuilder builder = new ConfigurationBuilder();
+		 progBar.setVisibility(View.VISIBLE);
+		// 인증 되어있을때
+		if (BasicInfo.TwitLogin) {
+			try {
+				ConfigurationBuilder builder = new ConfigurationBuilder();
 
-					builder.setOAuthAccessToken(BasicInfo.TWIT_KEY_TOKEN);
-					builder.setOAuthAccessTokenSecret(BasicInfo.TWIT_KEY_TOKEN_SECRET);
-					builder.setOAuthConsumerKey(BasicInfo.TWIT_CONSUMER_KEY);
-					builder.setOAuthConsumerSecret(BasicInfo.TWIT_CONSUMER_SECRET);
+				builder.setOAuthAccessToken(BasicInfo.TWIT_KEY_TOKEN);
+				builder.setOAuthAccessTokenSecret(BasicInfo.TWIT_KEY_TOKEN_SECRET);
+				builder.setOAuthConsumerKey(BasicInfo.TWIT_CONSUMER_KEY);
+				builder.setOAuthConsumerSecret(BasicInfo.TWIT_CONSUMER_SECRET);
 
-					config = builder.build();
-					TwitterFactory tFactory = new TwitterFactory(config);
-					BasicInfo.TwitInstance = tFactory.getInstance();
-					
-		    	} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			} 
-	    }
+				config = builder.build();
+				TwitterFactory tFactory = new TwitterFactory(config);
+				BasicInfo.TwitInstance = tFactory.getInstance();
+				
+	    	} catch (Exception ex) {
+				ex.printStackTrace();
+			}
+		} 
+    }
 	 
 	// 게시물 올리기 메소드
     private void updateStatus(String statusText) {
@@ -112,11 +120,13 @@ public class TwitPosting extends Activity {
 				
         		mHandler.post(new Runnable() {
         			public void run() {
+        				progBar.setVisibility(View.INVISIBLE);
         				Toast.makeText(getApplicationContext(), "글을 업데이트했습니다 : ", Toast.LENGTH_SHORT).show();
         			}
         		});
         		finish();
         	} catch(Exception ex) {
+        		progBar.setVisibility(View.INVISIBLE);
         		ex.printStackTrace();
         	}
 

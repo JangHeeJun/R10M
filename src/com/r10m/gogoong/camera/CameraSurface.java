@@ -10,19 +10,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 /** 카메라 프리뷰 */
 public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback {
-    private static SurfaceHolder holder = null;
+	private static final String TAG = "CameraSurface";
     private static Camera camera = null;
 
     public CameraSurface(Context context) {
         super(context);
-
-        try {
-            holder = getHolder();
-            holder.addCallback(this);
-            holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-        } catch (Exception ex) {
-        	ex.printStackTrace();
-        }
     }
     
     public CameraSurface(Context context, AttributeSet attrs) {

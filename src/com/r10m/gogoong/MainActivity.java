@@ -36,33 +36,32 @@ public class MainActivity extends Activity {
 	
 	SharedPreferences mainPreference;
 	public static final String TAG = "MainActivity";
-	public static boolean flag=false;
 
 	private static final int REQUEST_ENABLE_BT = 0;
 	
 	//facebook
-		private Bundle mSavedInstanceState;
-		private boolean bProgressLogin;
-		private Session.StatusCallback statusCallback = new Session.StatusCallback() {    
+	private Bundle mSavedInstanceState;
+	private boolean bProgressLogin;
+	private Session.StatusCallback statusCallback = new Session.StatusCallback() {    
 
-			@Override
-	        public void call(Session session, SessionState state, Exception exception) {
-	        	if (state == SessionState.OPENED
-	        	        || state == SessionState.OPENED_TOKEN_UPDATED) {
-	        	            // log in
-	        	            checkFacebookLogin();
-	        	        }
-	        	        else if (state == SessionState.CLOSED){}
-	        	            // log out
-	        	        else if (state == SessionState.CLOSED_LOGIN_FAILED) {
-	        	            // 여러 이유로 인증실패.
-	        	            bProgressLogin = false;
-	        	        }
-	        }
-	    };
-	    
-		//twitter
-	    private Handler mHandler = new Handler();
+		@Override
+        public void call(Session session, SessionState state, Exception exception) {
+        	if (state == SessionState.OPENED
+        	        || state == SessionState.OPENED_TOKEN_UPDATED) {
+        	            // log in
+        	            checkFacebookLogin();
+        	        }
+        	        else if (state == SessionState.CLOSED){}
+        	            // log out
+        	        else if (state == SessionState.CLOSED_LOGIN_FAILED) {
+        	            // 여러 이유로 인증실패.
+        	            bProgressLogin = false;
+        	        }
+        }
+    };
+    
+	//twitter
+    private Handler mHandler = new Handler();
 		
 	
 
@@ -88,7 +87,7 @@ public class MainActivity extends Activity {
         	startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
         	}
       
-        
+        // GPS
         String context = Context.LOCATION_SERVICE;
         LocationManager locationManager = (LocationManager)getSystemService(context);
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -103,12 +102,6 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 			    startActivity(intent); 
-			    
-			    if(flag==false){
-					   Intent ManualIntent = new Intent(MainActivity.this,Manual.class);
-					   startActivity(ManualIntent);
-					   	flag=true;
-				   }
 			}  
 		}); 
 		
@@ -201,7 +194,7 @@ public class MainActivity extends Activity {
       	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
       }
   	
-  //facebook 연동
+  	//facebook 연동
     private void onClickLogin() {
     	bProgressLogin = true;
         Session session = Session.getActiveSession();
