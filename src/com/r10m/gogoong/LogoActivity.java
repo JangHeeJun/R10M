@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-
+/** logo띄우는 화면 3초뒤에 종료 */
 public class LogoActivity extends Activity {
 
     @Override

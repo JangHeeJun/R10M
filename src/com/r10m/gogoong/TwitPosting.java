@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
+/** Twitter Posting¿ª ¿ß«— Activity */
 public class TwitPosting extends Activity {
 	TextView nameText;
 	ImageView img;

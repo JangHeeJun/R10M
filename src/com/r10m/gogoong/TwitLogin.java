@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-
+/** 트위터 로그인을 위한 Activity */
 public class TwitLogin extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

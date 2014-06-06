@@ -31,7 +31,7 @@ import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.datasource.GgDataSource;
 import com.r10m.gogoong.datasource.LocalDataSource;
 import com.r10m.gogoong.datasource.NetworkDataSource;
-
+/** 모든 액티비티를 상속받은 CameraActivity */
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "MainActivity";
     private static final String locale = "en";
@@ -42,23 +42,17 @@ public class CameraActivity extends AugmentedActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        
-        
+                
         LocalDataSource localData = new LocalDataSource(this.getResources());
         ARData.addMarkers(localData.getMarkers());
         
         NetworkDataSource gG = new GgDataSource(this.getResources());
         sources.put("gG",gG);
         
-        Drawable alpha = ((ImageView)findViewById(R.id.imageView1)).getDrawable();
+        Drawable alpha = ((ImageView)findViewById(R.id.imageView_camera_map)).getDrawable();
         alpha.setAlpha(50);
-		
-        
     }
 	
-	
-
 	@Override
     public void onStart() {
         super.onStart();
@@ -66,6 +60,12 @@ public class CameraActivity extends AugmentedActivity {
         Location last = ARData.getCurrentLocation();
         updateData(last.getLatitude(),last.getLongitude(),last.getAltitude());
     }
+	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,6 +125,7 @@ public class CameraActivity extends AugmentedActivity {
                 new Runnable() {
                     
                     public void run() {
+                    	//Marker가 적을때 다운로드 받음 - 맨 처음만 받음
                     	if(ARData.getMarkersSize()<5)
 		                    for (NetworkDataSource source : sources.values())
 		                        download(source, lat, lon, alt);
@@ -138,6 +139,7 @@ public class CameraActivity extends AugmentedActivity {
         }
     }
     
+    // 서버로 부터 데이터를 받아 마커로 변환후 ARData에 저장
     private static boolean download(NetworkDataSource source, double lat, double lon, double alt) {
 		if (source==null) return false;
 		

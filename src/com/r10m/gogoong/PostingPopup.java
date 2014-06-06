@@ -27,12 +27,14 @@ import android.widget.Toast;
 
 /** fb,tw 포스팅 하기 위한 공유하기 팝업창 */
 public class PostingPopup extends Activity {
-
+	//layout
 	private ImageButton twiter;
 	private ImageButton facebook;
 	Bitmap cImage;
 	
+	//facebook에서 도움주는 헬퍼클래스
 	private UiLifecycleHelper uiHelper;
+	//Session 관리를 위한 callback 매서드
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -53,6 +55,7 @@ public class PostingPopup extends Activity {
         
         setContentView(R.layout.posting_popup);
         
+        // image 받아오기
         Intent intentFb = getIntent();
 		cImage=(Bitmap)intentFb.getExtras().get("cImage");
 

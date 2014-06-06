@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
 	//facebook
 	private Bundle mSavedInstanceState;
 	private boolean bProgressLogin;
-	private Session.StatusCallback statusCallback = new Session.StatusCallback() {    
+	private Session.StatusCallback statusCallback = new Session.StatusCallback() {
 
 		@Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -102,6 +102,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
 			    startActivity(intent); 
+			    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			}  
 		}); 
 		
@@ -113,6 +114,7 @@ public class MainActivity extends Activity {
           public void onClick(View v) {
         	  Intent intent = new Intent(MainActivity.this, AroundActivity.class);
               startActivity(intent);
+              overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
           }
        });  
        
@@ -123,7 +125,7 @@ public class MainActivity extends Activity {
 	   @Override
 	       public void onClick(View v) {
 	          Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"));
-	          startActivity(intent);
+	          startActivityForResult(intent, -1);
 	       }     
 	   });
 	   
@@ -135,11 +137,10 @@ public class MainActivity extends Activity {
           public void onClick(View v) {
         	  Intent intent = new Intent(MainActivity.this, SettingActivity.class);
               startActivity(intent);
+              overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
           }
        });
        
-     
-   
 	   //페이스북 연결
 	   Button ibtn_fb = (Button) findViewById(R.id.btn_fb);
 	   ibtn_fb.setOnClickListener(new OnClickListener(){
@@ -160,6 +161,8 @@ public class MainActivity extends Activity {
 	     } 
 	   });
     }
+	
+	// GPS alertDialog 창 띄우기
 	private void alertCheckGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your GPS is disabled! Would you like to enable it?")
@@ -194,7 +197,7 @@ public class MainActivity extends Activity {
       	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
       }
   	
-  	//facebook 연동
+  	//facebook 연동 시작 -----------------------------------------------------------------
     private void onClickLogin() {
     	bProgressLogin = true;
         Session session = Session.getActiveSession();
@@ -251,8 +254,9 @@ public class MainActivity extends Activity {
             Session.saveSession(session, outState);
         }
     }
+  	//facebook 연동 끝 -----------------------------------------------------------------
     
-    //tiwtter 연동
+    //tiwtter 연동 시작 -----------------------------------------------------------------
     private void connect() {
 		Log.d(TAG, "connect() called.");
 		// 인증 되어있을때
@@ -271,8 +275,6 @@ public class MainActivity extends Activity {
 				twitter4j.conf.Configuration config = builder.build();
 				TwitterFactory tFactory = new TwitterFactory(config);
 				BasicInfo.TwitInstance = tFactory.getInstance();
-				
-				Toast.makeText(getBaseContext(), "twitter connected.", Toast.LENGTH_LONG).show();
 
 	    	} catch (Exception ex) {
 				ex.printStackTrace();
@@ -378,7 +380,7 @@ public class MainActivity extends Activity {
 
 				mHandler.post(new Runnable() {
 					public void run() {
-						Toast.makeText(getBaseContext(), "Twitter connection succeeded : " + BasicInfo.TWIT_KEY_TOKEN, Toast.LENGTH_LONG).show();
+						Toast.makeText(getBaseContext(), "Twitter connection successeded : " + BasicInfo.TWIT_KEY_TOKEN, Toast.LENGTH_LONG).show();
 					}
 				});
 
@@ -408,7 +410,7 @@ public class MainActivity extends Activity {
 		BasicInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
 		BasicInfo.TwitScreenName = pref.getString("TwitScreenName", "");
 	}
-	    
+	//twitter 연동 끝----------------------------------------------------------------
     
     @Override
     public void onStart() {

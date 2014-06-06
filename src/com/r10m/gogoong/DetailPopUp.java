@@ -14,7 +14,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-
+/** Marker를 click했을시 텍스트 및 음성 출력 */
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
 	
 	private TextToSpeech mTts;
@@ -29,11 +29,13 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         
         setContentView(R.layout.detail);
         
+        // 텍스트 출력 준비
         TextView textView = (TextView)findViewById(R.id.Popup);
         Intent intent = getIntent();
         detail = intent.getExtras().get("detail").toString();
         textView.setText(detail);
         
+        //TTS 준비
         mTts = new TextToSpeech(this, this  // TextToSpeech.OnInitListener
                 );
             setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -48,6 +50,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
             say();        
     }
 	
+	//TTS 자원 해제
 	@Override
 	protected void onDestroy() {
 		if (mTts != null) {
@@ -56,17 +59,20 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         }
 		super.onDestroy();
 	}
-
+	
+	// 음성출력
 	private void say() {
         mTts.speak(detail,
             TextToSpeech.QUEUE_FLUSH,  // Drop all pending entries in the playback queue.
             null);
 	}
+	
+	// do nothing
 	@Override
-	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
+	public void onClick(View v) {		
 	}
+	
+	//TTS 초기화
 	@Override
 	public void onInit(int status) {
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.

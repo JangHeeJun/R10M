@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.LinearLayout;
-
+/** 카메라 뷰에서 설명해주는 투명창 */
 public class Manual extends Activity implements OnTouchListener {
 
 	@Override
@@ -20,7 +20,7 @@ public class Manual extends Activity implements OnTouchListener {
 		
 		setContentView(R.layout.usermanual);
 		
-		LinearLayout layout=(LinearLayout) findViewById(R.id.container1);
+		LinearLayout layout=(LinearLayout) findViewById(R.id.container_manual);
 		layout.setOnTouchListener(this);
 		
 		
@@ -30,14 +30,9 @@ public class Manual extends Activity implements OnTouchListener {
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
 		if(event.getAction()==MotionEvent.ACTION_DOWN){
-			
-			Intent intent = new Intent(Manual.this,CameraActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
-			startActivity(intent);
-			
+			finish();
 			return true;
 		}
-		
 		return false;
 	}
 }

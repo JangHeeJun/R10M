@@ -33,6 +33,7 @@ import android.widget.TextView;
 /** 3. SensorsActivity를 확장, 터치 구현한 액티비티 */
 public class AugmentedActivity extends SensorsActivity {
     private static final String TAG = "AugmentedActivity";
+    
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
     private static final int ZOOMBAR_BACKGROUND_COLOR = Color.argb(125,55,55,55);
     private static final String END_TEXT = FORMAT.format(AugmentedActivity.MAX_ZOOM)+" km";
@@ -64,6 +65,8 @@ public class AugmentedActivity extends SensorsActivity {
     //카메라 연동하여 이미지 받기
     ImageView mImage;
 //	String mPath;
+    
+    // ManualActivity 플래그
 	public static boolean flag=false;
     
 
@@ -82,11 +85,13 @@ public class AugmentedActivity extends SensorsActivity {
         mpHolder.addCallback(camScreen);
         mpHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); 
         
+        // 마커 띄우기 위한 augmentedView
         augmentedView = new AugmentedView(this);
         LayoutParams augLayout = new LayoutParams(  LayoutParams.WRAP_CONTENT, 
                                                     LayoutParams.WRAP_CONTENT);
         addContentView(augmentedView,augLayout);
         
+        // 시크바 줌 인 아웃시 레이아웃
         zoomLayout = new LinearLayout(this);
         zoomLayout.setVisibility((showZoomBar)?LinearLayout.VISIBLE:LinearLayout.GONE);
         zoomLayout.setOrientation(LinearLayout.VERTICAL);
@@ -117,11 +122,6 @@ public class AugmentedActivity extends SensorsActivity {
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "DimScreen");
         
-      //카메라 연동하여 이미지 받기
-//        mImage = (ImageView)findViewById(R.id.attachimage);
-//    	mPath = Environment.getExternalStorageDirectory().getAbsolutePath() +
-//    			"/attachimage.jpg";
-        
     }
 
 	@Override
@@ -130,6 +130,7 @@ public class AugmentedActivity extends SensorsActivity {
 		AppEventsLogger.activateApp(this);
 		wakeLock.acquire();
 		
+		// ManualActivity intent
 		if(flag==false){
 			Intent ManualIntent = new Intent(AugmentedActivity.this,Manual.class);
 			   startActivity(ManualIntent);
@@ -213,21 +214,16 @@ public class AugmentedActivity extends SensorsActivity {
 		if(event.getAction()==MotionEvent.ACTION_DOWN){	
 			startX=(int) event.getX();	
 			startY=(int) event.getY();
-//			Toast t = Toast.makeText(getApplicationContext(), "터치 다운", Toast.LENGTH_SHORT);
-//	        t.setGravity(Gravity.CENTER, 0, 0);
-//	        t.show();
 		}
 		if(event.getAction()==MotionEvent.ACTION_UP){
 			endX=(int) event.getX();
 			endY=(int) event.getY();
 			
 	    	if(startY>endY+200 && Math.abs(startX-endX)<50){
+	    		//카메라 리소스 반환
 	    		camScreen.surfaceDestroyed(mpHolder);
+	    		// 기본 카메라 앱 이동
     			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
-//		    		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); 
-//		    		startActivity(intent); 
-
-//		    		intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(mPath)));
     			startActivityForResult(intent, 0);
     		}
 	    	startX=endX;
@@ -242,8 +238,9 @@ public class AugmentedActivity extends SensorsActivity {
 		
 		if (resultCode == RESULT_OK) {
 			if(requestCode==0){
+				// 저장된 사진을 비트맵으로 변환
 				Bitmap cImage=(Bitmap)data.getExtras().get("data");
-				
+				// SNS 선택 이동
 				Intent intent=new Intent(this,PostingPopup.class);
 				intent.putExtra("cImage", cImage);
 				startActivityForResult(intent, 0);

@@ -3,7 +3,7 @@ package com.r10m.gogoong;
 import twitter4j.Twitter;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-
+/** twitter 연동을 위한 기본정보 */
 public class BasicInfo {
 	public static final String TWIT_API_KEY = "3Of6DKbWKy5dI4hpFVB0PULnO";
 	public static final String TWIT_CONSUMER_KEY = "3Of6DKbWKy5dI4hpFVB0PULnO";

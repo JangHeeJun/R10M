@@ -14,7 +14,7 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-
+/** 설정 정보를 저장 및 제어하는 Activity */
 public class SettingActivity extends PreferenceActivity {
 
 	SharedPreferences mainPreference;
@@ -22,7 +22,6 @@ public class SettingActivity extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		overridePendingTransition(R.anim.leftin, R.anim.leftout);
 
 		// 1. \res\xml\preferences.xml로 부터 Preference 계층구조를 읽어와
 		// 2. 이 PreferenceActivity의 계층구조로 지정/표현 하고
@@ -68,4 +67,10 @@ public class SettingActivity extends PreferenceActivity {
     	config.locale = locale;
     	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
+   	
+   	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
 }

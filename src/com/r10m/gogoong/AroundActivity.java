@@ -104,6 +104,13 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		mOverlayManager.setOnCalloutOverlayListener(this);
 		/******************* 오버레이 관련 코드 끝 ********************/
 	}
+	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
+		
 
 	/**
 	 * 지도가 초기화된 후 호출된다.
