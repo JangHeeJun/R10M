@@ -17,7 +17,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_horizontal"
-			android:text="트위터 로그인을 위해 아래 내용을 확인하세요."
+			android:text="@string/twit_login_text"
 			android:textSize="16dp"
 			android:textStyle="bold"
 			android:textColor="#ff000000"

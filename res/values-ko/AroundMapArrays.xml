@@ -1,16 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <string-array name="langlist_value">
-        <item >ko</item>
-        <item >en</item>
-    </string-array>
-    <string-array name="langlist_desc">
-        <item >한국어</item>
-        <item >영어</item>
-    </string-array>
-  
-    
+   
      <string name="map1_key">현재 위치는 광화문입니다.</string>
     <string name="map1_title">현재 위치는 광화문입니다.</string>
     

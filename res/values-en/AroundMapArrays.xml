@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string-array name="langlist_value">
-        <item >ko</item>
-        <item >en</item>
-    </string-array>
-    <string-array name="langlist_desc">
-        <item >Korean</item>
-        <item >English</item>
-    </string-array>
     <string name="map1_key">Gwanghwamun</string>
     <string name="map1_title">Gwanghwamun</string>
     
@@ -20,9 +12,5 @@
     
     <string name="map4_key">Insa-dong</string>
     <string name="map4_title">Insa-dong</string>
-    
-    
-    
-    
-    
+        
 </resources>

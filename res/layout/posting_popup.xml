@@ -8,7 +8,7 @@
         android:id="@+id/textView_posting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="공유하기"
+        android:text="@string/posting_popup_text"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 	
