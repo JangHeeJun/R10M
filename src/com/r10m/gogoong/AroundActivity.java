@@ -84,11 +84,13 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		// 표시할 위치 데이터를 지정한다. -- 마지막 인자가 오버레이를 인식하기 위한 id값
 		NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
 		poiData.beginPOIdata(2);
-		poiData.addPOIitem(126.976916, 37.575997, "광화문!현재 위치입니다.", markerId, 0);
-		poiData.addPOIitem(126.976930, 37.578588, "경복궁입니다.", markerId, 0);
-		poiData.addPOIitem(126.991023, 37.579468, "창덕궁입니다.", markerId, 0);
-		poiData.addPOIitem(126.983083, 37.575395, "인사동입니다.", markerId, 0);
+		poiData.addPOIitem(126.976916, 37.575997, getString(R.string.map1_key), markerId, 0);
+		poiData.addPOIitem(126.976930, 37.578588, getString(R.string.map2_key), markerId, 0);
+		poiData.addPOIitem(126.991023, 37.579468, getString(R.string.map3_key), markerId, 0);
+		poiData.addPOIitem(126.983083, 37.575395, getString(R.string.map4_key), markerId, 0);
 		poiData.endPOIdata();
+		//getString(R.string.map4_key) .java에서 프리퍼런스에 있는 스트링을 불러올 때는 이와 같이 사용한다.
+		//@string/name 은 xml에서 불러올때 사용한다.
 
 		// 위치 데이터를 사용하여 오버레이 생성
 		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
