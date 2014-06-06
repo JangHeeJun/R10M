@@ -18,7 +18,8 @@ import android.widget.TextView;
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
 	
 	private TextToSpeech mTts;
-    private String detail; 
+	private String name; 
+	private String detail;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +31,13 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         setContentView(R.layout.detail);
         
         // 텍스트 출력 준비
-        TextView textView = (TextView)findViewById(R.id.Popup);
+        TextView textName = (TextView)findViewById(R.id.textView_detail_name);
+        TextView textDetail = (TextView)findViewById(R.id.textView_detail_detail);
         Intent intent = getIntent();
+        name = intent.getExtras().get("name").toString();
         detail = intent.getExtras().get("detail").toString();
-        textView.setText(detail);
+        textName.setText(name);
+        textDetail.setText(detail);
         
         //TTS 준비
         mTts = new TextToSpeech(this, this  // TextToSpeech.OnInitListener

@@ -121,7 +121,8 @@ public class CameraActivity extends AugmentedActivity {
 //        t.show();
         
         Intent intent = new Intent(this, DetailPopUp.class);
-		intent.putExtra("detail", marker.getDetail());
+        intent.putExtra("name", marker.getName());
+        intent.putExtra("detail", marker.getDetail());
 		startActivity(intent);
 	}
 
