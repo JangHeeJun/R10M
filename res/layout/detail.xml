@@ -3,12 +3,28 @@
 	android:layout_centerInParent="true"
     android:layout_width="300dip"
     android:layout_height="240dip"
-    android:background="#50FFFFFF">
+    android:background="#B3FFFFFF">
+
+    <TextView
+        android:id="@+id/textView_detail_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="" />
+    
+    <ScrollView
+        android:id="@+id/scrollView_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/textView_detail_name">
 
         <TextView
-            android:id="@+id/Popup"
+            android:id="@+id/textView_detail_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="TextView" />
+            android:text="" />
+        
+    </ScrollView>
 
 </RelativeLayout>
