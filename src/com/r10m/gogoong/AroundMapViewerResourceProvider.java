@@ -147,12 +147,15 @@ public class AroundMapViewerResourceProvider extends NMapResourceProvider {
 		// Spot, Pin icons
 		new ResourceIdsOnMap(AroundMapPOIflagType.PIN, R.drawable.ic_pin_01, R.drawable.ic_pin_02),
 		new ResourceIdsOnMap(AroundMapPOIflagType.SPOT, R.drawable.ic_pin_01, R.drawable.ic_pin_02),
+		
+		
 
-		// Direction POI icons: From, To
-		new ResourceIdsOnMap(AroundMapPOIflagType.FROM, R.drawable.ic_map_start, R.drawable.ic_map_start_over),
-		new ResourceIdsOnMap(AroundMapPOIflagType.TO, R.drawable.ic_map_arrive, R.drawable.ic_map_arrive_over),
+//		// Direction POI icons: From, To
+//		new ResourceIdsOnMap(AroundMapPOIflagType.FROM, R.drawable.ic_map_start, R.drawable.ic_map_start_over),
+//		new ResourceIdsOnMap(AroundMapPOIflagType.TO, R.drawable.ic_map_arrive, R.drawable.ic_map_arrive_over),
 	};
 
+	
 	/**
 	 * Find resource id corresponding to the markerId.
 	 * 
