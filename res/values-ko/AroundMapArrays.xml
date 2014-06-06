@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string-array name="langlist_value">
+        <item >ko</item>
+        <item >en</item>
+    </string-array>
+    <string-array name="langlist_desc">
+        <item >한국어</item>
+        <item >영어</item>
+    </string-array>
+  
+    
+     <string name="map1_key">현재 위치는 광화문입니다.</string>
+    <string name="map1_title">현재 위치는 광화문입니다.</string>
+    
+    <string name="map2_key">이곳은 경복궁의 근정전입니다.</string>
+    <string name="map2_title">이곳은 경복궁의 근정전입니다.</string>
+    
+    <string name="map3_key">이곳은 창덕궁의 한 장소 입니다.</string>
+    <string name="map3_title">이곳은 창덕궁의 한 장소 입니다.</string>
+    
+    <string name="map4_key">이곳은 인사동입니다.</string>
+    <string name="map4_title">이곳은 인사동입니다.</string>
+    
+</resources>
