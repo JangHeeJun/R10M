@@ -54,6 +54,7 @@ public class ARData {
 	    private static float pitch = 0;
 	    private static final Object rollLock = new Object();
 	    private static float roll = 0;
+		private static int count;
 
 	    
 	    /** 모든 메서드는 데이터가 앱의 다른부분에 의해 변경되지 않았는지 검사하는 
@@ -136,9 +137,14 @@ public class ARData {
 	            cache.clear();
 	            cache.addAll(copy);
 	        }
+	        count = Collections.unmodifiableList(cache).size();
 	        return Collections.unmodifiableList(cache);
 	    }
 
+	    public static int getMarkersSize(){
+	    	return count;
+	    }
+	    
 	    public static void setAzimuth(float azimuth) {
 	        synchronized (azimuthLock) {
 	            ARData.azimuth = azimuth;

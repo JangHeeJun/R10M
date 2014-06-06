@@ -125,8 +125,9 @@ public class CameraActivity extends AugmentedActivity {
                 new Runnable() {
                     
                     public void run() {
-                        for (NetworkDataSource source : sources.values())
-                            download(source, lat, lon, alt);
+                    	if(ARData.getMarkersSize()<5)
+		                    for (NetworkDataSource source : sources.values())
+		                        download(source, lat, lon, alt);
                     }
                 }
             );
