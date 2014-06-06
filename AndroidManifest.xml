@@ -41,15 +41,16 @@
         
         <!-- 카메라 프리뷰 - AR -->
         <activity android:name="CameraActivity"
-            android:screenOrientation="landscape"
-            android:configChanges="keyboardHidden|orientation"></activity>
+            android:screenOrientation="landscape"></activity>
+        
+        <!-- 설정창 -->
         <activity android:name="SettingActivity"></activity>
         
         <!-- marker click 자세한 설명 -->
         <activity 
 			android:name="DetailPopUp"
 			android:theme="@android:style/Theme.Dialog"
-			android:windowSoftInputMode="stateHidden" android:configChanges="orientation|keyboardHidden">
+			android:windowSoftInputMode="stateHidden" android:configChanges="orientation">
 		</activity>
 		
         <!-- camara 투명 설명창 -->
@@ -62,7 +63,7 @@
 			android:name="PostingPopup"
 			android:screenOrientation="landscape"
 			android:theme="@android:style/Theme.Dialog"
-			android:windowSoftInputMode="stateHidden" android:configChanges="orientation|keyboardHidden">
+			android:windowSoftInputMode="stateAlwaysHidden" android:configChanges="orientation">
 		</activity>
         
         <!-- twitter 연동 -->
@@ -80,7 +81,7 @@
         <provider android:authorities="com.facebook.app.NativeAppCallContentProvider1509388132610632"
                   android:name="com.facebook.NativeAppCallContentProvider"
                   android:exported="true"/>
-        <receiver android:name="GoFacebookBroadcastReceiveriver">
+        <receiver android:name="GoFacebookBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.facebook.platform.AppCallResultBroadcast" />
             </intent-filter>
