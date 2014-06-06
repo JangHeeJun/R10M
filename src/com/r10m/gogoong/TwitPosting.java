@@ -64,7 +64,7 @@ public class TwitPosting extends Activity {
         		String statusText = writeTwit.getText().toString();
         		// 글을 안썼을 때
         		if (statusText.length() < 1) {
-        			Toast.makeText(getApplicationContext(), "글을 입력하세요.", 1000).show();
+        			Toast.makeText(getApplicationContext(), getString(R.string.twit_posting_empty), 1000).show();
         			return;
         		}
         		//loadProperties();
@@ -121,7 +121,7 @@ public class TwitPosting extends Activity {
         		mHandler.post(new Runnable() {
         			public void run() {
         				progBar.setVisibility(View.INVISIBLE);
-        				Toast.makeText(getApplicationContext(), "글을 업데이트했습니다 : ", Toast.LENGTH_SHORT).show();
+        				Toast.makeText(getApplicationContext(), getString(R.string.twit_posting_success), Toast.LENGTH_SHORT).show();
         			}
         		});
         		finish();

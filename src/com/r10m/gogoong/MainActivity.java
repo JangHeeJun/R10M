@@ -73,8 +73,8 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         
-    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreference.getString("LanguageList", "ko"));					//언어설정
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	setLocale(mainPreference.getString("LanguageList", "ko"));				//언어설정
 
 		
         //bluetooth
@@ -147,7 +147,7 @@ public class MainActivity extends Activity {
 	
 	     @Override
 	     public void onClick(View v) {
-	    	 onClickLogin();   
+	    	 facebookLogin();   
 	     } 
 	   });
 	   
@@ -157,7 +157,7 @@ public class MainActivity extends Activity {
 	
 	     @Override
 	     public void onClick(View v) {
-	    	 connect();  
+	    	 twitLogin();  
 	     } 
 	   });
     }
@@ -187,18 +187,18 @@ public class MainActivity extends Activity {
         Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
     }
-   
-    //언어설정
-  	public void setLocale(String character) {
-      	Locale locale = new Locale(character); 
-      	Locale.setDefault(locale);
-      	Configuration config = new Configuration();
-      	config.locale = locale;
-      	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-      }
-  	
+    
+    //언어 설정
+    public void setLocale(String character) {
+    	Locale locale = new Locale(character); 
+    	Locale.setDefault(locale);
+    	Configuration config = new Configuration();
+    	config.locale = locale;
+    	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+    
   	//facebook 연동 시작 -----------------------------------------------------------------
-    private void onClickLogin() {
+    private void facebookLogin() {
     	bProgressLogin = true;
         Session session = Session.getActiveSession();
         if (session == null) {
@@ -225,7 +225,7 @@ public class MainActivity extends Activity {
     	   String PERMISSION = "publish_actions";
     	   if (session.getPermissions().contains(PERMISSION)) {
     	    bProgressLogin = false;
-    	    Toast.makeText(this, "이미 페이스북 연동하셨습니다.", Toast.LENGTH_SHORT).show();
+    	    Toast.makeText(this, getString(R.string.facebookLogin_main), Toast.LENGTH_SHORT).show();
     	    // log in 성공
     	   } else
     	    session.requestNewPublishPermissions(
@@ -257,12 +257,12 @@ public class MainActivity extends Activity {
   	//facebook 연동 끝 -----------------------------------------------------------------
     
     //tiwtter 연동 시작 -----------------------------------------------------------------
-    private void connect() {
+    private void twitLogin() {
 		Log.d(TAG, "connect() called.");
 		// 인증 되어있을때
 		if (BasicInfo.TwitLogin) {
 			Log.d(TAG, "twitter already logged in.");
-			Toast.makeText(getBaseContext(), "twitter already logged in.", Toast.LENGTH_LONG).show();
+			Toast.makeText(getBaseContext(), getString(R.string.twitLogin_main), Toast.LENGTH_LONG).show();
 
 			try {
 				ConfigurationBuilder builder = new ConfigurationBuilder();
@@ -380,7 +380,7 @@ public class MainActivity extends Activity {
 
 				mHandler.post(new Runnable() {
 					public void run() {
-						Toast.makeText(getBaseContext(), "Twitter connection successeded : " + BasicInfo.TWIT_KEY_TOKEN, Toast.LENGTH_LONG).show();
+						Toast.makeText(getBaseContext(), getString(R.string.twitLoginsuccess_main), Toast.LENGTH_LONG).show();
 					}
 				});
 
@@ -390,7 +390,7 @@ public class MainActivity extends Activity {
 		}
 	}
 	
-	private void saveProperties() {
+	private void twitSaveProperties() {
 		SharedPreferences pref = getSharedPreferences("TWIT", MODE_PRIVATE);
 		SharedPreferences.Editor editor = pref.edit();
 
@@ -402,7 +402,7 @@ public class MainActivity extends Activity {
 		editor.commit();
 	}
 
-	private void loadProperties() {
+	private void twitLoadProperties() {
 		SharedPreferences pref = getSharedPreferences("TWIT", MODE_PRIVATE);
 
 		BasicInfo.TwitLogin = pref.getBoolean("TwitLogin", false);
@@ -429,12 +429,12 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		loadProperties();
+		twitLoadProperties();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		saveProperties();
+		twitSaveProperties();
 	}
 }

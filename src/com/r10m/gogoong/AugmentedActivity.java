@@ -132,8 +132,8 @@ public class AugmentedActivity extends SensorsActivity {
 		
 		// ManualActivity intent
 		if(flag==false){
-			Intent ManualIntent = new Intent(AugmentedActivity.this,Manual.class);
-			   startActivity(ManualIntent);
+			Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
+			startActivity(ManualIntent);
 		   	flag=true;
 	   }
 	}

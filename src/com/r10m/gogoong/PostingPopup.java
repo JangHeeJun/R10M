@@ -70,7 +70,7 @@ public class PostingPopup extends Activity {
 					intentTw.putExtra("cImage", cImage);
 					startActivityForResult(intentTw, 0);
 				}else{
-					Toast.makeText(PostingPopup.this, "twitter 로그인을 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+					Toast.makeText(PostingPopup.this, getString(R.string.twitLogin_posting), Toast.LENGTH_SHORT).show();
 				}
 			}
 		});
@@ -85,7 +85,7 @@ public class PostingPopup extends Activity {
 		        if (session != null && session.isOpened()) {
 		        	postPhoto(cImage);
 		        } else {
-		        	Toast.makeText(PostingPopup.this, "facebook 로그인을 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+		        	Toast.makeText(PostingPopup.this, getString(R.string.facebookLogin_posting), Toast.LENGTH_SHORT).show();
 		        }
 				
 			}

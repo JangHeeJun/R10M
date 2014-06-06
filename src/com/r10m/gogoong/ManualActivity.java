@@ -9,7 +9,7 @@ import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.LinearLayout;
 /** 카메라 뷰에서 설명해주는 투명창 */
-public class Manual extends Activity implements OnTouchListener {
+public class ManualActivity extends Activity implements OnTouchListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

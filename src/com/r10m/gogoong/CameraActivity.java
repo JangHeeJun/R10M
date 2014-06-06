@@ -1,6 +1,7 @@
 package com.r10m.gogoong;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -9,28 +10,25 @@ import java.util.concurrent.RejectedExecutionException;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.datasource.GgDataSource;
 import com.r10m.gogoong.datasource.LocalDataSource;
 import com.r10m.gogoong.datasource.NetworkDataSource;
+
 /** 모든 액티비티를 상속받은 CameraActivity */
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "MainActivity";
@@ -38,11 +36,16 @@ public class CameraActivity extends AugmentedActivity {
     private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
+	private SharedPreferences mainPreference;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-                
+
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	setLocale(mainPreference.getString("LanguageList", "ko"));	//언어설정
+
+        
         LocalDataSource localData = new LocalDataSource(this.getResources());
         ARData.addMarkers(localData.getMarkers());
         
@@ -52,6 +55,16 @@ public class CameraActivity extends AugmentedActivity {
         Drawable alpha = ((ImageView)findViewById(R.id.imageView_camera_map)).getDrawable();
         alpha.setAlpha(50);
     }
+	
+	//언어 설정
+    public void setLocale(String character) {
+    	Locale locale = new Locale(character); 
+    	Locale.setDefault(locale);
+    	Configuration config = new Configuration();
+    	config.locale = locale;
+    	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
+	
 	
 	@Override
     public void onStart() {
