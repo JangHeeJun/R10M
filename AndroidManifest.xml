@@ -54,7 +54,7 @@
 		</activity>
 		
         <!-- camara 투명 설명창 -->
-        <activity android:name="Manual"
+        <activity android:name="ManualActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Translucent"></activity>
         
