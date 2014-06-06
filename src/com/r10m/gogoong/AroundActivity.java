@@ -2,6 +2,8 @@ package com.r10m.gogoong;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -11,15 +13,17 @@ import com.nhn.android.maps.NMapOverlay;
 import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.NMapView;
 import com.nhn.android.maps.NMapView.OnMapStateChangeListener;
+import com.nhn.android.maps.NMapView.OnMapViewTouchEventListener;
 import com.nhn.android.maps.maplib.NGeoPoint;
 import com.nhn.android.maps.nmapmodel.NMapError;
 import com.nhn.android.maps.overlay.NMapPOIdata;
+import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager.OnCalloutOverlayListener;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 
-public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnCalloutOverlayListener {
+public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnCalloutOverlayListener, OnMapViewTouchEventListener {
 
 	// API-KEY
 	public static final String API_KEY = "94cbae417dfa6aa0f0b9f103e04dd903";
@@ -80,7 +84,8 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		// 표시할 위치 데이터를 지정한다. -- 마지막 인자가 오버레이를 인식하기 위한 id값
 		NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
 		poiData.beginPOIdata(2);
-		poiData.addPOIitem(126.977000, 37.576866, "광화문입니다.", markerId, 0);
+		poiData.addPOIitem(126.976916, 37.575997, "광화문!현재 위치입니다.", markerId, 0);
+		poiData.addPOIitem(126.976930, 37.578588, "경복궁입니다.", markerId, 0);
 		poiData.addPOIitem(126.991023, 37.579468, "창덕궁입니다.", markerId, 0);
 		poiData.addPOIitem(126.983083, 37.575395, "인사동입니다.", markerId, 0);
 		poiData.endPOIdata();
@@ -90,6 +95,8 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		
 		// id값이 0으로 지정된 모든 오버레이가 표시되고 있는 위치로 지도의 중심과 ZOOM을 재설정
 		poiDataOverlay.showAllPOIdata(0);
+		
+		
 		
 		// 오버레이 이벤트 등록
 		mOverlayManager.setOnCalloutOverlayListener(this);
@@ -104,7 +111,7 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 	@Override
 	public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
 		if (errorInfo == null) { // success
-			//mMapController.setMapCenter(new NGeoPoint(126.978371, 37.5666091), 11);
+			mMapController.setMapCenter(new NGeoPoint(126.976916, 37.575997), 13);
 		} else { // fail
 			android.util.Log.e("NMAP", "onMapInitHandler: error=" + errorInfo.toString());
 		}
@@ -134,10 +141,54 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 	public void onMapCenterChangeFine(NMapView arg0) {}
 
 	/** 오버레이가 클릭되었을 때의 이벤트 */
+//	@Override
+//	public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0,
+//			NMapOverlayItem arg1, Rect arg2) {
+//		Toast.makeText(this, arg1.getTitle(), Toast.LENGTH_SHORT).show();
+//		return null;
+//	}
+
+	public void onFocusChanged(NMapPOIdataOverlay poiDataOverlay, NMapPOIitem item) {
+		if (item != null) {
+			Log.i("NMAP", "onFocusChanged: " + item.toString());
+		} else {
+			Log.i("NMAP", "onFocusChanged: ");
+		}
+	}
+
+	public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay itemOverlay, NMapOverlayItem overlayItem, Rect itemBounds) {
+		// set your callout overlay
+		return new AroundMapCalloutBasicOverlay(itemOverlay, overlayItem, itemBounds);
+	}
+	
+	/**OnMapViewTouchEventListener*/
 	@Override
-	public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0,
-			NMapOverlayItem arg1, Rect arg2) {
-		Toast.makeText(this, arg1.getTitle(), Toast.LENGTH_SHORT).show();
-		return null;
+	public void onLongPress(NMapView arg0, MotionEvent arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onLongPressCanceled(NMapView arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onScroll(NMapView arg0, MotionEvent arg1, MotionEvent arg2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onSingleTapUp(NMapView arg0, MotionEvent arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTouchDown(NMapView arg0, MotionEvent arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }
