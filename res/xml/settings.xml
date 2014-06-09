@@ -35,9 +35,6 @@
 	            android:key="@string/Serviceterms_key" 
 	            android:title="@string/Serviceterms_title"/>
 	        <Preference 
-	            android:key="@string/Servicehelp_key" 
-	            android:title="@string/Servicehelp_title"/>
-	        <Preference 
 	            android:key="@string/Contactus_key" 
 	            android:title="@string/Contactus_title"/>
 	    </PreferenceCategory>
