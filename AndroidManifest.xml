@@ -46,6 +46,12 @@
         <!-- 설정창 -->
         <activity android:name="SettingActivity"></activity>
         
+        <!-- 설정 이용약관창 -->
+        <activity android:name="TermsOfService"></activity>
+        
+        <!-- 설정 이용약관창 -->
+        <activity android:name="ContactUs"></activity>
+        
         <!-- marker click 자세한 설명 -->
         <activity 
 			android:name="DetailPopUp"
