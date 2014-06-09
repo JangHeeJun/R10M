@@ -19,7 +19,7 @@
            android:layout_height="70dp"
            android:layout_alignLeft="@+id/btn_homepage"
            android:layout_below="@+id/btn_homepage"
-           android:background="@drawable/aroundview_kr"/>
+           android:background="@string/around_view"/>
 
        <Button
            android:id="@+id/btn_setting"
@@ -27,7 +27,7 @@
            android:layout_height="70dp"
            android:layout_alignLeft="@+id/btn_AroundView"
            android:layout_below="@+id/btn_AroundView"
-           android:background="@drawable/setting_kr"/>
+           android:background="@string/setting"/>
 
        <Button
            android:id="@+id/btn_homepage"
@@ -37,7 +37,7 @@
            android:layout_below="@+id/btn_start"
            android:layout_marginRight="27dp"
            android:layout_marginTop="23dp"
-           android:background="@drawable/homepage_kr" />
+           android:background="@string/homepage" />
 
        <Button
            android:id="@+id/btn_tw"
@@ -54,7 +54,7 @@
            android:layout_height="100dp"
            android:layout_alignParentRight="true"
            android:layout_alignTop="@+id/imageView2"
-           android:background="@drawable/startview_kr" />
+           android:background="@string/startview" />
 
        <ImageView
            android:id="@+id/imageView3"
@@ -63,7 +63,7 @@
            android:layout_alignParentLeft="true"
            android:layout_alignParentTop="true"
            android:layout_marginTop="26dp"
-           android:src="@drawable/text_main"
+           android:src="@string/text_main"
            android:textSize="400pt"/>
 
        <ImageView

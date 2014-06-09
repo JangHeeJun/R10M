@@ -1,7 +1,6 @@
 package com.r10m.gogoong;
 
 import java.util.Locale;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -18,6 +17,14 @@ import android.widget.Button;
 public class SettingActivity extends PreferenceActivity {
 
 	SharedPreferences mainPreference;
+	
+	@Override
+	public void onBackPressed() {
+		Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+		super.onBackPressed();
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +48,7 @@ public class SettingActivity extends PreferenceActivity {
 	         public boolean onPreferenceChange(Preference preference, Object newValue) {
 	        	 Intent intent = getIntent();
 	        	 overridePendingTransition(0, 0);
-	        	 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+	        	 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	 finish();
 	        	 startActivity(intent);
 	             return true;
@@ -55,9 +62,18 @@ public class SettingActivity extends PreferenceActivity {
 	       @Override
 	       public void onClick(View v) {
 				Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
 	       }
        });   	
+       
+       Intent intent2 = new Intent(SettingActivity.this, TermsOfService.class);
+       Preference serviceterms = findPreference("Serviceterms");
+       serviceterms.setIntent(intent2);
+       
+       Intent intent3 = new Intent(SettingActivity.this, ContactUs.class);
+       Preference contactus = findPreference("Contactus");
+       contactus.setIntent(intent3);
 	}
 	
    	public void setLocale(String character) {

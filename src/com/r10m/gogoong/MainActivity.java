@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -62,8 +63,34 @@ public class MainActivity extends Activity {
     
 	//twitter
     private Handler mHandler = new Handler();
-		
 	
+    @Override
+    public void onBackPressed() {
+    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", "ko"));
+    	super.onBackPressed();
+    }
+    
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", "ko"));
+    	return super.onKeyDown(keyCode, event);
+    }
+    
+    private void restart() {
+    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", "ko"));
+	}
+    
+    private void onstart() {
+    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", "ko"));
+	}
+	private void onresume() {
+		mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", "ko"));
+	}
 
 	/** Called when the activity is first created. */
 	@Override
