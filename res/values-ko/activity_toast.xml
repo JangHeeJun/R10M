@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
- 
+ 	<string name="logout_setting">로그아웃하셨습니다.</string>
+    
     <!-- facebook Toast -->
     <string name="facebookLogin_main">이미 Facebook에 연동하셨습니다.</string>
     <string name="facebookLogin_posting">Facebook 로그인을 하셔야 합니다.</string>
@@ -11,6 +12,7 @@
     <string name="twitLogin_posting">twitter 로그인을 하셔야 합니다.</string>
     <string name="twit_posting_empty">글을 입력하세요.</string>
     <string name="twit_posting_success">글을 업데이트했습니다.</string>
+    
     
     <!-- Posting Layout -->
     <string name="posting_popup_text">공 유 하 기</string>
