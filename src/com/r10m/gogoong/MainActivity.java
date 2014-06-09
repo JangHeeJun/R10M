@@ -26,11 +26,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
@@ -48,21 +48,21 @@ public class MainActivity extends Activity {
 		@Override
         public void call(Session session, SessionState state, Exception exception) {
         	if (state == SessionState.OPENED
-        	        || state == SessionState.OPENED_TOKEN_UPDATED) {
-        	            // log in
-        	            checkFacebookLogin();
-        	        }
-        	        else if (state == SessionState.CLOSED){}
-        	            // log out
-        	        else if (state == SessionState.CLOSED_LOGIN_FAILED) {
-        	            // 여러 이유로 인증실패.
-        	            bProgressLogin = false;
-        	        }
+        			|| state == SessionState.OPENED_TOKEN_UPDATED) {
+	            // log in
+	            checkFacebookLogin();
+	        }else if (state == SessionState.CLOSED){
+	        	 // log out
+	        }else if (state == SessionState.CLOSED_LOGIN_FAILED) {
+	            // 여러 이유로 인증실패.
+	            bProgressLogin = false;
+	        }
         }
     };
     
 	//twitter
     private Handler mHandler = new Handler();
+    ProgressBar progBar;
 	
     @Override
     public void onBackPressed() {
@@ -153,11 +153,13 @@ public class MainActivity extends Activity {
 	
 	     @Override
 	     public void onClick(View v) {
-	    	 facebookLogin();   
+	    	 facebookLogin();
 	     } 
 	   });
 	   
 	   //트위터 연결
+	   progBar = (ProgressBar)findViewById(R.id.progressBar_main);
+	   
 	   Button ibtn_tw = (Button) findViewById(R.id.btn_tw);
 	   ibtn_tw.setOnClickListener(new OnClickListener(){
 	
@@ -343,6 +345,7 @@ public class MainActivity extends Activity {
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 		super.onActivityResult(requestCode, resultCode, resultIntent);
+		progBar.setVisibility(View.VISIBLE);
 		boolean processed = false;
 	    if (Session.getActiveSession() != null) {
 	        processed = Session.getActiveSession().onActivityResult(this, requestCode, 
@@ -386,6 +389,7 @@ public class MainActivity extends Activity {
 
 				mHandler.post(new Runnable() {
 					public void run() {
+						progBar.setVisibility(View.GONE);
 						Toast.makeText(getBaseContext(), getString(R.string.twitLoginsuccess_main), Toast.LENGTH_LONG).show();
 					}
 				});
@@ -436,6 +440,7 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		twitLoadProperties();
+        progBar.setVisibility(View.INVISIBLE);
 	}
 
 	@Override
