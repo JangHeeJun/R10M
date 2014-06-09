@@ -5,9 +5,9 @@ import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 /** twitter 연동을 위한 기본정보 */
 public class BasicInfo {
-	public static final String TWIT_API_KEY = "3Of6DKbWKy5dI4hpFVB0PULnO";
-	public static final String TWIT_CONSUMER_KEY = "3Of6DKbWKy5dI4hpFVB0PULnO";
-	public static final String TWIT_CONSUMER_SECRET = "5l4fbhG9N3EUsM1FU82xVqdxk4tlcDUWwtX4UV1H0dXzAbawGC";
+	public static final String TWIT_API_KEY = "i5fGLf8rGw48DlSYb2CPOlDqO";
+	public static final String TWIT_CONSUMER_KEY = "i5fGLf8rGw48DlSYb2CPOlDqO";
+	public static final String TWIT_CONSUMER_SECRET = "wqkCat5KlYigpQrmmkeB3joBS2L7lwWHNrJCTSVtt5EwjsWXG1";
 	public static final String TWIT_CALLBACK_URL = "https://twitter.com";
 
 	public static final int REQ_CODE_TWIT_LOGIN = 1001;
