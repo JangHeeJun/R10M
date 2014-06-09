@@ -40,7 +40,7 @@ public class AugmentedActivity extends SensorsActivity {
     private static final int END_TEXT_COLOR = Color.WHITE;
 
     protected static WakeLock wakeLock = null;
-    protected static CameraSurface camScreen = null;    
+    protected static CameraSurface camScreen = null;
     protected static VerticalSeekBar myZoomBar = null;
     protected static TextView endLabel = null;
     protected static LinearLayout zoomLayout = null;
