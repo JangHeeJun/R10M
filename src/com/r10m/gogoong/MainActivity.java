@@ -79,9 +79,11 @@ public class MainActivity extends Activity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(R.layout.main);
         
+        Locale systemLocale = getResources().getConfiguration().locale;
+        String strLanguage = systemLocale.getLanguage();
+        
         mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreference.getString("LanguageList", "ko"));				//언어설정
-
+    	setLocale(mainPreference.getString("LanguageList", strLanguage));				//언어설정
 		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
