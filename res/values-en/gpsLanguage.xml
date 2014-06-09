@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="gps1_key">Your GPS is disabled! Would you like to enable it?</string>
+    <string name="gps1_title">Your GPS is disabled! Would you like to enable it?</string>
+    
+    <string name="gps2_key">Enable GPS</string>
+    <string name="gps2_title">Enable GPS</string>
+    
+    <string name="gps3_key">Do nothing</string>
+    <string name="gps3_title">Do nothing</string>
+        
+</resources>

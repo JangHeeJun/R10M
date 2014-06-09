@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="gps1_key">GPS를 사용하고 있지 않습니다. 사용하시겠습니까? (사용하지않는다면 일부 기능이 제한됩니다.)</string>
+    <string name="gps1_title">GPS를 사용하고 있지 않습니다. 사용하시겠습니까? (사용하지않는다면 일부 기능이 제한됩니다.</string>
+    
+    <string name="gps2_key">GPS설정창으로 이동.</string>
+    <string name="gps2_title">GPS설정창으로 이동.</string>
+    
+    <string name="gps3_key">GPS를 사용하지 않음.</string>
+    <string name="gps3_title">GPS를 사용하지 않음.</string>
+        
+</resources>

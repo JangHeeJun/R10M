@@ -165,15 +165,15 @@ public class MainActivity extends Activity {
 	// GPS alertDialog Ã¢ ¶ç¿ì±â
 	private void alertCheckGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your GPS is disabled! Would you like to enable it?")
+        builder.setMessage(getString(R.string.gps1_key))
                 .setCancelable(false)
-                .setPositiveButton("Enable GPS",
+                .setPositiveButton(getString(R.string.gps2_key),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 moveConfigGPS();
                             }
                     })
-                .setNegativeButton("Do nothing",
+                .setNegativeButton(getString(R.string.gps3_key),
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
