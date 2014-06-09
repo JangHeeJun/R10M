@@ -71,27 +71,6 @@ public class MainActivity extends Activity {
     	super.onBackPressed();
     }
     
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		setLocale(mainPreference.getString("LanguageList", "ko"));
-    	return super.onKeyDown(keyCode, event);
-    }
-    
-    private void restart() {
-    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		setLocale(mainPreference.getString("LanguageList", "ko"));
-	}
-    
-    private void onstart() {
-    	mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		setLocale(mainPreference.getString("LanguageList", "ko"));
-	}
-	private void onresume() {
-		mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
-		setLocale(mainPreference.getString("LanguageList", "ko"));
-	}
-
 	/** Called when the activity is first created. */
 	@Override
     public void onCreate(Bundle savedInstanceState) {
