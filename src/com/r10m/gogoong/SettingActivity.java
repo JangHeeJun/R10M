@@ -550,7 +550,7 @@ public class SettingActivity extends PreferenceActivity {
         super.onStart();
         if (Session.getActiveSession() != null)
         	Session.getActiveSession().addCallback(statusCallback);
-        twitSaveProperties();
+        twitLoadProperties();
     }
    
     @Override
@@ -558,7 +558,7 @@ public class SettingActivity extends PreferenceActivity {
         super.onStop();
         if (Session.getActiveSession() != null)
         	Session.getActiveSession().removeCallback(statusCallback);
-		twitLoadProperties();
+		twitSaveProperties();
     }
 
 	@Override
