@@ -17,7 +17,7 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="67dp"
-            android:src="@drawable/help_leftyellowtext" />
+            android:src="@string/help_left" />
 
     </RelativeLayout>
 
@@ -32,7 +32,7 @@
             android:layout_height="100dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/help_bottomyellowtext" />
+            android:src="@string/help_bottomyellowtext" />
 
         <ImageView
             android:id="@+id/imageView2_manual"
@@ -41,7 +41,7 @@
             android:layout_above="@id/imageView3_manual"
             android:layout_alignLeft="@id/imageView3_manual"
             android:layout_marginBottom="19dp"
-            android:src="@drawable/help_centeryellowtext" />
+            android:src="@string/help_centeryellowtext" />
 
         <ImageView
             android:id="@+id/imageView1_manual"
@@ -50,7 +50,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="15dp"
-            android:src="@drawable/help_pyellowtext" />
+            android:src="@string/help_pyellowtext" />
 
     </RelativeLayout>
 
@@ -64,7 +64,7 @@
             android:layout_height="100dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/help_topdownyellowtext" />
+            android:src="@string/help_topdownyellowtext" />
 
     </RelativeLayout>
 
