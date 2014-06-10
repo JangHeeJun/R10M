@@ -10,7 +10,7 @@
     <string name="login">Login</string>
     <string name="instructions">Login to create a link to fetch account data</string>
     <string name="logout">Log out</string>
-    <string name="app_id">1509388132610632</string>
+    <string name="app_id">1508804796002299</string>
     <string name="photo_post">Photo Post</string>
     <string name="success">Success</string>
     <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
