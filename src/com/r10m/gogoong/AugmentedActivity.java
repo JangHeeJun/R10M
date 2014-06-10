@@ -9,6 +9,7 @@ import com.r10m.gogoong.wizet.VerticalSeekBar;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -16,6 +17,7 @@ import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
@@ -32,6 +34,11 @@ import android.widget.TextView;
 
 /** 3. SensorsActivity를 확장, 터치 구현한 액티비티 */
 public class AugmentedActivity extends SensorsActivity {
+	
+	//manual activity 설정 저장
+	SharedPreferences preferences;
+	
+	
     private static final String TAG = "AugmentedActivity";
     
     private static final DecimalFormat FORMAT = new DecimalFormat("#.##");
@@ -130,12 +137,22 @@ public class AugmentedActivity extends SensorsActivity {
 		AppEventsLogger.activateApp(this);
 		wakeLock.acquire();
 		
-		// ManualActivity intent
-		if(flag==false){
-			Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
-			startActivity(ManualIntent);
-		   	flag=true;
-	   }
+		
+		// ManualActivity intent start!!!
+				preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+				 String turn= preferences.getString("on/off", "켜짐");
+					
+				  if(turn.equals("켜짐")){
+					   Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
+					   startActivity(ManualIntent);
+					   
+					   SharedPreferences.Editor editor=	preferences.edit();
+					   editor.putString("on/off","꺼짐");
+					   editor.commit();  	
+					   
+					   	//설명창 완료 부분
+				   }
 	}
 
 	@Override
