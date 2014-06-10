@@ -29,6 +29,7 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -41,6 +42,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -53,29 +55,13 @@ public class SettingActivity extends PreferenceActivity {
 	SharedPreferences mainPreference;
 	
 	//facebook - 귀찮아서 걍 메인에 있던거 끌고와서 하드하게 코딩.. ㅠㅠ
-	private Bundle mSavedInstanceState;
-	private boolean bProgressLogin;
 	private String userId;
 	private String userName;
 	private Session session;
 	private String facebookUrl;
-
-	private Session.StatusCallback statusCallback = new Session.StatusCallback() {
-
-		@Override
-        public void call(Session session, SessionState state, Exception exception) {
-        	if (state == SessionState.OPENED
-        			|| state == SessionState.OPENED_TOKEN_UPDATED) {
-	            // log in
-	            checkFacebookLogin();
-	        }else if (state == SessionState.CLOSED){
-	        	 // log out
-	        }else if (state == SessionState.CLOSED_LOGIN_FAILED) {
-	            // 여러 이유로 인증실패.
-	            bProgressLogin = false;
-	        }
-        }
-    };
+//	Bitmap responseImage;
+	
+	private Session.StatusCallback statusCallback = new SessionStatusCallback();
 	    
 	
 	//twitter
@@ -149,27 +135,9 @@ public class SettingActivity extends PreferenceActivity {
 		
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				facebookLogin();
-				if (session != null && session.isOpened()) {
-			        // If the session is open, make an API call to get user data
-			        // and define a new callback to handle the response
-			        Request request = Request.newMeRequest(session, new Request.GraphUserCallback() {
-			            @Override
-			            public void onCompleted(GraphUser user, Response response) {
-			                // If the response is successful
-			                if (session == Session.getActiveSession()) {
-			                    if (user != null) {
-			                        userId = user.getId();//user id
-			                        userName = user.getName();//user's profile name
-			                        new FacebookProfileImageURLTask().execute();
-			                    }   
-			                }   
-			            }   
-			        }); 
-			        Request.executeBatchAsync(request);
-					return true;
-				}	    		
-				return false;
+				progBar.setVisibility(View.VISIBLE);
+				facebookLogin(SettingActivity.this);
+				return true;
 			}
 		});
        
@@ -241,7 +209,7 @@ public class SettingActivity extends PreferenceActivity {
 		}	
 	}
    	
-   	
+   	// json parsing
    	public String parse(String url) {
 		if (url==null) throw new NullPointerException();
 		InputStream is = null;
@@ -289,62 +257,93 @@ public class SettingActivity extends PreferenceActivity {
     	return imgurl;
 	}
    
-   	private void facebookLogin() {
-    	bProgressLogin = true;
-    	session = Session.getActiveSession();
-        if (session == null) {
-            if (mSavedInstanceState != null) {
-            	session = Session.restoreSession(this, null, statusCallback, mSavedInstanceState);
-            }
-            if (session == null) {
-            	session = new Session(this);
-            }
-            Session.setActiveSession(session);
-            session.addCallback(statusCallback);
-            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-            	session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
-            }
-        }
-        checkFacebookLogin();
+   	private void facebookLogin(Context context) {
+   		
+   		session = Session.getActiveSession();
+    	
+    	if(session == null){
+    		session = Session.openActiveSessionFromCache(context);
+    		if(session == null){
+    			Log.e("init", "캐시에도 세션이 없음");
+    			Session.openActiveSession(this, true, statusCallback);
+    		}else{
+    			Log.e("init", "캐시에 세션 있음");
+    			checkFacebookLogin(session);
+    		}
+    	}else if(session.isClosed()){
+    		Session.openActiveSession(this, true, statusCallback);
+    		checkFacebookLogin(session);
+    	}else{
+    		Log.e("init", "세션 있음");
+			checkFacebookLogin(session);
+		}
     }
     
-    private void checkFacebookLogin() {
-    	 Session session = Session.getActiveSession();
-    	 if (session != null && bProgressLogin) {
-    	  boolean logined = session.isOpened();
-    	  if (logined) {
-    	   String PERMISSION = "publish_actions";
-    	   if (session.getPermissions().contains(PERMISSION)) {
-    	    bProgressLogin = false;
-    	    //Toast.makeText(this, getString(R.string.facebookLogin_main), Toast.LENGTH_SHORT).show();
-    	    // log in 성공
-    	   } else
-    	    session.requestNewPublishPermissions(
-    	     new Session.NewPermissionsRequest(this, PERMISSION));
-    	  
-    	  }
-    	  else {
-    	   // log in 시도
-    	   if (!session.isOpened() && !session.isClosed())
-    	    session.openForRead(new Session.OpenRequest(this)
-    	     .setCallback(statusCallback));
-    	   else{
-    	    Session.openActiveSession(this, true, statusCallback);
-    	   }
-    	  }
-    	 }
+    private void checkFacebookLogin(Session session) {
+	   	String permission = "publish_actions";
+		boolean isContainPermit = true;
+		if(session.isOpened()){
+			if(!session.getPermissions().contains(permission)){
+				isContainPermit = false;
+			}			
+			if(!isContainPermit){
+				// 권한 요청 하는 부분
+				Session.NewPermissionsRequest newPermissionsRequest = 
+						new Session.NewPermissionsRequest(SettingActivity.this, permission);
+				session.requestNewPublishPermissions(newPermissionsRequest);
+			}else{
+				getFaceBookMe(session);
+			}
+		}
+    }
+   
+    
+    private void getFaceBookMe(Session session){
+    	if(session.isOpened()){
+    		Request.newMeRequest(session, new Request.GraphUserCallback() {
+    			@Override
+    			public void onCompleted(GraphUser me, Response response) {
+    				response.getError();
+    				userId = me.getId();//user id
+                    userName = me.getName();//user's profile name
+                    
+                    new FacebookProfileImageURLTask().execute();
+    			}
+    		}).executeAsync();
     	}
-    
-    
-    
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (Session.getActiveSession() != null) {
-            Session session = Session.getActiveSession();
-            Session.saveSession(session, outState);
-        }
     }
+    
+    /*
+   	* 자신의 프로필 사진을 가져온다.
+   	*/
+//   	private void sendImageRequest(boolean allowCachedResponse) {
+//   		ImageRequest.Builder requestBuilder = null;
+//		try {
+//			requestBuilder = new ImageRequest.Builder(this,ImageRequest.getProfilePictureUrl(userId, 450, 450));
+//		} catch (URISyntaxException e) {
+//			e.printStackTrace();
+//		}
+//   
+//   		ImageRequest request = requestBuilder.setAllowCachedRedirects(allowCachedResponse)
+//   			.setCallerTag(this)
+//   			.setCallback(
+//   					new ImageRequest.Callback() {
+//   						@Override
+//						public void onCompleted(ImageResponse response) {
+//							// 성공하면 비트맵으로 넘어온다.
+//   							responseImage= response.getBitmap();
+//						}
+//   						}).build();
+//   		ImageDownloader.downloadAsync(request);
+//   	}
+       
+       
+   	private class SessionStatusCallback implements Session.StatusCallback {
+   		@Override
+   		public void call(Session session, SessionState state, Exception exception) {
+   			checkFacebookLogin(session);
+   		}
+   	}
   	//facebook 연동 끝 -----------------------------------------------------------------
     
     //tiwtter 연동 시작 -----------------------------------------------------------------
@@ -544,28 +543,17 @@ public class SettingActivity extends PreferenceActivity {
 		super.finish();
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
-   	
-   	@Override
-    public void onStart() {
-        super.onStart();
-        if (Session.getActiveSession() != null)
-        	Session.getActiveSession().addCallback(statusCallback);
-        twitLoadProperties();
-    }
-   
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Session.getActiveSession() != null)
-        	Session.getActiveSession().removeCallback(statusCallback);
-		twitSaveProperties();
-    }
 
 	@Override
 	protected void onResume() {
 		super.onResume();
         progBar.setVisibility(View.INVISIBLE);
+        twitLoadProperties();
 	}
 
-   	
+   	@Override
+   	protected void onPause() {
+   		super.onPause();
+   		twitSaveProperties();
+   	}
 }

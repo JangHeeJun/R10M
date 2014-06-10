@@ -34,31 +34,15 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	
+
 	SharedPreferences mainPreference;
 	public static final String TAG = "MainActivity";
 
 	private static final int REQUEST_ENABLE_BT = 0;
 	
 	//facebook
-	private Bundle mSavedInstanceState;
-	private boolean bProgressLogin;
-	private Session.StatusCallback statusCallback = new Session.StatusCallback() {
-
-		@Override
-        public void call(Session session, SessionState state, Exception exception) {
-        	if (state == SessionState.OPENED
-        			|| state == SessionState.OPENED_TOKEN_UPDATED) {
-	            // log in
-	            checkFacebookLogin();
-	        }else if (state == SessionState.CLOSED){
-	        	 // log out
-	        }else if (state == SessionState.CLOSED_LOGIN_FAILED) {
-	            // ¿©·¯ ÀÌÀ¯·Î ÀÎÁõ½ÇÆĞ.
-	            bProgressLogin = false;
-	        }
-        }
-    };
+	Session mSession;
+	private Session.StatusCallback statusCallback = new SessionStatusCallback();
     
 	//twitter
     private Handler mHandler = new Handler();
@@ -82,8 +66,8 @@ public class MainActivity extends Activity {
         Locale systemLocale = getResources().getConfiguration().locale;
         String strLanguage = systemLocale.getLanguage();
         
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//¼³Á¤³»¿ëÀĞ¾î¿È
-    	setLocale(mainPreference.getString("LanguageList", strLanguage));				//¾ğ¾î¼³Á¤
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//ì„¤ì •ë‚´ìš©ì½ì–´ì˜´
+    	setLocale(mainPreference.getString("LanguageList", strLanguage));				//ì–¸ì–´ì„¤ì •
 		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -102,7 +86,7 @@ public class MainActivity extends Activity {
             alertCheckGPS();
         }
 
-		//Ä«¸Ş¶óstart
+		//ì¹´ë©”ë¼start
 		Button btn_start = (Button) findViewById(R.id.btn_start);
 		btn_start.setOnClickListener(new OnClickListener(){
 		
@@ -114,7 +98,7 @@ public class MainActivity extends Activity {
 			}  
 		}); 
 		
-		//ÁÖº¯Áöµµ
+		//ì£¼ë³€ì§€ë„
        Button btn_AroundView = (Button) findViewById(R.id.btn_AroundView);
        btn_AroundView.setOnClickListener(new OnClickListener(){
 
@@ -126,7 +110,7 @@ public class MainActivity extends Activity {
           }
        });  
        
-	   //È¨ÆäÀÌÁö ¿¬°á
+	   //í™ˆí˜ì´ì§€ ì—°ê²°
 	   Button btn_homepage = (Button) findViewById(R.id.btn_homepage);
 	   btn_homepage.setOnClickListener(new OnClickListener(){
 	
@@ -137,7 +121,7 @@ public class MainActivity extends Activity {
 	       }     
 	   });
 	   
-	   //¼³Á¤
+	   //ì„¤ì •
        Button setting = (Button) findViewById(R.id.btn_setting);
        setting.setOnClickListener(new OnClickListener(){
 
@@ -149,17 +133,17 @@ public class MainActivity extends Activity {
           }
        });
        
-	   //ÆäÀÌ½ººÏ ¿¬°á
+	   //í˜ì´ìŠ¤ë¶ ì—°ê²°
 	   Button ibtn_fb = (Button) findViewById(R.id.btn_fb);
 	   ibtn_fb.setOnClickListener(new OnClickListener(){
 	
 	     @Override
 	     public void onClick(View v) {
-	    	 facebookLogin();
+	    	 facebookLogin(MainActivity.this);
 	     } 
 	   });
 	   
-	   //Æ®À§ÅÍ ¿¬°á
+	   //íŠ¸ìœ„í„° ì—°ê²°
 	   progBar = (ProgressBar)findViewById(R.id.progressBar_main);
 	   
 	   Button ibtn_tw = (Button) findViewById(R.id.btn_tw);
@@ -172,7 +156,7 @@ public class MainActivity extends Activity {
 	   });
     }
 	
-	// GPS alertDialog Ã¢ ¶ç¿ì±â
+	// GPS alertDialog ì°½ ë„ìš°ê¸°
 	private void alertCheckGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.gps1_key))
@@ -192,13 +176,13 @@ public class MainActivity extends Activity {
         AlertDialog alert = builder.create();
         alert.show();
     }
-    // GPS ¼³Á¤È­¸éÀ¸·Î ÀÌµ¿
+    // GPS ì„¤ì •í™”ë©´ìœ¼ë¡œ ì´ë™
     private void moveConfigGPS() {
         Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
     }
     
-    //¾ğ¾î ¼³Á¤
+    //ì–¸ì–´ ì„¤ì •
     public void setLocale(String character) {
     	Locale locale = new Locale(character); 
     	Locale.setDefault(locale);
@@ -207,52 +191,50 @@ public class MainActivity extends Activity {
     	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
     
-  	//facebook ¿¬µ¿ ½ÃÀÛ -----------------------------------------------------------------
-    private void facebookLogin() {
-    	bProgressLogin = true;
-        Session session = Session.getActiveSession();
-        if (session == null) {
-            if (mSavedInstanceState != null) {
-            	session = Session.restoreSession(this, null, statusCallback, mSavedInstanceState);
-            }
-            if (session == null) {
-            	session = new Session(this);
-            }
-            Session.setActiveSession(session);
-            session.addCallback(statusCallback);
-            if (session.getState().equals(SessionState.CREATED_TOKEN_LOADED)) {
-            	session.openForRead(new Session.OpenRequest(this).setCallback(statusCallback));
-            }
-        }
-        checkFacebookLogin();
+  	//facebook ì—°ë™ ì‹œì‘ -----------------------------------------------------------------
+    private void facebookLogin(Context context) {
+    	
+    	
+    	Session session = Session.getActiveSession();
+    	
+    	if(session == null){
+    		session = Session.openActiveSessionFromCache(context);
+    		if(session == null){
+    			Log.e("init", "ìºì‹œì—ë„ ì„¸ì…˜ì´ ì—†ìŒ");
+    			Session.openActiveSession(this, true, statusCallback);
+    		}else{
+    			Log.e("init", "ìºì‹œì— ì„¸ì…˜ ìˆìŒ");
+    			checkFacebookLogin(session);
+    		}
+    	}else if(session.isClosed()){
+    		Session.openActiveSession(this, true, statusCallback);
+    		checkFacebookLogin(session);
+    	}else{
+			Log.e("init", "ì„¸ì…˜ ìˆìŒ");
+			Toast.makeText(this, getString(R.string.facebookLogin_main), Toast.LENGTH_SHORT).show();
+			checkFacebookLogin(session);
+		}
     }
     
-    private void checkFacebookLogin() {
-    	 Session session = Session.getActiveSession();
-    	 if (session != null && bProgressLogin) {
-    	  boolean logined = session.isOpened();
-    	  if (logined) {
-    	   String PERMISSION = "publish_actions";
-    	   if (session.getPermissions().contains(PERMISSION)) {
-    	    bProgressLogin = false;
-    	    Toast.makeText(this, getString(R.string.facebookLogin_main), Toast.LENGTH_SHORT).show();
-    	    // log in ¼º°ø
-    	   } else
-    	    session.requestNewPublishPermissions(
-    	     new Session.NewPermissionsRequest(this, PERMISSION));
-    	  
-    	  }
-    	  else {
-    	   // log in ½Ãµµ
-    	   if (!session.isOpened() && !session.isClosed())
-    	    session.openForRead(new Session.OpenRequest(this)
-    	     .setCallback(statusCallback));
-    	   else{
-    	    Session.openActiveSession(this, true, statusCallback);
-    	   }
-    	  }
-    	 }
-    	}
+    
+    // ê¶Œí•œ ìš”ì²­
+    private void checkFacebookLogin(Session session) {
+    	
+    	String permission = "publish_actions";
+    	
+    	boolean isContainPermit = true;
+    	if(session.isOpened()){
+    		if(!session.getPermissions().contains(permission)){
+    			isContainPermit = false;
+    		}			
+    		if(!isContainPermit){
+    			// ê¶Œí•œ ìš”ì²­ í•˜ëŠ” ë¶€ë¶„
+    			Session.NewPermissionsRequest newPermissionsRequest = 
+    					new Session.NewPermissionsRequest(MainActivity.this, permission);
+    			session.requestNewPublishPermissions(newPermissionsRequest);
+    		}
+		}
+    }
     
     
     
@@ -264,12 +246,20 @@ public class MainActivity extends Activity {
             Session.saveSession(session, outState);
         }
     }
-  	//facebook ¿¬µ¿ ³¡ -----------------------------------------------------------------
     
-    //tiwtter ¿¬µ¿ ½ÃÀÛ -----------------------------------------------------------------
+    
+	private class SessionStatusCallback implements Session.StatusCallback {
+		@Override
+		public void call(Session session, SessionState state, Exception exception) {
+			checkFacebookLogin(session);
+		}
+	}
+  	//facebook ì—°ë™ ë -----------------------------------------------------------------
+    
+    //tiwtter ì—°ë™ ì‹œì‘ -----------------------------------------------------------------
     private void twitLogin() {
 		Log.d(TAG, "connect() called.");
-		// ÀÎÁõ µÇ¾îÀÖÀ»¶§
+		// ì¸ì¦ ë˜ì–´ìˆì„ë•Œ
 		if (BasicInfo.TwitLogin) {
 			Log.d(TAG, "twitter already logged in.");
 			Toast.makeText(getBaseContext(), getString(R.string.twitLogin_main), Toast.LENGTH_LONG).show();
@@ -290,7 +280,7 @@ public class MainActivity extends Activity {
 				ex.printStackTrace();
 			}
 
-	        //»õ·Î ÀÎÁõ ¹ŞÀ»¶§
+	        //ìƒˆë¡œ ì¸ì¦ ë°›ì„ë•Œ
 		} else {
 			
 			RequestTokenThread thread = new RequestTokenThread();
@@ -301,7 +291,7 @@ public class MainActivity extends Activity {
     }
 
     /**
-     * RequestToken ¿äÃ» ½º·¹µå
+     * RequestToken ìš”ì²­ ìŠ¤ë ˆë“œ
      */
     class RequestTokenThread extends Thread {
     	public void run() {
@@ -343,7 +333,7 @@ public class MainActivity extends Activity {
     }
     
     /**
-     * ´Ù¸¥ ¾×Æ¼ºñÆ¼·ÎºÎÅÍÀÇ ÀÀ´ä Ã³¸®
+     * ë‹¤ë¥¸ ì•¡í‹°ë¹„í‹°ë¡œë¶€í„°ì˜ ì‘ë‹µ ì²˜ë¦¬
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 		super.onActivityResult(requestCode, resultCode, resultIntent);
@@ -422,22 +412,9 @@ public class MainActivity extends Activity {
 		BasicInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
 		BasicInfo.TwitScreenName = pref.getString("TwitScreenName", "");
 	}
-	//twitter ¿¬µ¿ ³¡----------------------------------------------------------------
+	//twitter ì—°ë™ ë----------------------------------------------------------------
     
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (Session.getActiveSession() != null)
-        	Session.getActiveSession().addCallback(statusCallback);
-    }
    
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (Session.getActiveSession() != null)
-        	Session.getActiveSession().removeCallback(statusCallback);
-    }
-
 	@Override
 	protected void onResume() {
 		super.onResume();

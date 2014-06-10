@@ -1,23 +1,10 @@
 package com.r10m.gogoong;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.facebook.Session;
 
@@ -28,7 +15,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -53,7 +39,7 @@ public class SettingSNSLoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.setting_sns);
-		
+		Log.e("SNS", "===========================");
 		// 전 Activity에서 data 받기
 		intent = getIntent();
 		target = intent.getExtras().getString("target");
@@ -65,11 +51,10 @@ public class SettingSNSLoginActivity extends Activity {
 		
 		// progress bar
 		progBar = (ProgressBar)findViewById(R.id.progressBar_setting_sns);
+		
+		//url을 받아 profile image를 bitmap으로 변환
+    	new ProfileImageTask().execute();
 
-		
-		new ProfileImageTask().execute();
-		
-		
 		logout = (Button)findViewById(R.id.btn_logout);
 		logout.setOnClickListener(new OnClickListener() {
 			
@@ -104,7 +89,7 @@ public class SettingSNSLoginActivity extends Activity {
                 con.connect();
                 bis = new BufferedInputStream(con.getInputStream());
                 profileBitmap = BitmapFactory.decodeStream(bis);
-                Log.e("facebookimage", profileBitmap.toString());
+                Log.e("image", profileBitmap.toString());
                  
             }catch (MalformedURLException e){
                 e.printStackTrace();
@@ -129,9 +114,7 @@ public class SettingSNSLoginActivity extends Activity {
 			// 각 뷰에 적용
 			profileImg.setImageBitmap(profileBitmap);
 			name.setText(intent.getExtras().getString("name"));
-			
 		}
-
 	}
 	
 	
@@ -142,6 +125,7 @@ public class SettingSNSLoginActivity extends Activity {
             if(session!=null){
             	session.closeAndClearTokenInformation();
             }
+            Session.setActiveSession(null);
         }else if (target.equals("twitter")){
         	BasicInfo.TwitLogin = false;
         	BasicInfo.TWIT_KEY_TOKEN = "";
