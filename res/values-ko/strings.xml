@@ -9,5 +9,10 @@
     <string name="setting">@drawable/setting_kr</string>
     <string name="startview">@drawable/startview_kr</string>
     <string name="text_main">@drawable/text_main</string>
+    <string name="help_left">@drawable/help_leftyellowtext</string>
+    <string name="help_bottomyellowtext">@drawable/help_bottomyellowtext</string>
+    <string name="help_centeryellowtext">@drawable/help_centeryellowtext</string>
+    <string name="help_pyellowtext">@drawable/help_pyellowtext</string>
+    <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext</string>
 
 </resources>
