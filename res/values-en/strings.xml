@@ -23,5 +23,10 @@
     <string name="setting">@drawable/setting_en</string>
     <string name="startview">@drawable/startview</string>
     <string name="text_main">@drawable/text_main_en</string>
+    <string name="help_bottomyellowtext">@drawable/help_bottomyellowtext_en</string>
+    <string name="help_left">@drawable/help_leftyellowtext_en</string>
+    <string name="help_centeryellowtext">@drawable/help_centeryellowtext_en</string>
+    <string name="help_pyellowtext">@drawable/help_pyellowtext_en</string>
+    <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext_en</string>
     
 </resources>
