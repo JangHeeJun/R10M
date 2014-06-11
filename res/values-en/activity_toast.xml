@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	<string name="logout_setting">Log Out.</string>
+    
     <!-- facebook Toast -->
     <string name="facebookLogin_main">facebook already logged in.</string>
     <string name="facebookLogin_posting">You must login to facebook.</string>
