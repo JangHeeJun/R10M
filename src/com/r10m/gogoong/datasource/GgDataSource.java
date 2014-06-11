@@ -28,7 +28,7 @@ import com.r10m.gogoong.component.IconMarker;
 import com.r10m.gogoong.component.Marker;
 
 public class GgDataSource extends NetworkDataSource {
-	private static final String URL = "http://192.168.200.13:8080/app/kr/gyungbokgung.json";
+	private static final String URL = "http://192.168.200.13:8080/app/";
 
 	private static Bitmap icon = null;
 
@@ -47,15 +47,12 @@ public class GgDataSource extends NetworkDataSource {
 	@Override
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale) {
-		return URL;
+		return URL+(locale.equals("kr")? "kr/gyungbokgung.json":"eng/gyungbokgung.json");
 	}
 	
 	@Override
 	public List<Marker> parse(String url) {
 		if (url==null) throw new NullPointerException();
-		
-		
-		
 		
 		InputStream is = null;
 		String result = "";
@@ -91,8 +88,6 @@ public class GgDataSource extends NetworkDataSource {
 		}
     	
 		
-		
-		
     	JSONObject json = null;
     	try {
     		json = new JSONObject(result);
@@ -113,16 +108,13 @@ public class GgDataSource extends NetworkDataSource {
     	List<Marker> markers=new ArrayList<Marker>();
 
 		try {
-			//if(root.has("gangnam")) 
 				dataArray = root.getJSONArray("gyungbokgung");
-			//if (dataArray == null) return markers;
+			if (dataArray == null) return markers;
 			int top = Math.min(MAX, dataArray.length());
 			for (int i = 0; i < top; i++) {					
 				jo = dataArray.getJSONObject(i);
 				Marker ma = processJSONObject(jo);
-				//Marker ma = processJSONObject(root);
-				//if(ma!=null) 
-					markers.add(ma);
+				markers.add(ma);
 			}
 		} catch (JSONException e) {
 		    e.printStackTrace();
@@ -131,17 +123,11 @@ public class GgDataSource extends NetworkDataSource {
 	}
 	
 	private Marker processJSONObject(JSONObject jo) {
-		//if (jo==null) throw new NullPointerException();
-		
-		//if (!jo.has("gangnam")) throw new NullPointerException();
-		
+		if (jo==null) throw new NullPointerException();
+				
 		Marker ma = null;
 		try {
 			ma = new IconMarker(
-//					jo.getJSONObject("gangnam").getString("locationName"), 
-//					Double.parseDouble(jo.getJSONObject("gangnam").getString("lat")), 
-//					Double.parseDouble(jo.getJSONObject("gangnam").getString("lng")), 
-//					Double.parseDouble(jo.getJSONObject("gangnam").getString("alt")),
 					jo.getString("locationName"), 
 					Double.parseDouble(jo.getString("lat")), 
 					Double.parseDouble(jo.getString("lng")), 

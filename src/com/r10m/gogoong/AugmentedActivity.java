@@ -73,9 +73,6 @@ public class AugmentedActivity extends SensorsActivity {
     ImageView mImage;
 //	String mPath;
     
-    // ManualActivity 플래그
-	public static boolean flag=false;
-    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -139,20 +136,20 @@ public class AugmentedActivity extends SensorsActivity {
 		
 		
 		// ManualActivity intent start!!!
-				preferences = PreferenceManager.getDefaultSharedPreferences(this);
-		
-				 String turn= preferences.getString("on/off", "켜짐");
-					
-				  if(turn.equals("켜짐")){
-					   Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
-					   startActivity(ManualIntent);
-					   
-					   SharedPreferences.Editor editor=	preferences.edit();
-					   editor.putString("on/off","꺼짐");
-					   editor.commit();  	
-					   
-					   	//설명창 완료 부분
-				   }
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+		String turn= preferences.getString("on/off", "on");
+			
+		if(turn.equals("on")){
+			Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
+			startActivity(ManualIntent);
+			   
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("on/off","off");
+			editor.commit();  	
+			   
+			 //설명창 완료 부분
+		}
 	}
 
 	@Override

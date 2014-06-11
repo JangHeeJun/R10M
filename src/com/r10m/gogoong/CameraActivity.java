@@ -32,7 +32,7 @@ import com.r10m.gogoong.datasource.NetworkDataSource;
 /** 모든 액티비티를 상속받은 CameraActivity */
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "CameraActivity";
-    private static final String locale = "en";
+    private static String locale = "en";
     private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
@@ -58,6 +58,7 @@ public class CameraActivity extends AugmentedActivity {
 	
 	//언어 설정
     public void setLocale(String character) {
+    	locale = character;
     	Locale locale = new Locale(character); 
     	Locale.setDefault(locale);
     	Configuration config = new Configuration();
@@ -116,9 +117,6 @@ public class CameraActivity extends AugmentedActivity {
 
 	@Override
 	protected void markerTouched(Marker marker) {
-//        Toast t = Toast.makeText(getApplicationContext(), marker.getName(), Toast.LENGTH_SHORT);
-//        t.setGravity(Gravity.CENTER, 0, 0);
-//        t.show();
         
         Intent intent = new Intent(this, DetailPopUp.class);
         intent.putExtra("name", marker.getName());

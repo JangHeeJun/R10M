@@ -5,8 +5,10 @@ import java.util.Locale;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
@@ -17,10 +19,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 /** Marker를 click했을시 텍스트 및 음성 출력 */
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
-	
+	private SharedPreferences mainPreference;
 	private TextToSpeech mTts;
 	private String name; 
 	private String detail;
+	private String locale;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,9 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         
         setContentView(R.layout.detail);
+        
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	locale = mainPreference.getString("LanguageList", "ko");
         
         // 텍스트 출력 준비
         TextView textName = (TextView)findViewById(R.id.textView_detail_name);
@@ -98,7 +104,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         if (status == TextToSpeech.SUCCESS) {
             // Set preferred language to US english.
             // Note that a language may not be available, and the result will indicate this.
-            int result = mTts.setLanguage(Locale.KOREA);
+            int result = mTts.setLanguage(locale.equals("kr")?Locale.KOREA:Locale.ENGLISH);
             // Try this someday for some interesting results.
             // int result mTts.setLanguage(Locale.FRANCE);
             if (result == TextToSpeech.LANG_MISSING_DATA ||
