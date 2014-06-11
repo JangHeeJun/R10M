@@ -5,24 +5,43 @@
     android:layout_height="240dip"
     android:background="#B3FFFFFF">
 
-    <TextView
-        android:id="@+id/textView_detail_name"
+    <LinearLayout 
+        android:id="@+id/LinearLayout_detail_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="" />
+	    android:layout_height="wrap_content">
+        
+	    <TextView
+	        android:id="@+id/textView_detail_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="match_parent"
+	        android:layout_weight="9"
+	        android:gravity="center_horizontal"
+	        android:textAppearance="?android:attr/textAppearanceLarge"
+	        android:text="" />
+
+	    <ImageButton
+	        android:id="@+id/imageButton_detail"
+	        android:layout_width="30dip"
+	        android:layout_height="50dip"
+	        android:layout_weight="1"
+	        android:scaleType="fitXY"
+	        android:src="@drawable/ic_video" />
+	    
+	</LinearLayout>
+    
+    
     
     <ScrollView
         android:id="@+id/scrollView_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/textView_detail_name">
+        android:layout_below="@id/LinearLayout_detail_name">
 
         <TextView
             android:id="@+id/textView_detail_detail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="#000000"
             android:text="" />
         
     </ScrollView>
