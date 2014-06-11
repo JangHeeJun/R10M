@@ -17,6 +17,8 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,8 +41,18 @@ public class VideoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
 		
-		/**비디오 뷰 및 미디어 컨트롤러 세팅*/
-		vv = (VideoView) findViewById(R.id.VideoView);
+		/**비디오 뷰 세팅*/
+		vv = (VideoView) findViewById(R.id.videoView);
+		vv.setOnCompletionListener(new OnCompletionListener() {
+			
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				finish();
+				
+			}
+		});
+		
+		/**미디어 컨트롤러 세팅*/
 		mc = new MediaController(this);
 		mc.setAnchorView(vv);
 		

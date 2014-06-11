@@ -44,7 +44,10 @@
             android:screenOrientation="landscape"></activity>
         
         <!-- 동영상 스트리밍 -->
-        <activity android:name="VideoActivity"></activity>
+        <activity 
+            android:name="VideoActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape"></activity>
         
         <!-- 설정창 -->
         <activity android:name="SettingActivity"></activity>
