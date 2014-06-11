@@ -138,7 +138,7 @@ public class CameraActivity extends AugmentedActivity {
                     
                     public void run() {
                     	//Marker가 적을때 다운로드 받음 - 맨 처음만 받음
-                    	if(ARData.getMarkersSize()<5)
+                    	//if(ARData.getMarkersSize()<5)
 		                    for (NetworkDataSource source : sources.values())
 		                        download(source, lat, lon, alt);
                     }
