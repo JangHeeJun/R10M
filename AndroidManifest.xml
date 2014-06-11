@@ -8,6 +8,7 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
     <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -34,59 +35,59 @@
         </activity>
         
         <!-- 메뉴 -->
-        <activity android:name="MainActivity"></activity>
+        <activity android:name="MainActivity"/>
         
         <!-- 주변 지도 - navermap -->
-        <activity android:name="AroundActivity"></activity>
+        <activity android:name="AroundActivity"/>
         
         <!-- 카메라 프리뷰 - AR -->
-        <activity android:name="CameraActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity 
+            android:name="CameraActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         
         <!-- 동영상 스트리밍 -->
         <activity 
             android:name="VideoActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         
         <!-- 설정창 -->
-        <activity android:name="SettingActivity"></activity>
+        <activity android:name="SettingActivity"/>
         
         <!-- 설정 이용약관창 -->
-        <activity android:name="TermsOfService"></activity>
+        <activity android:name="TermsOfService"/>
         
         <!-- 설정 이용약관창 -->
-        <activity android:name="ContactUs"></activity>
+        <activity android:name="ContactUs"/>
         
         <!-- marker click 자세한 설명 -->
         <activity 
 			android:name="DetailPopUp"
 			android:theme="@android:style/Theme.Dialog"
-			android:windowSoftInputMode="stateHidden" android:configChanges="orientation">
-		</activity>
+			android:windowSoftInputMode="stateHidden" 
+			android:configChanges="orientation"/>
 		
         <!-- camara 투명 설명창 -->
         <activity android:name="ManualActivity"
             android:screenOrientation="landscape"
-            android:theme="@android:style/Theme.Translucent"></activity>
+            android:theme="@android:style/Theme.Translucent"/>
         
         <!-- SNS 설정창 -->
-        <activity android:name="SettingSNSLoginActivity"></activity>
+        <activity android:name="SettingSNSLoginActivity"/>
         
         <!-- SNS 연동 -->
         <activity 
 			android:name="PostingPopup"
 			android:screenOrientation="landscape"
 			android:theme="@android:style/Theme.Dialog"
-			android:windowSoftInputMode="stateAlwaysHidden" android:configChanges="orientation">
-		</activity>
+			android:windowSoftInputMode="stateAlwaysHidden" 
+			android:configChanges="orientation"/>
         
         <!-- twitter 연동 -->
         <activity android:name="TwitLogin"
         	android:theme="@android:style/Theme.NoTitleBar"
-            android:screenOrientation="portrait">
-        </activity>
-        <activity android:name="TwitPosting"></activity>
+            android:screenOrientation="portrait"/>
+        <activity android:name="TwitPosting"/>
         
         <!-- facebook 연동 -->
         <activity android:name="com.facebook.LoginActivity"
