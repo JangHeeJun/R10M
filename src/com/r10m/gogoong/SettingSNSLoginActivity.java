@@ -55,15 +55,15 @@ public class SettingSNSLoginActivity extends Activity {
 		//url을 받아 profile image를 bitmap으로 변환
     	new ProfileImageTask().execute();
 
-		logout = (Button)findViewById(R.id.btn_logout);
-		logout.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				logout();
-				finish();
-			}
-		});	
+//		logout = (Button)findViewById(R.id.btn_logout);
+//		logout.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				logout();
+//				finish();
+//			}
+//		});	
 	}
 	
 	class ProfileImageTask extends AsyncTask<Void, Void, Bitmap>{
@@ -118,23 +118,23 @@ public class SettingSNSLoginActivity extends Activity {
 	}
 	
 	
-	// logout
-	private void logout(){
-		if (target.equals("facebook")){
-            Session session = Session.getActiveSession();
-            if(session!=null){
-            	session.closeAndClearTokenInformation();
-            }
-            Session.setActiveSession(null);
-        }else if (target.equals("twitter")){
-        	BasicInfo.TwitLogin = false;
-        	BasicInfo.TWIT_KEY_TOKEN = "";
-        	BasicInfo.TWIT_KEY_TOKEN_SECRET = "";
-        	BasicInfo.TwitScreenName = "";
-        	twitSaveProperties();
-        }
-    	Toast.makeText(this, getString(R.string.logout_setting), Toast.LENGTH_SHORT).show();
-	}
+//	// logout
+//	private void logout(){
+//		if (target.equals("facebook")){
+//            Session session = Session.getActiveSession();
+//            if(session!=null){
+//            	session.closeAndClearTokenInformation();
+//            }
+//            Session.setActiveSession(null);
+//        }else if (target.equals("twitter")){
+//        	BasicInfo.TwitLogin = false;
+//        	BasicInfo.TWIT_KEY_TOKEN = "";
+//        	BasicInfo.TWIT_KEY_TOKEN_SECRET = "";
+//        	BasicInfo.TwitScreenName = "";
+//        	twitSaveProperties();
+//        }
+//    	Toast.makeText(this, getString(R.string.logout_setting), Toast.LENGTH_SHORT).show();
+//	}
 	
 	private void twitSaveProperties() {
 		SharedPreferences pref = getSharedPreferences("TWIT", MODE_PRIVATE);

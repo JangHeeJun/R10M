@@ -24,6 +24,12 @@ public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback
 	public CameraSurface(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
+	
+	Camera.AutoFocusCallback cb = new Camera.AutoFocusCallback() {
+		@Override
+		public void onAutoFocus(boolean success, Camera camera) {
+		}
+	};
 
 	public void surfaceCreated(SurfaceHolder holder) {
         try {
@@ -115,14 +121,17 @@ public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback
                     besth = 320;
                 }
                 parameters.setPreviewSize(bestw, besth);
+                //parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE);
             } catch (Exception ex) {
                 parameters.setPreviewSize(480 , 320);
             }
+                       
 
-            //camera.setParameters(parameters);
+            camera.setParameters(parameters);
             camera.startPreview();
+            camera.autoFocus(cb);
         } catch (Exception ex) {
         	ex.printStackTrace();
         }
-    }
+    }    
 }

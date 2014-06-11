@@ -66,8 +66,8 @@ public class MainActivity extends Activity implements OnClickListener{
         Locale systemLocale = getResources().getConfiguration().locale;
         String strLanguage = systemLocale.getLanguage();
         
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreference.getString("LanguageList", strLanguage));		//언어설정
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//�ㅼ젙�댁슜�쎌뼱��
+    	setLocale(mainPreference.getString("LanguageList", strLanguage));		//�몄뼱�ㅼ젙
 		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -109,38 +109,38 @@ public class MainActivity extends Activity implements OnClickListener{
 		Intent intent = null;
 		
 		switch(v.getId()){
-		//카메라start
+		//移대찓�펣tart
 		case R.id.btn_start :
 			progBar.setVisibility(View.VISIBLE);
 			intent = new Intent(MainActivity.this, CameraActivity.class);
 		    startActivity(intent); 
 		    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//주변지도
+		//二쇰�吏�룄
 		case R.id.btn_AroundView :
 			progBar.setVisibility(View.VISIBLE);
       	  	intent = new Intent(MainActivity.this, AroundActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//홈페이지 연결
+		//�덊럹�댁� �곌껐
 		case R.id.btn_homepage :
 			progBar.setVisibility(View.VISIBLE);
 			intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"));
 			startActivityForResult(intent, -1);
 			break;
-		//설정
+		//�ㅼ젙
 		case R.id.btn_setting :
 			intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//페이스북 연결
+		//�섏씠�ㅻ턿 �곌껐
 		case R.id.btn_fb :
 			progBar.setVisibility(View.VISIBLE);
 	    	facebookLogin(MainActivity.this);
 			break;
-		//트위터 연결
+		//�몄쐞���곌껐
 		case R.id.btn_tw :
 			progBar.setVisibility(View.VISIBLE);
 	    	twitLogin(); 
@@ -149,7 +149,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	// GPS alertDialog 창 띄우기
+	// GPS alertDialog 李��꾩슦湲�
 	private void alertCheckGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.gps1_key))
@@ -169,13 +169,13 @@ public class MainActivity extends Activity implements OnClickListener{
         AlertDialog alert = builder.create();
         alert.show();
     }
-    // GPS 설정화면으로 이동
+    // GPS �ㅼ젙�붾㈃�쇰줈 �대룞
     private void moveConfigGPS() {
         Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
     }
     
-    //언어 설정
+    //�몄뼱 �ㅼ젙
     public void setLocale(String character) {
     	Locale locale = new Locale(character); 
     	Locale.setDefault(locale);
@@ -184,7 +184,7 @@ public class MainActivity extends Activity implements OnClickListener{
     	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
     
-  	//facebook 연동 시작 -----------------------------------------------------------------
+  	//facebook �곕룞 �쒖옉 -----------------------------------------------------------------
     private void facebookLogin(Context context) {
     	
     	
@@ -193,24 +193,25 @@ public class MainActivity extends Activity implements OnClickListener{
     	if(session == null){
     		session = Session.openActiveSessionFromCache(context);
     		if(session == null){
-    			Log.e("init", "캐시에도 세션이 없음");
+    			Log.e("init", "罹먯떆�먮룄 �몄뀡���놁쓬");
     			Session.openActiveSession(this, true, statusCallback);
     		}else{
-    			Log.e("init", "캐시에 세션 있음");
+    			Log.e("init", "罹먯떆���몄뀡 �덉쓬");
     			checkFacebookLogin(session);
     		}
     	}else if(session.isClosed()){
     		Session.openActiveSession(this, true, statusCallback);
     		checkFacebookLogin(session);
     	}else{
-			Log.e("init", "세션 있음");
+			Log.e("init", "�몄뀡 �덉쓬");
 			Toast.makeText(this, getString(R.string.facebookLogin_main), Toast.LENGTH_SHORT).show();
 			checkFacebookLogin(session);
 		}
+    	progBar.setVisibility(View.GONE);
     }
     
     
-    // 권한 요청
+    // 沅뚰븳 �붿껌
     private void checkFacebookLogin(Session session) {
     	
     	String permission = "publish_actions";
@@ -221,7 +222,7 @@ public class MainActivity extends Activity implements OnClickListener{
     			isContainPermit = false;
     		}			
     		if(!isContainPermit){
-    			// 권한 요청 하는 부분
+    			// 沅뚰븳 �붿껌 �섎뒗 遺�텇
     			Session.NewPermissionsRequest newPermissionsRequest = 
     					new Session.NewPermissionsRequest(MainActivity.this, permission);
     			session.requestNewPublishPermissions(newPermissionsRequest);
@@ -247,16 +248,16 @@ public class MainActivity extends Activity implements OnClickListener{
 			checkFacebookLogin(session);
 		}
 	}
-  	//facebook 연동 끝 -----------------------------------------------------------------
+  	//facebook �곕룞 ��-----------------------------------------------------------------
     
-    //tiwtter 연동 시작 -----------------------------------------------------------------
+    //tiwtter �곕룞 �쒖옉 -----------------------------------------------------------------
     private void twitLogin() {
 		Log.d(TAG, "connect() called.");
-		// 인증 되어있을때
+		// �몄쬆 �섏뼱�덉쓣��
 		if (BasicInfo.TwitLogin) {
 			Log.d(TAG, "twitter already logged in.");
 			Toast.makeText(getBaseContext(), getString(R.string.twitLogin_main), Toast.LENGTH_LONG).show();
-
+	        progBar.setVisibility(View.GONE);
 			try {
 				ConfigurationBuilder builder = new ConfigurationBuilder();
 
@@ -273,7 +274,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				ex.printStackTrace();
 			}
 
-	        //새로 인증 받을때
+	        //�덈줈 �몄쬆 諛쏆쓣��
 		} else {
 			
 			RequestTokenThread thread = new RequestTokenThread();
@@ -284,7 +285,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * RequestToken 요청 스레드
+     * RequestToken �붿껌 �ㅻ젅��
      */
     class RequestTokenThread extends Thread {
     	public void run() {
@@ -326,7 +327,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
     
     /**
-     * 다른 액티비티로부터의 응답 처리
+     * �ㅻⅨ �≫떚鍮꾪떚濡쒕��곗쓽 �묐떟 泥섎━
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 		super.onActivityResult(requestCode, resultCode, resultIntent);
@@ -405,14 +406,14 @@ public class MainActivity extends Activity implements OnClickListener{
 		BasicInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
 		BasicInfo.TwitScreenName = pref.getString("TwitScreenName", "");
 	}
-	//twitter 연동 끝----------------------------------------------------------------
+	//twitter �곕룞 ��---------------------------------------------------------------
     
    
 	@Override
 	protected void onResume() {
 		super.onResume();
 		twitLoadProperties();
-        progBar.setVisibility(View.INVISIBLE);
+        progBar.setVisibility(View.GONE);
 	}
 
 	@Override

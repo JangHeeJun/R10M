@@ -10,6 +10,7 @@ import com.r10m.gogoong.wizet.VerticalSeekBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
+import android.view.Window;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -83,6 +85,9 @@ public class AugmentedActivity extends SensorsActivity {
         //setContentView(camScreen);
         
         //layout 적용시 SurfaceHolder 사용
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.camera);
         camScreen = (CameraSurface)findViewById(R.id.surface1);
         mpHolder = camScreen.getHolder();

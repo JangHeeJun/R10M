@@ -7,6 +7,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.RejectedExecutionException;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -33,8 +34,8 @@ import com.r10m.gogoong.datasource.NetworkDataSource;
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "CameraActivity";
     private static String locale = "en";
-    private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
-    private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);
+    private static final BlockingQueue<Runnable> queue = new SynchronousQueue<Runnable>();//new ArrayBlockingQueue<Runnable>(1);
+    private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, Integer.MAX_VALUE, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
 	private SharedPreferences mainPreference;
 
@@ -138,7 +139,7 @@ public class CameraActivity extends AugmentedActivity {
                     
                     public void run() {
                     	//Marker가 적을때 다운로드 받음 - 맨 처음만 받음
-                    	//if(ARData.getMarkersSize()<5)
+                    	if(ARData.getMarkersSize()<1)
 		                    for (NetworkDataSource source : sources.values())
 		                        download(source, lat, lon, alt);
                     }
