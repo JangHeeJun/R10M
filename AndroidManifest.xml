@@ -43,6 +43,9 @@
         <activity android:name="CameraActivity"
             android:screenOrientation="landscape"></activity>
         
+        <!-- 동영상 스트리밍 -->
+        <activity android:name="VideoActivity"></activity>
+        
         <!-- 설정창 -->
         <activity android:name="SettingActivity"></activity>
         
