@@ -31,7 +31,7 @@ import com.r10m.gogoong.datasource.NetworkDataSource;
 
 /** 모든 액티비티를 상속받은 CameraActivity */
 public class CameraActivity extends AugmentedActivity {
-	private static final String TAG = "MainActivity";
+	private static final String TAG = "CameraActivity";
     private static final String locale = "en";
     private static final BlockingQueue<Runnable> queue = new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, 1, 20, TimeUnit.SECONDS, queue);

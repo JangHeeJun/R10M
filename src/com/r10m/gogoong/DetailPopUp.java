@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.TextView;
 /** Marker를 click했을시 텍스트 및 음성 출력 */
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
@@ -33,6 +34,9 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         // 텍스트 출력 준비
         TextView textName = (TextView)findViewById(R.id.textView_detail_name);
         TextView textDetail = (TextView)findViewById(R.id.textView_detail_detail);
+        ImageButton imgBtn = (ImageButton)findViewById(R.id.imageButton_detail);
+        imgBtn.setOnClickListener(this);
+        
         Intent intent = getIntent();
         name = intent.getExtras().get("name").toString();
         detail = intent.getExtras().get("detail").toString();
@@ -71,9 +75,20 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
             null);
 	}
 	
-	// do nothing
+	// video 출력 
 	@Override
-	public void onClick(View v) {		
+	public void onClick(View v) {
+		if(v.getId()==R.id.imageButton_detail){
+			Intent intent = new Intent(DetailPopUp.this, VideoActivity.class);
+			intent.putExtra("name", name);
+			
+			if (mTts != null) {
+	            mTts.stop();
+	            mTts.shutdown();
+	        }
+			
+			startActivity(intent);
+		}
 	}
 	
 	//TTS 초기화

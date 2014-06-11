@@ -28,7 +28,7 @@ import com.r10m.gogoong.component.IconMarker;
 import com.r10m.gogoong.component.Marker;
 
 public class GgDataSource extends NetworkDataSource {
-	private static final String URL = "http://192.168.200.13:8080/app/json/gangnam";
+	private static final String URL = "http://192.168.200.13:8080/app/kr/gyungbokgung.json";
 
 	private static Bitmap icon = null;
 
@@ -114,7 +114,7 @@ public class GgDataSource extends NetworkDataSource {
 
 		try {
 			//if(root.has("gangnam")) 
-				dataArray = root.getJSONArray("gangnam");
+				dataArray = root.getJSONArray("gyungbokgung");
 			//if (dataArray == null) return markers;
 			int top = Math.min(MAX, dataArray.length());
 			for (int i = 0; i < top; i++) {					

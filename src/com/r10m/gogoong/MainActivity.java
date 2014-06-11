@@ -33,7 +33,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener{
 
 	SharedPreferences mainPreference;
 	public static final String TAG = "MainActivity";
@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
         String strLanguage = systemLocale.getLanguage();
         
         mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreference.getString("LanguageList", strLanguage));				//언어설정
+    	setLocale(mainPreference.getString("LanguageList", strLanguage));		//언어설정
 		
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -85,76 +85,69 @@ public class MainActivity extends Activity {
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             alertCheckGPS();
         }
+		
+        Button btn_start = (Button) findViewById(R.id.btn_start);
+        Button btn_AroundView = (Button) findViewById(R.id.btn_AroundView);
+        Button btn_homepage = (Button) findViewById(R.id.btn_homepage);
+        Button setting = (Button) findViewById(R.id.btn_setting);
+        Button ibtn_fb = (Button) findViewById(R.id.btn_fb);
+        Button ibtn_tw = (Button) findViewById(R.id.btn_tw);
+		
+		btn_start.setOnClickListener(this);
+		btn_AroundView.setOnClickListener(this);
+		btn_homepage.setOnClickListener(this);
+		setting.setOnClickListener(this);
+		ibtn_fb.setOnClickListener(this);
+		ibtn_tw.setOnClickListener(this);
 
+        progBar = (ProgressBar)findViewById(R.id.progressBar_main);
+	}
+	
+	
+	@Override
+	public void onClick(View v) {
+		Intent intent = null;
+		
+		switch(v.getId()){
 		//카메라start
-		Button btn_start = (Button) findViewById(R.id.btn_start);
-		btn_start.setOnClickListener(new OnClickListener(){
-		
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(MainActivity.this, CameraActivity.class);
-			    startActivity(intent); 
-			    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-			}  
-		}); 
-		
+		case R.id.btn_start :
+			progBar.setVisibility(View.VISIBLE);
+			intent = new Intent(MainActivity.this, CameraActivity.class);
+		    startActivity(intent); 
+		    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			break;
 		//주변지도
-       Button btn_AroundView = (Button) findViewById(R.id.btn_AroundView);
-       btn_AroundView.setOnClickListener(new OnClickListener(){
-
-          @Override
-          public void onClick(View v) {
-        	  Intent intent = new Intent(MainActivity.this, AroundActivity.class);
-              startActivity(intent);
-              overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-          }
-       });  
-       
-	   //홈페이지 연결
-	   Button btn_homepage = (Button) findViewById(R.id.btn_homepage);
-	   btn_homepage.setOnClickListener(new OnClickListener(){
-	
-	   @Override
-	       public void onClick(View v) {
-	          Intent intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"));
-	          startActivityForResult(intent, -1);
-	       }     
-	   });
-	   
-	   //설정
-       Button setting = (Button) findViewById(R.id.btn_setting);
-       setting.setOnClickListener(new OnClickListener(){
-
-          @Override
-          public void onClick(View v) {
-        	  Intent intent = new Intent(MainActivity.this, SettingActivity.class);
-              startActivity(intent);
-              overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-          }
-       });
-       
-	   //페이스북 연결
-	   Button ibtn_fb = (Button) findViewById(R.id.btn_fb);
-	   ibtn_fb.setOnClickListener(new OnClickListener(){
-	
-	     @Override
-	     public void onClick(View v) {
-	    	 facebookLogin(MainActivity.this);
-	     } 
-	   });
-	   
-	   //트위터 연결
-	   progBar = (ProgressBar)findViewById(R.id.progressBar_main);
-	   
-	   Button ibtn_tw = (Button) findViewById(R.id.btn_tw);
-	   ibtn_tw.setOnClickListener(new OnClickListener(){
-	
-	     @Override
-	     public void onClick(View v) {
-	    	 twitLogin();  
-	     } 
-	   });
-    }
+		case R.id.btn_AroundView :
+			progBar.setVisibility(View.VISIBLE);
+      	  	intent = new Intent(MainActivity.this, AroundActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			break;
+		//홈페이지 연결
+		case R.id.btn_homepage :
+			progBar.setVisibility(View.VISIBLE);
+			intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"));
+			startActivityForResult(intent, -1);
+			break;
+		//설정
+		case R.id.btn_setting :
+			intent = new Intent(MainActivity.this, SettingActivity.class);
+            startActivity(intent);
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+			break;
+		//페이스북 연결
+		case R.id.btn_fb :
+			progBar.setVisibility(View.VISIBLE);
+	    	facebookLogin(MainActivity.this);
+			break;
+		//트위터 연결
+		case R.id.btn_tw :
+			progBar.setVisibility(View.VISIBLE);
+	    	twitLogin(); 
+			break;
+		}
+		
+	}
 	
 	// GPS alertDialog 창 띄우기
 	private void alertCheckGPS() {
@@ -427,4 +420,5 @@ public class MainActivity extends Activity {
 		super.onPause();
 		twitSaveProperties();
 	}
+
 }
