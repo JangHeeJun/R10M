@@ -10,7 +10,6 @@
                 android:key="@string/Alarm_key" 
                 android:title="@string/Alarm_title"/>
             <ListPreference 
-                android:defaultValue="ko" 
                 android:entryValues="@array/langlist_value" 
                 android:entries="@array/langlist_desc" 
                 android:key="@string/Language_key" 
