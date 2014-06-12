@@ -61,14 +61,17 @@ public class MainActivity extends Activity implements OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(R.layout.main);
         
+        
+        //시스템 언어설정에 따라 언어설정 초기화(처음실행시 시스템언어로, Preference가 있을때는 설정언어로)
         Locale systemLocale = getResources().getConfiguration().locale;
         String strLanguage = systemLocale.getLanguage();
         
         mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//�ㅼ젙�댁슜�쎌뼱��
     	setLocale(mainPreference.getString("LanguageList", strLanguage));		//�몄뼱�ㅼ젙
 		
+    	setContentView(R.layout.main);
+    	
         //bluetooth
         BluetoothAdapter mBTAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBTAdapter == null) {
