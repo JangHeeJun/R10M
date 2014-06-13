@@ -104,7 +104,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         if (status == TextToSpeech.SUCCESS) {
             // Set preferred language to US english.
             // Note that a language may not be available, and the result will indicate this.
-            int result = mTts.setLanguage(locale.equals("kr")?Locale.KOREA:Locale.ENGLISH);
+            int result = mTts.setLanguage(locale.equals("ko")?Locale.KOREA:Locale.ENGLISH);
             // Try this someday for some interesting results.
             // int result mTts.setLanguage(Locale.FRANCE);
             if (result == TextToSpeech.LANG_MISSING_DATA ||

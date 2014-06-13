@@ -129,7 +129,7 @@ public class CameraActivity extends AugmentedActivity {
 	protected void updateDataOnZoom() {
 	    super.updateDataOnZoom();
         Location last = ARData.getCurrentLocation();
-        updateData(last.getLatitude(),last.getLongitude(),last.getAltitude());
+        //updateData(last.getLatitude(),last.getLongitude(),last.getAltitude());
 	}
     
     private void updateData(final double lat, final double lon, final double alt) {
@@ -139,7 +139,7 @@ public class CameraActivity extends AugmentedActivity {
                     
                     public void run() {
                     	//Marker가 적을때 다운로드 받음 - 맨 처음만 받음
-                    	if(ARData.getMarkersSize()<1)
+                    	//if(ARData.getMarkersSize()<1)
 		                    for (NetworkDataSource source : sources.values())
 		                        download(source, lat, lon, alt);
                     }
@@ -169,7 +169,7 @@ public class CameraActivity extends AugmentedActivity {
 		} catch (NullPointerException e) {
 			return false;
 		}
-		
+		ARData.clearMarkers();
     	ARData.addMarkers(markers);
     	return true;
     }

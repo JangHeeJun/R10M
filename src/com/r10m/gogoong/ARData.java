@@ -180,12 +180,19 @@ public class ARData {
 	            return ARData.roll;
 	        }
 	    }
+	    
 	    /** 마커간의 거리를 비교할때 사용 */
 	    private static final Comparator<Marker> comparator = new Comparator<Marker>() {
 	        public int compare(Marker arg0, Marker arg1) {
 	            return Double.compare(arg0.getDistance(),arg1.getDistance());
 	        }
 	    };
+	    
+	    public static void clearMarkers(){
+	    	markerList.clear();
+	    }
+	    
+	    
 	    /** 전달받은 컬렉션으로부터 새로운 마커를 추가 */
 	    public static void addMarkers(Collection<Marker> markers) {
 	    	if (markers==null) throw new NullPointerException();
