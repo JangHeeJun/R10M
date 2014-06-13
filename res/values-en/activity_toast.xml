@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="logout_setting">Log Out.</string>
+	<string name="btn_logout_setting">Clear linkage</string>
     
     <!-- facebook Toast -->
     <string name="facebookLogin_main">facebook already logged in.</string>
     <string name="facebookLogin_posting">You must login to facebook.</string>
+    <string name="facebooklogout_setting">Facebook to cancel the linkage points.</string>
     
     <!-- Twitter Toast -->
     <string name="twitLogin_main">twitter already logged in.</string>
@@ -12,6 +13,7 @@
     <string name="twitLogin_posting">You must login to twitter.</string>
     <string name="twit_posting_empty">Please write the post</string>
     <string name="twit_posting_success">Updated post</string>
+    <string name="twitlogout_setting">twitter to cancel the linkage points.</string>
     
     <!-- Posting Layout -->
     <string name="posting_popup_text">Sharing</string>
