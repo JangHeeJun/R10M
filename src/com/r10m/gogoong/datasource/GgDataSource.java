@@ -22,6 +22,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.r10m.gogoong.R;
 import com.r10m.gogoong.component.IconMarker;
@@ -47,7 +48,7 @@ public class GgDataSource extends NetworkDataSource {
 	@Override
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale) {
-		return URL+(locale.equals("kr")? "kr/gyungbokgung.json":"eng/gyungbokgung.json");
+		return URL+(locale.equals("ko")? "kr/gyungbokgung.json":"eng/gyungbokgung.json");
 	}
 	
 	@Override
@@ -91,6 +92,7 @@ public class GgDataSource extends NetworkDataSource {
     	JSONObject json = null;
     	try {
     		json = new JSONObject(result);
+    		Log.e("json", json.toString());
     	} catch (JSONException e) {
     	    e.printStackTrace();
     	}
