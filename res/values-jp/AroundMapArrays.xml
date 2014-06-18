@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="map1_key">クァンファムン</string>
+    <string name="map1_title">クァンファムン</string>
+    
+    <string name="map2_key">クンジョンジョン</string>
+    <string name="map2_title">クンジョンジョン</string>
+    
+    <string name="map3_key">キョンボックン</string>
+    <string name="map3_title">キョンボックン</string>
+    
+    <string name="map4_key">インサドン</string>
+    <string name="map4_title">インサドン</string>
+        
+</resources>
