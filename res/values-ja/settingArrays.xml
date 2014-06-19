@@ -6,42 +6,40 @@
         <item >ja</item>
     </string-array>
     <string-array name="langlist_desc">
-        <item >한국어</item>
-        <item >영어</item>
-        <item >일본어</item>
+        <item >Korean</item>
+        <item >English</item>
+        <item >japanese</item>
     </string-array>
     
     <string name="Setting_key">Setting</string>
-    <string name="Setting_title">환경설정</string>
+    <string name="Setting_title">設定</string>
     
     <string name="Alarm_key">SwitchAlarm</string>
-    <string name="Alarm_title">알람 설정</string>
+    <string name="Alarm_title">プッシュアラーム</string>
     
     <string name="Language_key">LanguageList</string>
-    <string name="Language_title">언어 설정</string>
+    <string name="Language_title">言語リスト</string>
     
     <string name="Account_key">Account</string>
-    <string name="Account_title">계정설정</string>
+    <string name="Account_title">アカウント</string>
     
     <string name="Facebook_key">Facebook</string>
-    <string name="Facebook_title">페이스북</string>
+    <string name="Facebook_title">FaceBook</string>
     
     <string name="Twitter_key">Twitter</string>
-    <string name="Twitter_title">트위터</string>
+    <string name="Twitter_title">Twitter</string>
     
     <string name="Help_key">Help</string>
-    <string name="Help_title">도움말</string>
+    <string name="Help_title">助け</string>
     
     <string name="Serviceterms_key">Serviceterms</string>
-    <string name="Serviceterms_title">이용약관</string>
-      
-    <string name="Contactus_key">Contactus</string>
-    <string name="Contactus_title">문의하기</string>
+    <string name="Serviceterms_title">利用規約</string>
     
+    <string name="Contactus_key">Contactus</string>
+    <string name="Contactus_title">お問合せヘルプ</string>
     
     <string name="TermsOfService">
-        <ScrollView>
-	           제 1 장 총칙 \n\n
+                     제 1 장 총칙 \n\n
 
 		제 1 조 (목적) \n
 		본 약관은 10M(이하 "회사"라 합니다)이 운영, 제공하는 고궁가이드서비스(이하 “서비스”)를 이용함에 있어 회사와 고객 및 개인위치정보주체의 권리,의무 및 책임사항에 따른 이용조건 및 절차 등 기본적인 사항을 규정함을 목적으로 합니다.  \n\n
@@ -177,8 +175,6 @@
 		
 		부 칙 제1조 (시행일) 이 약관은 2014년 7월 9일부터 시행한다. \n
 		
-		</ScrollView>
    	</string>
-   	
     
 </resources>

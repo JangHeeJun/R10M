@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="btn_logout_setting">連動キャンセル</string>
+    
+    <!-- facebook Toast -->
+    <string name="facebookLogin_main">すでにFacebookに連動しました。</string>
+    <string name="facebookLogin_posting">Facebookのログインが必要です。</string>
+    <string name="facebooklogout_setting">Facebook連動を解除しました。</string>
+    
+    <!-- Twitter Toast -->
+    <string name="twitLogin_main">すでにTwitterに連動しました。</string>
+    <string name="twitLoginsuccess_main">Twitterに連動しています。</string>
+    <string name="twitLogin_posting">twitterログインが必要です。</string>
+    <string name="twit_posting_empty">文章を入力してください。</string>
+    <string name="twit_posting_success">文を更新しました。</string>
+    <string name="twitlogout_setting">twitter連動を解除しました。</string>
+    
+    <!-- Posting Layout -->
+    <string name="posting_popup_text">共有する</string>
+    <string name="twit_login_text">Twitterのログインのために以下の内容をご確認ください。</string>
+    <string name="twit_posting_text">掲示</string>
+    
+</resources>

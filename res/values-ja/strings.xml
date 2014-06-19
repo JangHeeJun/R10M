@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Go Gung</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="str_done">완료</string>
+
+    <string name="login">ログイン</string>
+    <string name="instructions">アカウントデータを取得するためのリンクを作成するには、ログインしてください</string>
+    <string name="logout">ログアウト</string>
+    <string name="app_id">1509388132610632</string>
+    <string name="photo_post">写真を投稿</string>
+    <string name="success">成功</string>
+    <string name="successfully_posted_post">Successfully posted \'%1$s\'.\nPost ID: %2$s</string>
+    <string name="error">エラー</string>
+    <string name="ok">確認</string>
+    <string name="cancelled">キャンセル</string>
+    <string name="permission_not_granted">アクセス許可が付与されていなかったため、選択したアクションを実行できません.</string>
+    <string name="homepage">@drawable/homepage</string>
+    <string name="around_view">@drawable/aroundview</string>
+    <string name="setting">@drawable/setting_en</string>
+    <string name="startview">@drawable/startview</string>
+    <string name="text_main">@drawable/text_main_en</string>
+    <string name="help_bottomyellowtext">@drawable/help_bottomyellowtext_en</string>
+    <string name="help_left">@drawable/help_leftyellowtext_en</string>
+    <string name="help_centeryellowtext">@drawable/help_centeryellowtext_en</string>
+    <string name="help_pyellowtext">@drawable/help_pyellowtext_en</string>
+    <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext_en</string>
+    
+</resources>

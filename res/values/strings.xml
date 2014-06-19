@@ -18,5 +18,5 @@
     <string name="ok">OK</string>
     <string name="cancelled">Cancelled</string>
     <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
-    
+ 
 </resources>

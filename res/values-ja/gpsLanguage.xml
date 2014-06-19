@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="gps1_key">あなたのGPSは無効になっています！あなたはそれを有効にしますか？</string>
+    <string name="gps1_title">あなたのGPSは無効になっています！あなたはそれを有効にしますか？</string>
+    
+    <string name="gps2_key">GPSを有効にする</string>
+    <string name="gps2_title">GPSを有効にする</string>
+    
+    <string name="gps3_key">何もしない</string>
+    <string name="gps3_title">何もしない</string>
+        
+</resources>

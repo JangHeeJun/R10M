@@ -4,10 +4,12 @@
     <string-array name="langlist_value">
         <item >ko</item>
         <item >en</item>
+        <item >ja</item>
     </string-array>
     <string-array name="langlist_desc">
         <item >Korean</item>
         <item >English</item>
+        <item >japanese</item>
     </string-array>
     
     <string name="Setting_key">Setting</string>
