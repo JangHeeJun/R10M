@@ -18,15 +18,15 @@
     <string name="ok">確認</string>
     <string name="cancelled">キャンセル</string>
     <string name="permission_not_granted">アクセス許可が付与されていなかったため、選択したアクションを実行できません.</string>
-    <string name="homepage">@drawable/homepage</string>
-    <string name="around_view">@drawable/aroundview</string>
-    <string name="setting">@drawable/setting_en</string>
-    <string name="startview">@drawable/startview</string>
-    <string name="text_main">@drawable/text_main_en</string>
-    <string name="help_bottomyellowtext">@drawable/help_bottomyellowtext_en</string>
-    <string name="help_left">@drawable/help_leftyellowtext_en</string>
-    <string name="help_centeryellowtext">@drawable/help_centeryellowtext_en</string>
-    <string name="help_pyellowtext">@drawable/help_pyellowtext_en</string>
-    <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext_en</string>
+    <string name="homepage">@drawable/homepage_jp</string>
+    <string name="around_view">@drawable/aroundview_jp</string>
+    <string name="setting">@drawable/setting_jp</string>
+    <string name="startview">@drawable/startview_jp</string>
+    <string name="text_main">@drawable/text_main_jp</string>
+    <string name="help_bottomyellowtext">@drawable/help_bottomyellowtext_jp</string>
+    <string name="help_left">@drawable/help_leftyellowtext_jp</string>
+    <string name="help_centeryellowtext">@drawable/help_centeryellowtext_jp</string>
+    <string name="help_pyellowtext">@drawable/help_pyellowtext_jp</string>
+    <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext_jp</string>
     
 </resources>
