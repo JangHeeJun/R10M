@@ -7,7 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Rect;
 import android.graphics.RectF;
-/** È­¸é À§¿¡ ¼±, ºñÆ®¸Ê, Á¡°ú °°Àº Æ¯Á¤ ¿ÀºêÁ§Æ®¸¦ ±×¸®´Â ¿©·¯°¡Áö ¸Ş¼Òµå¸¦ Æ÷ÇÔÇÑ UIÀÇ ±âº»ÀÌ µÇ´Â Å¬·¡½º */
+/** í™”ë©´ ìœ„ì— ì„ , ë¹„íŠ¸ë§µ, ì ê³¼ ê°™ì€ íŠ¹ì • ì˜¤ë¸Œì íŠ¸ë¥¼ ê·¸ë¦¬ëŠ” ì—¬ëŸ¬ê°€ì§€ ë©”ì†Œë“œë¥¼ í¬í•¨í•œ UIì˜ ê¸°ë³¸ì´ ë˜ëŠ” í´ë˜ìŠ¤ */
 public abstract class PaintableObject {
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -37,20 +37,20 @@ public abstract class PaintableObject {
     public void setColor(int c) {
         paint.setColor(c);
     }
-    /** ±×¸®´Â º×ÀÇ Å©±â Á¶Àı */
+    /** ê·¸ë¦¬ëŠ” ë¶“ì˜ í¬ê¸° ì¡°ì ˆ */
     public void setStrokeWidth(float w) {
         paint.setStrokeWidth(w);
     }
-    /** ÅØ½ºÆ®ÀÇ ±æÀÌ¸¦ ¹İÈ¯ */
+    /** í…ìŠ¤íŠ¸ì˜ ê¸¸ì´ë¥¼ ë°˜í™˜ */
     public float getTextWidth(String txt) {
     	if (txt==null) throw new NullPointerException();
         return paint.measureText(txt);
     }
-    /** ÅØ½ºÆ®°¡ ±âº»¶óÀÎº¸´Ù ³ôÀ¸¸é ¾î¼¾Æ®¿¡ ±â·Ï */
+    /** í…ìŠ¤íŠ¸ê°€ ê¸°ë³¸ë¼ì¸ë³´ë‹¤ ë†’ìœ¼ë©´ ì–´ì„¼íŠ¸ì— ê¸°ë¡ */
     public float getTextAsc() {
         return -paint.ascent();
     }
-    /** ÅØ½ºÆ®°¡ ±âº»¶óÀÎº¸´Ù ³·À¸¸é µğ¼¾Æ®¿¡ ±â·Ï */
+    /** í…ìŠ¤íŠ¸ê°€ ê¸°ë³¸ë¼ì¸ë³´ë‹¤ ë‚®ìœ¼ë©´ ë””ì„¼íŠ¸ì— ê¸°ë¡ */
     public float getTextDesc() {
         return paint.descent();
     }

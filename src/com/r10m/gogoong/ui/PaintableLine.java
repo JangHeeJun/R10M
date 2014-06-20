@@ -1,7 +1,7 @@
 package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
-/** canvas¿¡ Æ¯Á¤ »ö»óÀÇ ¼±À» ±×¸®´Â Å¬·¡½º */
+/** canvasì— íŠ¹ì • ìƒ‰ìƒì˜ ì„ ì„ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class PaintableLine extends PaintableObject {
     private int color = 0;
     private float x = 0;

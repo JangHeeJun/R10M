@@ -27,16 +27,16 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 
 	// API-KEY
 	public static final String API_KEY = "94cbae417dfa6aa0f0b9f103e04dd903";
-	// ³×ÀÌ¹ö ¸Ê °´Ã¼
+	// ë„¤ì´ë²„ ë§µ ê°ì²´
 	NMapView mMapView = null;
-	// ¸Ê ÄÁÆ®·Ñ·¯
+	// ë§µ ì»¨íŠ¸ë¡¤ëŸ¬
 	NMapController mMapController = null;
-	// ¸ÊÀ» Ãß°¡ÇÒ ·¹ÀÌ¾Æ¿ô
+	// ë§µì„ ì¶”ê°€í•  ë ˆì´ì•„ì›ƒ
 	LinearLayout MapContainer;
 	
-	// ¿À¹ö·¹ÀÌÀÇ ¸®¼Ò½º¸¦ Á¦°øÇÏ±â À§ÇÑ °´Ã¼
+	// ì˜¤ë²„ë ˆì´ì˜ ë¦¬ì†ŒìŠ¤ë¥¼ ì œê³µí•˜ê¸° ìœ„í•œ ê°ì²´
 	AroundMapViewerResourceProvider mMapViewerResourceProvider = null;
-	// ¿À¹ö·¹ÀÌ °ü¸®ÀÚ
+	// ì˜¤ë²„ë ˆì´ ê´€ë¦¬ì
 	NMapOverlayManager mOverlayManager;
 
 	@Override
@@ -44,44 +44,44 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.aroundmap);
 		
-		/******************* Áöµµ ÃÊ±âÈ­ ½ÃÀÛ ********************/
-		// ³×ÀÌ¹ö Áöµµ¸¦ ³Ö±â À§ÇÑ LinearLayout ÄÄÆ÷³ÍÆ®
+		/******************* ì§€ë„ ì´ˆê¸°í™” ì‹œì‘ ********************/
+		// ë„¤ì´ë²„ ì§€ë„ë¥¼ ë„£ê¸° ìœ„í•œ LinearLayout ì»´í¬ë„ŒíŠ¸
 		MapContainer = (LinearLayout) findViewById(R.id.MapContainer);
 
-		// ³×ÀÌ¹ö Áöµµ °´Ã¼ »ı¼º
+		// ë„¤ì´ë²„ ì§€ë„ ê°ì²´ ìƒì„±
 		mMapView = new NMapView(this);
 		
-		// Áöµµ °´Ã¼·ÎºÎÅÍ ÄÁÆ®·Ñ·¯ ÃßÃâ
+		// ì§€ë„ ê°ì²´ë¡œë¶€í„° ì»¨íŠ¸ë¡¤ëŸ¬ ì¶”ì¶œ
 		mMapController = mMapView.getMapController();
 
-		// ³×ÀÌ¹ö Áöµµ °´Ã¼¿¡ APIKEY ÁöÁ¤
+		// ë„¤ì´ë²„ ì§€ë„ ê°ì²´ì— APIKEY ì§€ì •
 		mMapView.setApiKey(API_KEY);
 
-		// »ı¼ºµÈ ³×ÀÌ¹ö Áöµµ °´Ã¼¸¦ LinearLayout¿¡ Ãß°¡½ÃÅ²´Ù.
+		// ìƒì„±ëœ ë„¤ì´ë²„ ì§€ë„ ê°ì²´ë¥¼ LinearLayoutì— ì¶”ê°€ì‹œí‚¨ë‹¤.
 		MapContainer.addView(mMapView);
 
-		// Áöµµ¸¦ ÅÍÄ¡ÇÒ ¼ö ÀÖµµ·Ï ¿É¼Ç È°¼ºÈ­
+		// ì§€ë„ë¥¼ í„°ì¹˜í•  ìˆ˜ ìˆë„ë¡ ì˜µì…˜ í™œì„±í™”
 		mMapView.setClickable(true);
 		
-		// È®´ë/Ãà¼Ò¸¦ À§ÇÑ ÁÜ ÄÁÆ®·Ñ·¯ Ç¥½Ã ¿É¼Ç È°¼ºÈ­
+		// í™•ëŒ€/ì¶•ì†Œë¥¼ ìœ„í•œ ì¤Œ ì»¨íŠ¸ë¡¤ëŸ¬ í‘œì‹œ ì˜µì…˜ í™œì„±í™”
 		mMapView.setBuiltInZoomControls(true, null);	
 
-		// Áöµµ¿¡ ´ëÇÑ »óÅÂ º¯°æ ÀÌº¥Æ® ¿¬°á
+		// ì§€ë„ì— ëŒ€í•œ ìƒíƒœ ë³€ê²½ ì´ë²¤íŠ¸ ì—°ê²°
 		mMapView.setOnMapStateChangeListener(this);
-		/******************* Áöµµ ÃÊ±âÈ­ ³¡ ********************/
+		/******************* ì§€ë„ ì´ˆê¸°í™” ë ********************/
 		
 		
-		/******************* ¿À¹ö·¹ÀÌ °ü·Ã ÄÚµå ½ÃÀÛ ********************/
-		// ¿À¹ö·¹ÀÌ ¸®¼Ò½º °ü¸®°´Ã¼ ÇÒ´ç
+		/******************* ì˜¤ë²„ë ˆì´ ê´€ë ¨ ì½”ë“œ ì‹œì‘ ********************/
+		// ì˜¤ë²„ë ˆì´ ë¦¬ì†ŒìŠ¤ ê´€ë¦¬ê°ì²´ í• ë‹¹
 		mMapViewerResourceProvider = new AroundMapViewerResourceProvider(this);
 
-		// ¿À¹ö·¹ÀÌ °ü¸®ÀÚ Ãß°¡
+		// ì˜¤ë²„ë ˆì´ ê´€ë¦¬ì ì¶”ê°€
 		mOverlayManager = new NMapOverlayManager(this, mMapView, mMapViewerResourceProvider);
 		
-		// ¿À¹ö·¹ÀÌµéÀ» °ü¸®ÇÏ±â À§ÇÑ id°ª »ı¼º
+		// ì˜¤ë²„ë ˆì´ë“¤ì„ ê´€ë¦¬í•˜ê¸° ìœ„í•œ idê°’ ìƒì„±
 		int markerId = AroundMapPOIflagType.PIN;
 
-		// Ç¥½ÃÇÒ À§Ä¡ µ¥ÀÌÅÍ¸¦ ÁöÁ¤ÇÑ´Ù. -- ¸¶Áö¸· ÀÎÀÚ°¡ ¿À¹ö·¹ÀÌ¸¦ ÀÎ½ÄÇÏ±â À§ÇÑ id°ª
+		// í‘œì‹œí•  ìœ„ì¹˜ ë°ì´í„°ë¥¼ ì§€ì •í•œë‹¤. -- ë§ˆì§€ë§‰ ì¸ìê°€ ì˜¤ë²„ë ˆì´ë¥¼ ì¸ì‹í•˜ê¸° ìœ„í•œ idê°’
 		NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
 		poiData.beginPOIdata(2);
 		poiData.addPOIitem(126.976916, 37.575997, getString(R.string.map1_key), markerId, 0);
@@ -89,20 +89,20 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		poiData.addPOIitem(126.991023, 37.579468, getString(R.string.map3_key), markerId, 0);
 		poiData.addPOIitem(126.983083, 37.575395, getString(R.string.map4_key), markerId, 0);
 		poiData.endPOIdata();
-		//getString(R.string.map4_key) .java¿¡¼­ ÇÁ¸®ÆÛ·±½º¿¡ ÀÖ´Â ½ºÆ®¸µÀ» ºÒ·¯¿Ã ¶§´Â ÀÌ¿Í °°ÀÌ »ç¿ëÇÑ´Ù.
-		//@string/name Àº xml¿¡¼­ ºÒ·¯¿Ã¶§ »ç¿ëÇÑ´Ù.
+		//getString(R.string.map4_key) .javaì—ì„œ í”„ë¦¬í¼ëŸ°ìŠ¤ì— ìˆëŠ” ìŠ¤íŠ¸ë§ì„ ë¶ˆëŸ¬ì˜¬ ë•ŒëŠ” ì´ì™€ ê°™ì´ ì‚¬ìš©í•œë‹¤.
+		//@string/name ì€ xmlì—ì„œ ë¶ˆëŸ¬ì˜¬ë•Œ ì‚¬ìš©í•œë‹¤.
 
-		// À§Ä¡ µ¥ÀÌÅÍ¸¦ »ç¿ëÇÏ¿© ¿À¹ö·¹ÀÌ »ı¼º
+		// ìœ„ì¹˜ ë°ì´í„°ë¥¼ ì‚¬ìš©í•˜ì—¬ ì˜¤ë²„ë ˆì´ ìƒì„±
 		NMapPOIdataOverlay poiDataOverlay = mOverlayManager.createPOIdataOverlay(poiData, null);
 		
-		// id°ªÀÌ 0À¸·Î ÁöÁ¤µÈ ¸ğµç ¿À¹ö·¹ÀÌ°¡ Ç¥½ÃµÇ°í ÀÖ´Â À§Ä¡·Î ÁöµµÀÇ Áß½É°ú ZOOMÀ» Àç¼³Á¤
+		// idê°’ì´ 0ìœ¼ë¡œ ì§€ì •ëœ ëª¨ë“  ì˜¤ë²„ë ˆì´ê°€ í‘œì‹œë˜ê³  ìˆëŠ” ìœ„ì¹˜ë¡œ ì§€ë„ì˜ ì¤‘ì‹¬ê³¼ ZOOMì„ ì¬ì„¤ì •
 		poiDataOverlay.showAllPOIdata(0);
 		
 		
 		
-		// ¿À¹ö·¹ÀÌ ÀÌº¥Æ® µî·Ï
+		// ì˜¤ë²„ë ˆì´ ì´ë²¤íŠ¸ ë“±ë¡
 		mOverlayManager.setOnCalloutOverlayListener(this);
-		/******************* ¿À¹ö·¹ÀÌ °ü·Ã ÄÚµå ³¡ ********************/
+		/******************* ì˜¤ë²„ë ˆì´ ê´€ë ¨ ì½”ë“œ ë ********************/
 	}
 	
 	@Override
@@ -113,9 +113,9 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		
 
 	/**
-	 * Áöµµ°¡ ÃÊ±âÈ­µÈ ÈÄ È£ÃâµÈ´Ù.
-	 * Á¤»óÀûÀ¸·Î ÃÊ±âÈ­µÇ¸é errorInfo °´Ã¼´Â nullÀÌ Àü´ŞµÇ¸ç,
-	 * ÃÊ±âÈ­ ½ÇÆĞ ½Ã errorInfo°´Ã¼¿¡ ¿¡·¯ ¿øÀÎÀÌ Àü´ŞµÈ´Ù
+	 * ì§€ë„ê°€ ì´ˆê¸°í™”ëœ í›„ í˜¸ì¶œëœë‹¤.
+	 * ì •ìƒì ìœ¼ë¡œ ì´ˆê¸°í™”ë˜ë©´ errorInfo ê°ì²´ëŠ” nullì´ ì „ë‹¬ë˜ë©°,
+	 * ì´ˆê¸°í™” ì‹¤íŒ¨ ì‹œ errorInfoê°ì²´ì— ì—ëŸ¬ ì›ì¸ì´ ì „ë‹¬ëœë‹¤
 	 */
 	@Override
 	public void onMapInitHandler(NMapView mapview, NMapError errorInfo) {
@@ -127,19 +127,19 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 	}
 
 	/**
-	 * Áöµµ ·¹º§ º¯°æ ½Ã È£ÃâµÇ¸ç º¯°æµÈ Áöµµ ·¹º§ÀÌ ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ´Ù.
+	 * ì§€ë„ ë ˆë²¨ ë³€ê²½ ì‹œ í˜¸ì¶œë˜ë©° ë³€ê²½ëœ ì§€ë„ ë ˆë²¨ì´ íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœë‹¤.
 	 */
 	@Override
 	public void onZoomLevelChange(NMapView mapview, int level) {}
 
 	/**
-	 * Áöµµ Áß½É º¯°æ ½Ã È£ÃâµÇ¸ç º¯°æµÈ Áß½É ÁÂÇ¥°¡ ÆÄ¶ó¹ÌÅÍ·Î Àü´ŞµÈ´Ù.
+	 * ì§€ë„ ì¤‘ì‹¬ ë³€ê²½ ì‹œ í˜¸ì¶œë˜ë©° ë³€ê²½ëœ ì¤‘ì‹¬ ì¢Œí‘œê°€ íŒŒë¼ë¯¸í„°ë¡œ ì „ë‹¬ëœë‹¤.
 	 */
 	@Override
 	public void onMapCenterChange(NMapView mapview, NGeoPoint center) {}
 
 	/**
-	 * Áöµµ ¾Ö´Ï¸ŞÀÌ¼Ç »óÅÂ º¯°æ ½Ã È£ÃâµÈ´Ù.
+	 * ì§€ë„ ì• ë‹ˆë©”ì´ì…˜ ìƒíƒœ ë³€ê²½ ì‹œ í˜¸ì¶œëœë‹¤.
 	 * animType : ANIMATION_TYPE_PAN or ANIMATION_TYPE_ZOOM
 	 * animState : ANIMATION_STATE_STARTED or ANIMATION_STATE_FINISHED
 	 */
@@ -149,7 +149,7 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 	@Override
 	public void onMapCenterChangeFine(NMapView arg0) {}
 
-	/** ¿À¹ö·¹ÀÌ°¡ Å¬¸¯µÇ¾úÀ» ¶§ÀÇ ÀÌº¥Æ® */
+	/** ì˜¤ë²„ë ˆì´ê°€ í´ë¦­ë˜ì—ˆì„ ë•Œì˜ ì´ë²¤íŠ¸ */
 //	@Override
 //	public NMapCalloutOverlay onCreateCalloutOverlay(NMapOverlay arg0,
 //			NMapOverlayItem arg1, Rect arg2) {

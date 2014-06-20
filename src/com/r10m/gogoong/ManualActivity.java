@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.LinearLayout;
-/** Ä«¸Ş¶ó ºä¿¡¼­ ¼³¸íÇØÁÖ´Â Åõ¸íÃ¢ */
+/** ì¹´ë©”ë¼ ë·°ì—ì„œ ì„¤ëª…í•´ì£¼ëŠ” íˆ¬ëª…ì°½ */
 public class ManualActivity extends Activity implements OnTouchListener {
 
 	@Override

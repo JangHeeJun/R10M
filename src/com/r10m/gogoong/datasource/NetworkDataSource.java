@@ -15,11 +15,11 @@ import org.json.JSONObject;
 
 import com.r10m.gogoong.component.Marker;
 
-/** URL·Î ºÎÅÍ µ¥ÀÌÅÍ¸¦ ¾ò¾î¿À±â À§ÇÑ ±âº»¼³Á¤À» Æ÷ÇÔÇÑ È®ÀåÀ» À§ÇÑ Å¬·¡½º */
+/** URLë¡œ ë¶€í„° ë°ì´í„°ë¥¼ ì–»ì–´ì˜¤ê¸° ìœ„í•œ ê¸°ë³¸ì„¤ì •ì„ í¬í•¨í•œ í™•ì¥ì„ ìœ„í•œ í´ë˜ìŠ¤ */
 public abstract class NetworkDataSource extends DataSource {
-	/** »ç¿ëÀÚ¿¡°Ô º¸¿©Áú °á°ú¹°ÀÇ ÃÖ´ë°³¼ö */
+	/** ì‚¬ìš©ìì—ê²Œ ë³´ì—¬ì§ˆ ê²°ê³¼ë¬¼ì˜ ìµœëŒ€ê°œìˆ˜ */
     protected static final int MAX = 1000;
-    /** ¿¬°áÇÒ ¶§ Å¸ÀÓ¾Æ¿ôÀ» Á¤ÇÏ´Â ¹Ğ¸®ÃÊ ´ÜÀ§ÀÇ °ª */
+    /** ì—°ê²°í•  ë•Œ íƒ€ì„ì•„ì›ƒì„ ì •í•˜ëŠ” ë°€ë¦¬ì´ˆ ë‹¨ìœ„ì˜ ê°’ */
     protected static final int READ_TIMEOUT = 10000;
     protected static final int CONNECT_TIMEOUT = 10000;
     
@@ -33,7 +33,7 @@ public abstract class NetworkDataSource extends DataSource {
     public List<Marker> getMarkers() {
         return markersCache;
     }
-    /** StringÀ¸·Î Àü´ŞµÈ Æ¯Á¤ URL·Î ºÎÅÍ InputStreamÀ» ¾ò¾î¿À´Âµ¥ »ç¿ë */
+    /** Stringìœ¼ë¡œ ì „ë‹¬ëœ íŠ¹ì • URLë¡œ ë¶€í„° InputStreamì„ ì–»ì–´ì˜¤ëŠ”ë° ì‚¬ìš© */
     protected static InputStream getHttpGETInputStream(String urlStr) {
         if (urlStr == null)
             throw new NullPointerException();
@@ -70,7 +70,7 @@ public abstract class NetworkDataSource extends DataSource {
 
         return null;
     }
-    /** InputStreamÀÇ ³»¿ëÀ» ¾ò¾î¿Í¼­  String¿¡ ÀÔ·Â */
+    /** InputStreamì˜ ë‚´ìš©ì„ ì–»ì–´ì™€ì„œ  Stringì— ì…ë ¥ */
     protected String getHttpInputString(InputStream is) {
         if (is == null)
             throw new NullPointerException();
@@ -95,7 +95,7 @@ public abstract class NetworkDataSource extends DataSource {
         }
         return sb.toString();
     }
-    /** µ¥ÀÌÅÍ¼Ò½º·ÎºÎÅÍ JSON¿ÀºêÁ§Æ®¸¦ ¾ò¾î¼­ ´Ù¸¥ parse()¸Ş¼Òµå¸¦ È£Ãâ */
+    /** ë°ì´í„°ì†ŒìŠ¤ë¡œë¶€í„° JSONì˜¤ë¸Œì íŠ¸ë¥¼ ì–»ì–´ì„œ ë‹¤ë¥¸ parse()ë©”ì†Œë“œë¥¼ í˜¸ì¶œ */
     public List<Marker> parse(String url) {
         if (url == null)
             throw new NullPointerException();

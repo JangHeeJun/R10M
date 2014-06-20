@@ -17,7 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
-/** Marker¸¦ clickÇßÀ»½Ã ÅØ½ºÆ® ¹× À½¼º Ãâ·Â */
+/** Markerë¥¼ clickí–ˆì„ì‹œ í…ìŠ¤íŠ¸ ë° ìŒì„± ì¶œë ¥ */
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
 	private SharedPreferences mainPreference;
 	private TextToSpeech mTts;
@@ -34,10 +34,10 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         
         setContentView(R.layout.detail);
         
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//¼³Á¤³»¿ëÀĞ¾î¿È
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//ì„¤ì •ë‚´ìš©ì½ì–´ì˜´
     	locale = mainPreference.getString("LanguageList", "ko");
         
-        // ÅØ½ºÆ® Ãâ·Â ÁØºñ
+        // í…ìŠ¤íŠ¸ ì¶œë ¥ ì¤€ë¹„
         TextView textName = (TextView)findViewById(R.id.textView_detail_name);
         TextView textDetail = (TextView)findViewById(R.id.textView_detail_detail);
         ImageButton imgBtn = (ImageButton)findViewById(R.id.imageButton_detail);
@@ -49,7 +49,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         textName.setText(name);
         textDetail.setText(detail);
         
-        //TTS ÁØºñ
+        //TTS ì¤€ë¹„
         mTts = new TextToSpeech(this, this  // TextToSpeech.OnInitListener
                 );
             setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -64,7 +64,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
             say();        
     }
 	
-	//TTS ÀÚ¿ø ÇØÁ¦
+	//TTS ìì› í•´ì œ
 	@Override
 	protected void onDestroy() {
 		if (mTts != null) {
@@ -74,14 +74,14 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
 		super.onDestroy();
 	}
 	
-	// À½¼ºÃâ·Â
+	// ìŒì„±ì¶œë ¥
 	private void say() {
         mTts.speak(detail,
             TextToSpeech.QUEUE_FLUSH,  // Drop all pending entries in the playback queue.
             null);
 	}
 	
-	// video Ãâ·Â 
+	// video ì¶œë ¥ 
 	@Override
 	public void onClick(View v) {
 		if(v.getId()==R.id.imageButton_detail){
@@ -97,7 +97,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
 		}
 	}
 	
-	//TTS ÃÊ±âÈ­
+	//TTS ì´ˆê¸°í™”
 	@Override
 	public void onInit(int status) {
 		// status can be either TextToSpeech.SUCCESS or TextToSpeech.ERROR.

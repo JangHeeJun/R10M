@@ -8,7 +8,7 @@ import android.hardware.Camera;
 import android.util.AttributeSet;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-/** Ä«¸Ş¶ó ÇÁ¸®ºä */
+/** ì¹´ë©”ë¼ í”„ë¦¬ë·° */
 public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback {
 	private static final String TAG = "CameraSurface";
     private static Camera camera = null;

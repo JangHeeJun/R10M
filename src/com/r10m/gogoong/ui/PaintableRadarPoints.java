@@ -5,7 +5,7 @@ import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.component.Radar;
 
 import android.graphics.Canvas;
-/** ·¹ÀÌ´õ»ó¿¡¼­ ¸ğµç ¸¶Ä¿ÀÇ »ó´ëÀûÀÎ À§Ä¡¸¦ ±×¸®´Â Å¬·¡½º */
+/** ë ˆì´ë”ìƒì—ì„œ ëª¨ë“  ë§ˆì»¤ì˜ ìƒëŒ€ì ì¸ ìœ„ì¹˜ë¥¼ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class PaintableRadarPoints extends PaintableObject {
     private final float[] locationArray = new float[3];
 	private PaintablePoint paintablePoint = null;

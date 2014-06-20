@@ -13,9 +13,9 @@ import com.r10m.gogoong.ui.PaintableRadarPoints;
 import com.r10m.gogoong.ui.PaintableText;
 import com.r10m.gogoong.util.PitchAzimuthCalculator;
 
-/** ·¹ÀÌ´õ¸¦ ±×¸®´Â Å¬·¡½º , ¸¶Ä¿¸¦ Ç¥½ÃÇÏ´Â Á¡,¼±µéÀ» ±×¸®±âµµ ÇÔ */
+/** ë ˆì´ë”ë¥¼ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ , ë§ˆì»¤ë¥¼ í‘œì‹œí•˜ëŠ” ì ,ì„ ë“¤ì„ ê·¸ë¦¬ê¸°ë„ í•¨ */
 public class Radar {
-	// ·¹ÀÌ´õÀÇ »ö»ó,Áö¸§,±ÛÀÚ»ö,°£°İµî ¼³Á¤
+	// ë ˆì´ë”ì˜ ìƒ‰ìƒ,ì§€ë¦„,ê¸€ììƒ‰,ê°„ê²©ë“± ì„¤ì •
     public static final float RADIUS = 100;
     private static final int LINE_COLOR = Color.argb(150,0,0,220);
     private static final float PAD_X = 10;
@@ -35,7 +35,7 @@ public class Radar {
     
     private static PaintableText paintableText = null;
     private static PaintablePosition paintedContainer = null;
-    // ·¹ÀÌ´õ¿¡ ¼±ÀÌ ÀÖ´ÂÁö È®ÀÎ
+    // ë ˆì´ë”ì— ì„ ì´ ìˆëŠ”ì§€ í™•ì¸
     public Radar() {
         if (leftRadarLine==null) leftRadarLine = new ScreenPositionUtility();
         if (rightRadarLine==null) rightRadarLine = new ScreenPositionUtility();
@@ -43,7 +43,7 @@ public class Radar {
     
     public void draw(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
-    	// ÇÇÄ¡¿Í ¹æÀ§°¢À» ¾ò¾î¿Â´Ù
+    	// í”¼ì¹˜ì™€ ë°©ìœ„ê°ì„ ì–»ì–´ì˜¨ë‹¤
     	PitchAzimuthCalculator.calcPitchBearing(ARData.getRotationMatrix());
         ARData.setAzimuth(PitchAzimuthCalculator.getAzimuth());
         ARData.setPitch(PitchAzimuthCalculator.getPitch());
@@ -53,7 +53,7 @@ public class Radar {
         drawRadarLines(canvas);
         drawRadarText(canvas);
     }
-    /** ·¹ÀÌ´õÀÇ ±âº»ÀÌ µÇ´Â ¿ø */
+    /** ë ˆì´ë”ì˜ ê¸°ë³¸ì´ ë˜ëŠ” ì› */
     private void drawRadarCircle(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
     	
@@ -64,7 +64,7 @@ public class Radar {
         circleContainer.paint(canvas);
     }
 
-    /** ·¹ÀÌ´õ »ó¿¡¼­ ¸¶Ä¿¸¦ ³ªÅ¸³»´Â ¸ğµç Á¡ */
+    /** ë ˆì´ë” ìƒì—ì„œ ë§ˆì»¤ë¥¼ ë‚˜íƒ€ë‚´ëŠ” ëª¨ë“  ì  */
     private void drawRadarPoints(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
     	
@@ -86,7 +86,7 @@ public class Radar {
         pointsContainer.paint(canvas);
     }
 
-    /** ÇöÀç Ä«¸Ş¶óÀÇ ½Ã¾ß¸¦ º¸¿©ÁÖ´Â µÎÁÙÀÇ ¼± */
+    /** í˜„ì¬ ì¹´ë©”ë¼ì˜ ì‹œì•¼ë¥¼ ë³´ì—¬ì£¼ëŠ” ë‘ì¤„ì˜ ì„  */
     private void drawRadarLines(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
     	
@@ -123,7 +123,7 @@ public class Radar {
         rightLineContainer.paint(canvas);
     }
 
-    /** radarText()¸Ş¼Òµå È£ÃâÇÏ¿© ·¹ÀÌ´õ¿¡ ±Û¾¾¸¦ ±×¸®±â Àü¿¡ Çü½ÄÀ» Á¤·Ä */
+    /** radarText()ë©”ì†Œë“œ í˜¸ì¶œí•˜ì—¬ ë ˆì´ë”ì— ê¸€ì”¨ë¥¼ ê·¸ë¦¬ê¸° ì „ì— í˜•ì‹ì„ ì •ë ¬ */
     private void drawRadarText(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
         int range = (int) (ARData.getAzimuth() / (360f / 16f)); 

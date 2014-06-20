@@ -34,10 +34,10 @@ import android.widget.Toast;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-/** 3. SensorsActivity¸¦ È®Àå, ÅÍÄ¡ ±¸ÇöÇÑ ¾×Æ¼ºñÆ¼ */
+/** 3. SensorsActivityë¥¼ í™•ì¥, í„°ì¹˜ êµ¬í˜„í•œ ì•¡í‹°ë¹„í‹° */
 public class AugmentedActivity extends SensorsActivity {
 	
-	//manual activity ¼³Á¤ ÀúÀå
+	//manual activity ì„¤ì • ì €ì¥
 	SharedPreferences preferences;
 	
 	
@@ -65,13 +65,13 @@ public class AugmentedActivity extends SensorsActivity {
     public static boolean showRadar = true;
     public static boolean showZoomBar = true;
     
-    //Ä«¸Ş¶ó ÇÁ¸®ºä¿¡¼­ ÅÍÄ¡ ÀÎ½Ä
+    //ì¹´ë©”ë¼ í”„ë¦¬ë·°ì—ì„œ í„°ì¹˜ ì¸ì‹
     private int startX;
     private int startY;
     private int endX;
     private int endY;
     SurfaceHolder mpHolder;
-    //Ä«¸Ş¶ó ¿¬µ¿ÇÏ¿© ÀÌ¹ÌÁö ¹Ş±â
+    //ì¹´ë©”ë¼ ì—°ë™í•˜ì—¬ ì´ë¯¸ì§€ ë°›ê¸°
     ImageView mImage;
 //	String mPath;
     
@@ -80,11 +80,11 @@ public class AugmentedActivity extends SensorsActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        //layout ¾øÀÌ .ÀÚ¹Ù·Î¸¸
+        //layout ì—†ì´ .ìë°”ë¡œë§Œ
         //camScreen = new CameraSurface(this);
         //setContentView(camScreen);
         
-        //layout Àû¿ë½Ã SurfaceHolder »ç¿ë
+        //layout ì ìš©ì‹œ SurfaceHolder ì‚¬ìš©
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -94,13 +94,13 @@ public class AugmentedActivity extends SensorsActivity {
         mpHolder.addCallback(camScreen);
         mpHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS); 
         
-        // ¸¶Ä¿ ¶ç¿ì±â À§ÇÑ augmentedView
+        // ë§ˆì»¤ ë„ìš°ê¸° ìœ„í•œ augmentedView
         augmentedView = new AugmentedView(this);
         LayoutParams augLayout = new LayoutParams(  LayoutParams.WRAP_CONTENT, 
                                                     LayoutParams.WRAP_CONTENT);
         addContentView(augmentedView,augLayout);
         
-        // ½ÃÅ©¹Ù ÁÜ ÀÎ ¾Æ¿ô½Ã ·¹ÀÌ¾Æ¿ô
+        // ì‹œí¬ë°” ì¤Œ ì¸ ì•„ì›ƒì‹œ ë ˆì´ì•„ì›ƒ
         zoomLayout = new LinearLayout(this);
         zoomLayout.setVisibility((showZoomBar)?LinearLayout.VISIBLE:LinearLayout.GONE);
         zoomLayout.setOrientation(LinearLayout.VERTICAL);
@@ -153,7 +153,7 @@ public class AugmentedActivity extends SensorsActivity {
 			editor.putString("on/off","off");
 			editor.commit();  	
 			   
-			 //¼³¸íÃ¢ ¿Ï·á ºÎºĞ
+			 //ì„¤ëª…ì°½ ì™„ë£Œ ë¶€ë¶„
 		}
 	}
 
@@ -221,7 +221,7 @@ public class AugmentedActivity extends SensorsActivity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-    	//¸¶Ä¿ ÅÍÄ¡½Ã
+    	//ë§ˆì»¤ í„°ì¹˜ì‹œ
     	for (Marker marker : ARData.getMarkers()) {
 	        if (marker.handleClick(event.getX(), event.getY())) {
 	            if (event.getAction() == MotionEvent.ACTION_UP) markerTouched(marker);
@@ -229,7 +229,7 @@ public class AugmentedActivity extends SensorsActivity {
 	        }
 	    }
 		
-		//Ä«¸Ş¶ó ¿¬µ¿ÇÏ±â
+		//ì¹´ë©”ë¼ ì—°ë™í•˜ê¸°
 		if(event.getAction()==MotionEvent.ACTION_DOWN){	
 			startX=(int) event.getX();	
 			startY=(int) event.getY();
@@ -239,9 +239,9 @@ public class AugmentedActivity extends SensorsActivity {
 			endY=(int) event.getY();
 			
 	    	if(startY>endY+200 && Math.abs(startX-endX)<50){
-	    		//Ä«¸Ş¶ó ¸®¼Ò½º ¹İÈ¯
+	    		//ì¹´ë©”ë¼ ë¦¬ì†ŒìŠ¤ ë°˜í™˜
 	    		camScreen.surfaceDestroyed(mpHolder);
-	    		// ±âº» Ä«¸Ş¶ó ¾Û ÀÌµ¿
+	    		// ê¸°ë³¸ ì¹´ë©”ë¼ ì•± ì´ë™
     			Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE); 
     			startActivityForResult(intent, 0);
     		}
@@ -257,9 +257,9 @@ public class AugmentedActivity extends SensorsActivity {
 		
 		if (resultCode == RESULT_OK) {
 			if(requestCode==0){
-				// ÀúÀåµÈ »çÁøÀ» ºñÆ®¸ÊÀ¸·Î º¯È¯
+				// ì €ì¥ëœ ì‚¬ì§„ì„ ë¹„íŠ¸ë§µìœ¼ë¡œ ë³€í™˜
 				Bitmap cImage=(Bitmap)data.getExtras().get("data");
-				// SNS ¼±ÅÃ ÀÌµ¿
+				// SNS ì„ íƒ ì´ë™
 				Intent intent=new Intent(this,PostingPopup.class);
 				intent.putExtra("cImage", cImage);
 				startActivityForResult(intent, 0);
@@ -267,7 +267,7 @@ public class AugmentedActivity extends SensorsActivity {
 		}
 	}
 
-	// ±¸Çö ÇÊ¿ä
+	// êµ¬í˜„ í•„ìš”
 	protected void markerTouched(Marker marker) {
 		Log.w(TAG,"markerTouched() not implemented.");
 	}

@@ -1,6 +1,6 @@
 package com.r10m.gogoong.util;
 
-/** ¸ÅÆ®¸¯½º·Î ÇÇÄ¡¿Í ¹æÀ§°¢À» °è»êÇÒ¶§ »ç¿ëÇÏ´Â Å¬·¡½º */
+/** ë§¤íŠ¸ë¦­ìŠ¤ë¡œ í”¼ì¹˜ì™€ ë°©ìœ„ê°ì„ ê³„ì‚°í• ë•Œ ì‚¬ìš©í•˜ëŠ” í´ë˜ìŠ¤ */
 public class PitchAzimuthCalculator {
     private static final Vector looking = new Vector();
     private static final float[] lookingArray = new float[3];

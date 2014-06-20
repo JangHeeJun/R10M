@@ -1,5 +1,5 @@
 package com.r10m.gogoong.locate;
-/** ·¹ÀÌ´õÀÇ ¼±À» ±×¸®´Âµ¥ »ç¿ë */
+/** ë ˆì´ë”ì˜ ì„ ì„ ê·¸ë¦¬ëŠ”ë° ì‚¬ìš© */
 public class ScreenPositionUtility {
     private float x = 0f;
     private float y = 0f;
@@ -28,7 +28,7 @@ public class ScreenPositionUtility {
 	public void setY(float y) {
 		this.y = y;
 	}
-	/** x,y°ªÀ» tÀÇ °¢µµ¸¸Å­ È¸Àü */
+	/** x,yê°’ì„ tì˜ ê°ë„ë§Œí¼ íšŒì „ */
     public void rotate(double t) {
         float xp = (float) Math.cos(t) * x - (float) Math.sin(t) * y;
         float yp = (float) Math.sin(t) * x + (float) Math.cos(t) * y;

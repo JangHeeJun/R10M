@@ -13,20 +13,20 @@ import android.view.View;
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.component.Radar;
 
-/** 2. ¸¶Ä¿¿Í ·¹ÀÌ´õ ±×¸®´Â ºä */
+/** 2. ë§ˆì»¤ì™€ ë ˆì´ë” ê·¸ë¦¬ëŠ” ë·° */
 public class AugmentedView extends View {
-	/** ÇöÀç È­¸éÀÌ ±×·ÁÁö°í ÀÖ´ÂÁö °Ë»çÇÏ´Â ÇÃ·¡±× */
+	/** í˜„ì¬ í™”ë©´ì´ ê·¸ë ¤ì§€ê³  ìˆëŠ”ì§€ ê²€ì‚¬í•˜ëŠ” í”Œë˜ê·¸ */
     private static final AtomicBoolean drawing = new AtomicBoolean(false);
 
-    /** ·¹ÀÌ´õ */
+    /** ë ˆì´ë” */
     private static final Radar radar = new Radar();
-    /** ¸¶Ä¿ÀÇ À§Ä¡¸¦ ÀúÀå */
+    /** ë§ˆì»¤ì˜ ìœ„ì¹˜ë¥¼ ì €ì¥ */
     private static final float[] locationArray = new float[3];
-    /** È­¸éÀ» ±×¸®´Â µ¿¾È ÀÓ½Ã·Î »ç¿ëµÇ´Â Ä³½Ã */
+    /** í™”ë©´ì„ ê·¸ë¦¬ëŠ” ë™ì•ˆ ì„ì‹œë¡œ ì‚¬ìš©ë˜ëŠ” ìºì‹œ */
     private static final List<Marker> cache = new ArrayList<Marker>();
-    /** µ¥ÀÌÅÍ ¼Ò½º°¡ ¾÷µ¥ÀÌÆ® µÇ¾úÀ»¶§ »ç¿ë */
+    /** ë°ì´í„° ì†ŒìŠ¤ê°€ ì—…ë°ì´íŠ¸ ë˜ì—ˆì„ë•Œ ì‚¬ìš© */
     private static final TreeSet<Marker> updated = new TreeSet<Marker>();
-    /** È­¸é»ó¿¡¼­ ¸¶Ä¿ÀÇ À§Ä¡¸¦ Á¶ÀıÇØ¼­ °ãÄ¡Áö ¾Êµµ·Ï ¹èÄ¡ÇÏ´Âµ¥ »ç¿ë */
+    /** í™”ë©´ìƒì—ì„œ ë§ˆì»¤ì˜ ìœ„ì¹˜ë¥¼ ì¡°ì ˆí•´ì„œ ê²¹ì¹˜ì§€ ì•Šë„ë¡ ë°°ì¹˜í•˜ëŠ”ë° ì‚¬ìš© */
     private static final int COLLISION_ADJUSTMENT = 100;
 
     public AugmentedView(Context context) {
@@ -36,7 +36,7 @@ public class AugmentedView extends View {
 	@Override
     protected void onDraw(Canvas canvas) {
     	if (canvas==null) return;
-    	// ¸ğµç ¸¶Ä¿ Ä³½¬¿¡ ÀúÀå
+    	// ëª¨ë“  ë§ˆì»¤ ìºì‰¬ì— ì €ì¥
         if (drawing.compareAndSet(false, true)) { 
 	        List<Marker> collection = ARData.getMarkers();
 
@@ -45,35 +45,35 @@ public class AugmentedView extends View {
                 m.update(canvas, 0, 0);
                 if (m.isOnRadar()) cache.add(m);
 	        }
-            // »çº» ÀúÀå
+            // ì‚¬ë³¸ ì €ì¥
             collection = cache;
-            // À§Ä¡ Á¶Á¤
+            // ìœ„ì¹˜ ì¡°ì •
 	        if (AugmentedActivity.useCollisionDetection) adjustForCollisions(canvas,collection);
-	        // ¸¶Ä¿ Ç¥½Ã
+	        // ë§ˆì»¤ í‘œì‹œ
 	        ListIterator<Marker> iter = collection.listIterator(collection.size());
 	        while (iter.hasPrevious()) {
 	            Marker marker = iter.previous();
 	            marker.draw(canvas);
 	        }
-	        // ·¹ÀÌ´õ¿¡ ¸¶Ä¿ ¾÷µ¥ÀÌÆ®
+	        // ë ˆì´ë”ì— ë§ˆì»¤ ì—…ë°ì´íŠ¸
 	        if (AugmentedActivity.showRadar) radar.draw(canvas);
 	        drawing.set(false);
         }
     }
 	
-	/** ¸¶Ä¿µéÀÌ °ãÄ¡Áö ¾Êµµ·Ï À§Ä¡¸¦ ¼öÁ¤ÇÏ´Â ¸Ş¼­µå */
+	/** ë§ˆì»¤ë“¤ì´ ê²¹ì¹˜ì§€ ì•Šë„ë¡ ìœ„ì¹˜ë¥¼ ìˆ˜ì •í•˜ëŠ” ë©”ì„œë“œ */
 	private static void adjustForCollisions(Canvas canvas, List<Marker> collection) {
 	    updated.clear();
-	    // °ãÄ¡´ÂÁö È®ÀÎ
+	    // ê²¹ì¹˜ëŠ”ì§€ í™•ì¸
         for (Marker marker1 : collection) {
-        	// ¾È°ãÄ¥¶§
+        	// ì•ˆê²¹ì¹ ë•Œ
             if (updated.contains(marker1) || !marker1.isInView()) continue;
 
             int collisions = 1;
             for (Marker marker2 : collection) {
-            	// ¾È°ãÄ¥¶§
+            	// ì•ˆê²¹ì¹ ë•Œ
                 if (marker1.equals(marker2) || updated.contains(marker2) || !marker2.isInView()) continue;
-                // °ãÄ¥¶§
+                // ê²¹ì¹ ë•Œ
                 if (marker1.isMarkerOnMarker(marker2)) {
                     marker2.getLocation().get(locationArray);
                     float y = locationArray[1];

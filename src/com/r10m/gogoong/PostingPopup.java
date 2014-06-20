@@ -25,16 +25,16 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-/** fb,tw Æ÷½ºÆÃ ÇÏ±â À§ÇÑ °øÀ¯ÇÏ±â ÆË¾÷Ã¢ */
+/** fb,tw í¬ìŠ¤íŒ… í•˜ê¸° ìœ„í•œ ê³µìœ í•˜ê¸° íŒì—…ì°½ */
 public class PostingPopup extends Activity {
 	//layout
 	private ImageButton twiter;
 	private ImageButton facebook;
 	Bitmap cImage;
 	
-	//facebook¿¡¼­ µµ¿òÁÖ´Â ÇïÆÛÅ¬·¡½º
+	//facebookì—ì„œ ë„ì›€ì£¼ëŠ” í—¬í¼í´ë˜ìŠ¤
 	private UiLifecycleHelper uiHelper;
-	//Session °ü¸®¸¦ À§ÇÑ callback ¸Å¼­µå
+	//Session ê´€ë¦¬ë¥¼ ìœ„í•œ callback ë§¤ì„œë“œ
     private Session.StatusCallback statusCallback = new Session.StatusCallback() {
         @Override
         public void call(Session session, SessionState state, Exception exception) {
@@ -55,7 +55,7 @@ public class PostingPopup extends Activity {
         
         setContentView(R.layout.posting_popup);
         
-        // image ¹Ş¾Æ¿À±â
+        // image ë°›ì•„ì˜¤ê¸°
         Intent intentFb = getIntent();
 		cImage=(Bitmap)intentFb.getExtras().get("cImage");
 

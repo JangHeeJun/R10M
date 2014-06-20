@@ -27,7 +27,7 @@ import android.widget.VideoView;
 
 public class VideoActivity extends Activity {
 
-	/** ÅèÄ¹ ¼­¹ö ÁÖ¼Ò */
+	/** í†°ìº£ ì„œë²„ ì£¼ì†Œ */
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
 	private static final String MOVIE_URL = "http://192.168.200.13:8080/app/video/Geunjeongjeon.json";
 	
@@ -41,7 +41,7 @@ public class VideoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
 		
-		/**ºñµğ¿À ºä ¼¼ÆÃ*/
+		/**ë¹„ë””ì˜¤ ë·° ì„¸íŒ…*/
 		vv = (VideoView) findViewById(R.id.videoView);
 		vv.setOnCompletionListener(new OnCompletionListener() {
 			
@@ -52,14 +52,14 @@ public class VideoActivity extends Activity {
 			}
 		});
 		
-		/**¹Ìµğ¾î ÄÁÆ®·Ñ·¯ ¼¼ÆÃ*/
+		/**ë¯¸ë””ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ ì„¸íŒ…*/
 		mc = new MediaController(this);
 		mc.setAnchorView(vv);
 		
 		//Intent intent = getIntent();
 		//name = intent.getExtras().getString("name");
 		
-		/**½ºÆ®¸®¹Ö ¾²·¹µå ½ÇÇà*/
+		/**ìŠ¤íŠ¸ë¦¬ë° ì“°ë ˆë“œ ì‹¤í–‰*/
 		new streamingVideoTask().execute("");
 			
 	}
@@ -69,7 +69,7 @@ public class VideoActivity extends Activity {
 		@Override
 		protected void onPostExecute(Void result) {
 			
-			/**ºñµğ¿Àºä ½ºÅ¸Æ®*/
+			/**ë¹„ë””ì˜¤ë·° ìŠ¤íƒ€íŠ¸*/
 			vv.setMediaController(mc);
 			vv.setVideoURI(videoUri);
 			vv.requestFocus();
@@ -79,7 +79,7 @@ public class VideoActivity extends Activity {
 		@Override
 		protected Void doInBackground(String... urls) {
 			
-			/**½ºÆ®¸®¹Ö ÁÖ¼Ò ÆÄ½Ì*/
+			/**ìŠ¤íŠ¸ë¦¬ë° ì£¼ì†Œ íŒŒì‹±*/
 			//videoUri = Uri.parse( getJsonData(MOVIE_URL+name+".json") );
 			videoUri = Uri.parse( getJsonData(MOVIE_URL) );
 			return null;
@@ -87,7 +87,7 @@ public class VideoActivity extends Activity {
 	      
 	}
 	
-	/**½ºÆ®¸®¹Ö ÁÖ¼Ò ÆÄ½Ì ¸Ş¼Òµå*/
+	/**ìŠ¤íŠ¸ë¦¬ë° ì£¼ì†Œ íŒŒì‹± ë©”ì†Œë“œ*/
 	private String getJsonData(String servUrl){
 		
 		String videoUrl = "";
@@ -97,7 +97,7 @@ public class VideoActivity extends Activity {
 		
 		try {
 			
-			/**¿äÃ» º¸³»°í ÀÀ´ä¹Ş±â*/
+			/**ìš”ì²­ ë³´ë‚´ê³  ì‘ë‹µë°›ê¸°*/
 			HttpClient httpClient = new DefaultHttpClient();
 			HttpPost httpPost = new HttpPost(servUrl);
 			HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -112,7 +112,7 @@ public class VideoActivity extends Activity {
 		
 		try {
 			
-			/**ÀÀ´äÀ» ½ºÆ®¸µÀ¸·Î º¯È¯*/
+			/**ì‘ë‹µì„ ìŠ¤íŠ¸ë§ìœ¼ë¡œ ë³€í™˜*/
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
 			StringBuilder sb = new StringBuilder();
 			
@@ -136,7 +136,7 @@ public class VideoActivity extends Activity {
 		
 		try {
 			
-			/**Á¦ÀÌ½¼À» ÀÌ¿ëÇØ urlÆÄ½Ì*/
+			/**ì œì´ìŠ¨ì„ ì´ìš©í•´ urlíŒŒì‹±*/
 			JSONObject jo = new JSONObject(result);
 			videoUrl = jo.getString("videoUrl");
 			

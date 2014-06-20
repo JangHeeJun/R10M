@@ -1,5 +1,5 @@
 package com.r10m.gogoong.util;
-/** VectorÀÇ ¸ğµç °è»êÀ» Æ÷ÇÔÇÑ Å¬·¡½º */
+/** Vectorì˜ ëª¨ë“  ê³„ì‚°ì„ í¬í•¨í•œ í´ë˜ìŠ¤ */
 public class Vector {
     private final float[] matrixArray = new float[9];
     
@@ -103,15 +103,15 @@ public class Vector {
 	    this.y /= s;
 	    this.z /= s;
 	}
-	/** vectorÀÇ ±æÀÌ */
+	/** vectorì˜ ê¸¸ì´ */
 	public synchronized float length() {
 		return (float) Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
 	}
-	/** vector¸¦ ±× ±æÀÌ·Î ³ª´« °ª */
+	/** vectorë¥¼ ê·¸ ê¸¸ì´ë¡œ ë‚˜ëˆˆ ê°’ */
 	public void norm() {
 		divide(length());
 	}
-	/** µÎ º¤ÅÍ¸¦ ±³Â÷ °ö */
+	/** ë‘ ë²¡í„°ë¥¼ êµì°¨ ê³± */
 	public synchronized void cross(Vector u, Vector v) {
 		if (v==null || u==null) return;
 		
@@ -122,7 +122,7 @@ public class Vector {
 		this.y = y;
 		this.z = z;
 	}
-	/** matrix¿Í vectorÀÇ °öÇÑ °ª */
+	/** matrixì™€ vectorì˜ ê³±í•œ ê°’ */
 	public synchronized void prod(Matrix m) {
 		if (m==null) return;
 

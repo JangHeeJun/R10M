@@ -9,7 +9,7 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.view.Display;
 import android.view.WindowManager;
-/** appÀÌ ¸ğµç ¹öÀü°ú È£È¯¼ºÀ» À¯ÁöÇÏ°í ¿¹Àü APIÀÇ Á¦¾àÀ» È¸ÇÇÇÏµµ·Ï ÇÏ´Â Å¬·¡½º */
+/** appì´ ëª¨ë“  ë²„ì „ê³¼ í˜¸í™˜ì„±ì„ ìœ ì§€í•˜ê³  ì˜ˆì „ APIì˜ ì œì•½ì„ íšŒí”¼í•˜ë„ë¡ í•˜ëŠ” í´ë˜ìŠ¤ */
 public class CameraCompatibility {
 	private static Method getSupportedPreviewSizes = null;
 	private static Method mDefaultDisplay_getRotation = null;
@@ -17,7 +17,7 @@ public class CameraCompatibility {
 	static {
 		initCompatibility();
 	};
-	/** Ä«¸Ş¶ó ±âº» ÇÁ¸®ºä Å©±â¸¦ 480*320 À¸·Î ÀûÀıÇÏ°Ô ¼³Á¤ */
+	/** ì¹´ë©”ë¼ ê¸°ë³¸ í”„ë¦¬ë·° í¬ê¸°ë¥¼ 480*320 ìœ¼ë¡œ ì ì ˆí•˜ê²Œ ì„¤ì • */
 	private static void initCompatibility() {
 		try {
 			getSupportedPreviewSizes = Camera.Parameters.class.getMethod("getSupportedPreviewSizes", new Class[] { } );
@@ -25,7 +25,7 @@ public class CameraCompatibility {
 		} catch (NoSuchMethodException nsme) {
 		}
 	}
-	/** ±â±âÀÇ È¸Àü°¢À» ±¸ÇÏ´Âµ¥ »ç¿ë */
+	/** ê¸°ê¸°ì˜ íšŒì „ê°ì„ êµ¬í•˜ëŠ”ë° ì‚¬ìš© */
 	public static int getRotation(Activity activity) {
 	     int result = 1;
 	     try {
@@ -37,7 +37,7 @@ public class CameraCompatibility {
 	     }
 	     return result;
 	}
-	/** ±â±â¿¡¼­ »ç¿ë °¡´ÉÇÑ ¹Ì¸®º¸±â È­¸éÀÇ Å©±â ¸ñ·ÏÀ» ¹İÈ¯ */
+	/** ê¸°ê¸°ì—ì„œ ì‚¬ìš© ê°€ëŠ¥í•œ ë¯¸ë¦¬ë³´ê¸° í™”ë©´ì˜ í¬ê¸° ëª©ë¡ì„ ë°˜í™˜ */
 	public static List<Camera.Size> getSupportedPreviewSizes(Camera.Parameters params) {
 		List<Camera.Size> retList = null;
 

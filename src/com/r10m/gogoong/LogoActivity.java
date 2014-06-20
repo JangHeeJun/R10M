@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-/** logo¶ç¿ì´Â È­¸é 3ÃÊµÚ¿¡ Á¾·á */
+/** logoë„ìš°ëŠ” í™”ë©´ 3ì´ˆë’¤ì— ì¢…ë£Œ */
 public class LogoActivity extends Activity {
 
     @Override
@@ -17,7 +17,7 @@ public class LogoActivity extends Activity {
             public void run() {
                 startActivity(new Intent(LogoActivity.this, MainActivity.class));
             	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-                finish();       // 3 ÃÊÈÄ ÀÌ¹ÌÁö¸¦ ´İ¾Æ¹ö¸²
+                finish();       // 3 ì´ˆí›„ ì´ë¯¸ì§€ë¥¼ ë‹«ì•„ë²„ë¦¼
             }
         }, 3000);		
     }

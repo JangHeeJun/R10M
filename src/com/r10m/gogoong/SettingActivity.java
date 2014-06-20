@@ -49,12 +49,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-/** ¼³Á¤ Á¤º¸¸¦ ÀúÀå ¹× Á¦¾îÇÏ´Â Activity */
+/** ì„¤ì • ì •ë³´ë¥¼ ì €ì¥ ë° ì œì–´í•˜ëŠ” Activity */
 public class SettingActivity extends PreferenceActivity {
 
 	SharedPreferences mainPreference;
 	
-	//facebook - ±ÍÂú¾Æ¼­ °Á ¸ŞÀÎ¿¡ ÀÖ´ø°Å ²ø°í¿Í¼­ ÇÏµåÇÏ°Ô ÄÚµù.. ¤Ğ¤Ğ
+	//facebook - ê·€ì°®ì•„ì„œ ê± ë©”ì¸ì— ìˆë˜ê±° ëŒê³ ì™€ì„œ í•˜ë“œí•˜ê²Œ ì½”ë”©.. ã… ã… 
 	private String userId;
 	private String userName;
 	private Session session;
@@ -86,10 +86,10 @@ public class SettingActivity extends PreferenceActivity {
 		
 		
 		
-		// 1. \res\xml\preferences.xml·Î ºÎÅÍ Preference °èÃş±¸Á¶¸¦ ÀĞ¾î¿Í
-		// 2. ÀÌ PreferenceActivityÀÇ °èÃş±¸Á¶·Î ÁöÁ¤/Ç¥Çö ÇÏ°í
-		// 3. \data\data\ÆĞÅ°ÁöÀÌ¸§\shared_prefs\ÆĞÅ°ÁöÀÌ¸§_preferences.xml »ı¼º
-		// 4. ÀÌ ÈÄ Preference¿¡ º¯°æ »çÇ×ÀÌ »ı±â¸é ÆÄÀÏ¿¡ ÀÚµ¿ ÀúÀå
+		// 1. \res\xml\preferences.xmlë¡œ ë¶€í„° Preference ê³„ì¸µêµ¬ì¡°ë¥¼ ì½ì–´ì™€
+		// 2. ì´ PreferenceActivityì˜ ê³„ì¸µêµ¬ì¡°ë¡œ ì§€ì •/í‘œí˜„ í•˜ê³ 
+		// 3. \data\data\íŒ¨í‚¤ì§€ì´ë¦„\shared_prefs\íŒ¨í‚¤ì§€ì´ë¦„_preferences.xml ìƒì„±
+		// 4. ì´ í›„ Preferenceì— ë³€ê²½ ì‚¬í•­ì´ ìƒê¸°ë©´ íŒŒì¼ì— ìë™ ì €ì¥
 		
 		Locale systemLocale = getResources().getConfiguration().locale;
 	    String strLanguage = systemLocale.getLanguage();
@@ -115,7 +115,7 @@ public class SettingActivity extends PreferenceActivity {
 	     });
 	   	 
 		
-	   //¼³Á¤_µÚ·Î
+	   //ì„¤ì •_ë’¤ë¡œ
        Button btn_back = (Button) findViewById(R.id.btn_back);
        btn_back.setOnClickListener(new OnClickListener(){
 	       @Override
@@ -129,7 +129,7 @@ public class SettingActivity extends PreferenceActivity {
        // progress bar
        progBar = (ProgressBar)findViewById(R.id.progressBar_setting);
        
-       // facebook ¼³Á¤Ã¢
+       // facebook ì„¤ì •ì°½
        Preference facebook = (Preference)findPreference("Facebook");      
        facebook.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		
@@ -142,7 +142,7 @@ public class SettingActivity extends PreferenceActivity {
 		});
        
        
-       // twitter ¼³Á¤Ã¢
+       // twitter ì„¤ì •ì°½
        Preference twitter = (Preference)findPreference("Twitter");
        twitter.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 		
@@ -177,7 +177,7 @@ public class SettingActivity extends PreferenceActivity {
    	
    	
    	
-   	//facebook ¿¬µ¿ ½ÃÀÛ -----------------------------------------------------------------
+   	//facebook ì—°ë™ ì‹œì‘ -----------------------------------------------------------------
    	class FacebookProfileImageURLTask extends AsyncTask<Void, Void, String>{
 
 		@Override
@@ -233,7 +233,8 @@ public class SettingActivity extends PreferenceActivity {
 		
 		try {
 			BufferedReader br = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-			StringBuilder sb = new StringBuilder();				
+			StringBuilder sb = new StringBuilder();
+				
 			String line = null;
 			while((line = br.readLine()) != null){
 				sb.append(line+"\n");
@@ -264,17 +265,17 @@ public class SettingActivity extends PreferenceActivity {
     	if(session == null){
     		session = Session.openActiveSessionFromCache(context);
     		if(session == null){
-    			Log.e("init", "Ä³½Ã¿¡µµ ¼¼¼ÇÀÌ ¾øÀ½");
+    			Log.e("init", "ìºì‹œì—ë„ ì„¸ì…˜ì´ ì—†ìŒ");
     			Session.openActiveSession(this, true, statusCallback);
     		}else{
-    			Log.e("init", "Ä³½Ã¿¡ ¼¼¼Ç ÀÖÀ½");
+    			Log.e("init", "ìºì‹œì— ì„¸ì…˜ ìˆìŒ");
     			checkFacebookLogin(session);
     		}
     	}else if(session.isClosed()){
     		Session.openActiveSession(this, true, statusCallback);
     		checkFacebookLogin(session);
     	}else{
-    		Log.e("init", "¼¼¼Ç ÀÖÀ½");
+    		Log.e("init", "ì„¸ì…˜ ìˆìŒ");
 			checkFacebookLogin(session);
 		}
     }
@@ -287,7 +288,7 @@ public class SettingActivity extends PreferenceActivity {
 				isContainPermit = false;
 			}			
 			if(!isContainPermit){
-				// ±ÇÇÑ ¿äÃ» ÇÏ´Â ºÎºĞ
+				// ê¶Œí•œ ìš”ì²­ í•˜ëŠ” ë¶€ë¶„
 				Session.NewPermissionsRequest newPermissionsRequest = 
 						new Session.NewPermissionsRequest(SettingActivity.this, permission);
 				session.requestNewPublishPermissions(newPermissionsRequest);
@@ -314,7 +315,7 @@ public class SettingActivity extends PreferenceActivity {
     }
     
     /*
-   	* ÀÚ½ÅÀÇ ÇÁ·ÎÇÊ »çÁøÀ» °¡Á®¿Â´Ù.
+   	* ìì‹ ì˜ í”„ë¡œí•„ ì‚¬ì§„ì„ ê°€ì ¸ì˜¨ë‹¤.
    	*/
 //   	private void sendImageRequest(boolean allowCachedResponse) {
 //   		ImageRequest.Builder requestBuilder = null;
@@ -330,7 +331,7 @@ public class SettingActivity extends PreferenceActivity {
 //   					new ImageRequest.Callback() {
 //   						@Override
 //						public void onCompleted(ImageResponse response) {
-//							// ¼º°øÇÏ¸é ºñÆ®¸ÊÀ¸·Î ³Ñ¾î¿Â´Ù.
+//							// ì„±ê³µí•˜ë©´ ë¹„íŠ¸ë§µìœ¼ë¡œ ë„˜ì–´ì˜¨ë‹¤.
 //   							responseImage= response.getBitmap();
 //						}
 //   						}).build();
@@ -344,9 +345,9 @@ public class SettingActivity extends PreferenceActivity {
    			checkFacebookLogin(session);
    		}
    	}
-  	//facebook ¿¬µ¿ ³¡ -----------------------------------------------------------------
+  	//facebook ì—°ë™ ë -----------------------------------------------------------------
     
-    //tiwtter ¿¬µ¿ ½ÃÀÛ -----------------------------------------------------------------
+    //tiwtter ì—°ë™ ì‹œì‘ -----------------------------------------------------------------
    	
    	class TwitProfileImageURLTask extends AsyncTask<Void, Void, String>{
 
@@ -388,7 +389,7 @@ public class SettingActivity extends PreferenceActivity {
 	}
    	
     private void twitLogin() {
-		// ÀÎÁõ µÇ¾îÀÖÀ»¶§
+		// ì¸ì¦ ë˜ì–´ìˆì„ë•Œ
 		if (BasicInfo.TwitLogin) {
 			
 			try {
@@ -407,7 +408,7 @@ public class SettingActivity extends PreferenceActivity {
 				ex.printStackTrace();
 			}
 
-	        //»õ·Î ÀÎÁõ ¹ŞÀ»¶§
+	        //ìƒˆë¡œ ì¸ì¦ ë°›ì„ë•Œ
 		} else {
 			
 			RequestTokenThread thread = new RequestTokenThread();
@@ -418,7 +419,7 @@ public class SettingActivity extends PreferenceActivity {
     }
 
     /**
-     * RequestToken ¿äÃ» ½º·¹µå
+     * RequestToken ìš”ì²­ ìŠ¤ë ˆë“œ
      */
     class RequestTokenThread extends Thread {
     	public void run() {
@@ -455,7 +456,7 @@ public class SettingActivity extends PreferenceActivity {
     }
     
     /**
-     * ´Ù¸¥ ¾×Æ¼ºñÆ¼·ÎºÎÅÍÀÇ ÀÀ´ä Ã³¸®
+     * ë‹¤ë¥¸ ì•¡í‹°ë¹„í‹°ë¡œë¶€í„°ì˜ ì‘ë‹µ ì²˜ë¦¬
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 		super.onActivityResult(requestCode, resultCode, resultIntent);
@@ -535,7 +536,7 @@ public class SettingActivity extends PreferenceActivity {
 		BasicInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
 		BasicInfo.TwitScreenName = pref.getString("TwitScreenName", "");
 	}
-	//twitter ¿¬µ¿ ³¡----------------------------------------------------------------
+	//twitter ì—°ë™ ë----------------------------------------------------------------
     
    	
    	@Override

@@ -24,7 +24,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-/** Twitter PostingÀ» À§ÇÑ Activity */
+/** Twitter Postingì„ ìœ„í•œ Activity */
 public class TwitPosting extends Activity {
 	TextView nameText;
 	ImageView img;
@@ -39,30 +39,30 @@ public class TwitPosting extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.twit_posting);
         
-        // ÀÌ¸§ ÅØ½ºÆ® ºä
+        // ì´ë¦„ í…ìŠ¤íŠ¸ ë·°
         nameText 	= (TextView) findViewById(R.id.textView_twit_posting);
         nameText.setText(BasicInfo.TwitScreenName);
         
-        //ÇÁ·Î±×·¹½º¹Ù
+        //í”„ë¡œê·¸ë ˆìŠ¤ë°”
         progBar=(ProgressBar)findViewById(R.id.progressBar_twit);
 		progBar.setVisibility(View.INVISIBLE);
 		
-        // ÀÌ¹ÌÁöºä
+        // ì´ë¯¸ì§€ë·°
         img 		= (ImageView) findViewById(R.id.imageView_twit);
         Intent intentFb = getIntent();
 		cImage=(Bitmap)intentFb.getExtras().get("cImage");
 		
 		img.setImageBitmap(cImage);
 	
-        // ±Û¾²±â ¹öÆ°
+        // ê¸€ì“°ê¸° ë²„íŠ¼
         btnWrite 	= (Button) findViewById(R.id.btn_twit_write);
-        // ±Û ¿¡µğÆ®¹Ú½º
+        // ê¸€ ì—ë””íŠ¸ë°•ìŠ¤
         writeTwit 	= (EditText) findViewById(R.id.write_twit);
         
         btnWrite.setOnClickListener(new OnClickListener() {
         	public void onClick(View v) {
         		String statusText = writeTwit.getText().toString();
-        		// ±ÛÀ» ¾È½èÀ» ¶§
+        		// ê¸€ì„ ì•ˆì¼ì„ ë•Œ
         		if (statusText.length() < 1) {
         			Toast.makeText(getApplicationContext(), getString(R.string.twit_posting_empty), 1000).show();
         			return;
@@ -76,7 +76,7 @@ public class TwitPosting extends Activity {
 	
 	 private void connect() {
 		 progBar.setVisibility(View.VISIBLE);
-		// ÀÎÁõ µÇ¾îÀÖÀ»¶§
+		// ì¸ì¦ ë˜ì–´ìˆì„ë•Œ
 		if (BasicInfo.TwitLogin) {
 			try {
 				ConfigurationBuilder builder = new ConfigurationBuilder();
@@ -96,14 +96,14 @@ public class TwitPosting extends Activity {
 		} 
     }
 	 
-	// °Ô½Ã¹° ¿Ã¸®±â ¸Ş¼Òµå
+	// ê²Œì‹œë¬¼ ì˜¬ë¦¬ê¸° ë©”ì†Œë“œ
     private void updateStatus(String statusText) {
     	
     	UpdateStatusThread thread = new UpdateStatusThread(statusText);
     	thread.start();
     
     }
-    // °Ô½Ã¹° ¿Ã¸®±â ½º·¹µå
+    // ê²Œì‹œë¬¼ ì˜¬ë¦¬ê¸° ìŠ¤ë ˆë“œ
     class UpdateStatusThread extends Thread {
     	String statusText;
     	

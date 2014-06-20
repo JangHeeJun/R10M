@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.facebook.FacebookBroadcastReceiver;
-/** faceBook imagePosting½Ã ÇÊ¿ä */
+/** faceBook imagePostingì‹œ í•„ìš” */
 public class GoFacebookBroadcastReceiver extends FacebookBroadcastReceiver {
 
 	@Override

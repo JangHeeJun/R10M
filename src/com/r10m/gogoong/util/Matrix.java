@@ -1,5 +1,5 @@
 package com.r10m.gogoong.util;
-/** Matrix¿¡ °ü·ÃµÈ ÇÔ¼ö¸¦ Ã³¸®ÇÏ´Â Å¬·¡½º */
+/** Matrixì— ê´€ë ¨ëœ í•¨ìˆ˜ë¥¼ ì²˜ë¦¬í•˜ëŠ” í´ë˜ìŠ¤ */
 public class Matrix {
     private static final Matrix tmp = new Matrix();
 
@@ -108,11 +108,11 @@ public class Matrix {
         this.c2 = c2;
         this.c3 = c3;
     }
-    /** ´ÜÀ§ ¸ÅÆ®¸¯½º */
+    /** ë‹¨ìœ„ ë§¤íŠ¸ë¦­ìŠ¤ */
     public void toIdentity() {
         set(1, 0, 0, 0, 1, 0, 0, 0, 1);
     }
-    /** ¸ÅÆ®¸¯½ºÀÇ ¼ö¹İÇà·ÄÀ» °è»ê */
+    /** ë§¤íŠ¸ë¦­ìŠ¤ì˜ ìˆ˜ë°˜í–‰ë ¬ì„ ê³„ì‚° */
     public synchronized void adj() {
         float a11 = this.a1;
         float a12 = this.a2;
@@ -138,14 +138,14 @@ public class Matrix {
         this.c2 = det2x2(a12, a11, a32, a31);
         this.c3 = det2x2(a11, a12, a21, a22);
     }
-    /** ¸ÅÆ®¸¯½º ¹İÀü */
+    /** ë§¤íŠ¸ë¦­ìŠ¤ ë°˜ì „ */
     public void invert() {
         float det = this.det();
 
         adj();
         mult(1 / det);
     }
-    /** ¿ªÇà·Ä?? */
+    /** ì—­í–‰ë ¬?? */
     public synchronized void transpose() {
         float a11 = this.a1;
         float a12 = this.a2;
@@ -170,16 +170,16 @@ public class Matrix {
         this.b2 = a22;
         this.c3 = a33;
     }
-    /** ÁÖ¾îÁø °ª¿¡ ´ëÇÑ Çà·Ä½ÄÀ» °è»ê */
+    /** ì£¼ì–´ì§„ ê°’ì— ëŒ€í•œ í–‰ë ¬ì‹ì„ ê³„ì‚° */
     private float det2x2(float a, float b, float c, float d) {
         return (a * d) - (b * c);
     }
-    /** ÀüÃ¼ ¸ÅÆ®¸¯½º¿¡ ´ëÇÑ Çà·Ä½ÄÀ» °è»ê */
+    /** ì „ì²´ ë§¤íŠ¸ë¦­ìŠ¤ì— ëŒ€í•œ í–‰ë ¬ì‹ì„ ê³„ì‚° */
     public synchronized float det() {
         return (this.a1 * this.b2 * this.c3) - (this.a1 * this.b3 * this.c2) - (this.a2 * this.b1 * this.c3) +
         (this.a2 * this.b3 * this.c1) + (this.a3 * this.b1 * this.c2) - (this.a3 * this.b2 * this.c1);
     }
-    /** Àü´Ş¹ŞÀº °ªÀ¸·Î ¸ÅÆ®¸¯½º ³»ÀÇ ¸ğµç °ª¿¡ °ö¼À */
+    /** ì „ë‹¬ë°›ì€ ê°’ìœ¼ë¡œ ë§¤íŠ¸ë¦­ìŠ¤ ë‚´ì˜ ëª¨ë“  ê°’ì— ê³±ì…ˆ */
     public synchronized void mult(float c) {
         this.a1 = this.a1 * c;
         this.a2 = this.a2 * c;
@@ -193,7 +193,7 @@ public class Matrix {
         this.c2 = this.c2 * c;
         this.c3 = this.c3 * c;
     }
-    /** Á¦°øµÈ ¸ÅÆ®¸¯½º·Î ¸ÅÆ®¸¯½º¸¦ °öÇÑ´Ù */
+    /** ì œê³µëœ ë§¤íŠ¸ë¦­ìŠ¤ë¡œ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ê³±í•œë‹¤ */
     public synchronized void prod(Matrix n) {
         if (n==null) throw new NullPointerException();
 

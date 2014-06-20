@@ -28,7 +28,7 @@ public class TermsOfService extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.termsofservice);
 		
-		//¼³Á¤_µÚ·Î
+		//ì„¤ì •_ë’¤ë¡œ
 	       Button btn_back = (Button) findViewById(R.id.btn_back);
 	       btn_back.setOnClickListener(new OnClickListener(){
 		       @Override

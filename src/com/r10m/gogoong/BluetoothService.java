@@ -24,7 +24,7 @@ public class BluetoothService {
 		mActivity = ac;
 		mHandler = h;
 		
-		// BluetoothAdapter ¾ò±â
+		// BluetoothAdapter ì–»ê¸°
 		btAdapter = BluetoothAdapter.getDefaultAdapter();
 	}
 	
@@ -55,12 +55,12 @@ public class BluetoothService {
 		
 		
 		if(btAdapter.isEnabled()) {		
-			// ±â±âÀÇ ºí·çÅõ½º »óÅÂ°¡ OnÀÎ °æ¿ì
+			// ê¸°ê¸°ì˜ ë¸”ë£¨íˆ¬ìŠ¤ ìƒíƒœê°€ Onì¸ ê²½ìš°
 			Log.d(TAG, "Bluetooth Enable Now");
 			
 			// Next Step
 		} else {		
-			// ±â±âÀÇ ºí·çÅõ½º »óÅÂ°¡ OffÀÎ °æ¿ì
+			// ê¸°ê¸°ì˜ ë¸”ë£¨íˆ¬ìŠ¤ ìƒíƒœê°€ Offì¸ ê²½ìš°
 			Log.d(TAG, "Bluetooth Enable Request");
 			
 			Intent i = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);

@@ -4,7 +4,7 @@ import java.text.BreakIterator;
 import java.util.ArrayList;
 import android.graphics.Canvas;
 import android.graphics.Color;
-/** canvas À§¿¡ ÅØ½ºÆ®¸¦ ±×¸®°í Å×µÎ¸®¸¦ »ç°¢À¸·Î °¨½Î´Â Å¬·¡½º */
+/** canvas ìœ„ì— í…ìŠ¤íŠ¸ë¥¼ ê·¸ë¦¬ê³  í…Œë‘ë¦¬ë¥¼ ì‚¬ê°ìœ¼ë¡œ ê°ì‹¸ëŠ” í´ë˜ìŠ¤ */
 public class PaintableBoxedText extends PaintableObject {
     private float width=0, height=0;
 	private float areaWidth=0, areaHeight=0;
@@ -51,8 +51,8 @@ public class PaintableBoxedText extends PaintableObject {
 		}
 	}
 	
-	// ºĞ¼® ÇÊ¿ä //////////////////////////////
-	/** ¹®ÀÚ¿­ÀÌ »óÀÚ ¾È¿¡ ±ÛÀÌ µé¾î°¥ ¼ö ÀÖµµ·Ï Àû´çÇÑ ±æÀÌ·Î Àß¶ó¼­ ÁØºñÇÏ´Â ¿ªÇÒ */
+	// ë¶„ì„ í•„ìš” //////////////////////////////
+	/** ë¬¸ìì—´ì´ ìƒì ì•ˆì— ê¸€ì´ ë“¤ì–´ê°ˆ ìˆ˜ ìˆë„ë¡ ì ë‹¹í•œ ê¸¸ì´ë¡œ ì˜ë¼ì„œ ì¤€ë¹„í•˜ëŠ” ì—­í•  */
 	private void prepTxt(String txtInit, float fontSizeInit, float maxWidth) {
 		if (txtInit==null) throw new NullPointerException();
 		
@@ -111,7 +111,7 @@ public class PaintableBoxedText extends PaintableObject {
 		if (canvas==null) throw new NullPointerException();
 		
 	    setFontSize(fontSize);
-	    // ±âº» »óÀÚ ±×¸®±â
+	    // ê¸°ë³¸ ìƒì ê·¸ë¦¬ê¸°
 		setFill(true);
 		setColor(backgroundColor);
 		paintRoundedRect(canvas, 0, 0, width, height);
@@ -119,7 +119,7 @@ public class PaintableBoxedText extends PaintableObject {
 		setFill(false);
 		setColor(borderColor);
 		paintRoundedRect(canvas, 0, 0, width, height);
-		// ¾È¿¡ ÅØ½ºÆ® Ãß°¡
+		// ì•ˆì— í…ìŠ¤íŠ¸ ì¶”ê°€
 		for (int i = 0; i < lines.length; i++) {
 			String line = lines[i];
 			setFill(true);

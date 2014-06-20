@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-/** Æ®À§ÅÍ ·Î±×ÀÎÀ» À§ÇÑ Activity */
+/** íŠ¸ìœ„í„° ë¡œê·¸ì¸ì„ ìœ„í•œ Activity */
 public class TwitLogin extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

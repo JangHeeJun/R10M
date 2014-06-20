@@ -40,19 +40,19 @@ public class SettingSNSLoginActivity extends Activity {
 
 		setContentView(R.layout.setting_sns);
 		Log.e("SNS", "===========================");
-		// Àü Activity¿¡¼­ data ¹Ş±â
+		// ì „ Activityì—ì„œ data ë°›ê¸°
 		intent = getIntent();
 		target = intent.getExtras().getString("target");
 		
-		//ÇÁ·ÎÇÊ »çÁø
+		//í”„ë¡œí•„ ì‚¬ì§„
 		profileImg = (ImageView)findViewById(R.id.imageView_profile);
-		//º»ÀÎ ¾ÆÀÌµğ
+		//ë³¸ì¸ ì•„ì´ë””
 		name = (TextView)findViewById(R.id.textView_profile);
 		
 		// progress bar
 		progBar = (ProgressBar)findViewById(R.id.progressBar_setting_sns);
 		
-		//urlÀ» ¹Ş¾Æ profile image¸¦ bitmapÀ¸·Î º¯È¯
+		//urlì„ ë°›ì•„ profile imageë¥¼ bitmapìœ¼ë¡œ ë³€í™˜
     	new ProfileImageTask().execute();
 
 		logout = (Button)findViewById(R.id.btn_logout);
@@ -111,7 +111,7 @@ public class SettingSNSLoginActivity extends Activity {
 			super.onPostExecute(result);
 			progBar.setVisibility(View.GONE);
 			
-			// °¢ ºä¿¡ Àû¿ë
+			// ê° ë·°ì— ì ìš©
 			profileImg.setImageBitmap(profileBitmap);
 			name.setText(intent.getExtras().getString("name"));
 		}

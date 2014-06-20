@@ -1,7 +1,7 @@
 package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
-/** ±×·ÁÁö´Â ¿øÀÇ ¼± µÎ²² ¼³Á¤ */
+/** ê·¸ë ¤ì§€ëŠ” ì›ì˜ ì„  ë‘ê»˜ ì„¤ì • */
 public class PaintableGps extends PaintableObject {
     private float radius = 0;
     private float strokeWidth = 0;

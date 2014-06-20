@@ -1,7 +1,7 @@
 package com.r10m.gogoong.camera;
 
 import com.r10m.gogoong.util.Vector;
-/** Ä«¸Ş¶ó¿Í ºä¸¦ Ç¥ÇöÇÏ¸ç Á¡À» Åõ¿µÇÏµµ·Ï ÇØÁÖ´Â Å¬·¡½º */
+/** ì¹´ë©”ë¼ì™€ ë·°ë¥¼ í‘œí˜„í•˜ë©° ì ì„ íˆ¬ì˜í•˜ë„ë¡ í•´ì£¼ëŠ” í´ë˜ìŠ¤ */
 public class CameraModel {
 	private static final float[] tmp1 = new float[3];
     private static final float[] tmp2 = new float[3];
@@ -28,11 +28,11 @@ public class CameraModel {
     public int getHeight() {
         return height;
     }
-    /** »õ·Î¿î ½Ã¾ß°¢°ú °Å¸®¸¦ ¾÷µ¥ÀÌÆ® */
+    /** ìƒˆë¡œìš´ ì‹œì•¼ê°ê³¼ ê±°ë¦¬ë¥¼ ì—…ë°ì´íŠ¸ */
 	public void setViewAngle(float viewAngle) {
 		this.distance = (this.width / 2) / (float) Math.tan(viewAngle / 2);
 	}
-	/** ³Ñ°Ü¹ŞÀº ÀÎÀÚ¸¦ »ç¿ëÇØ¼­ Á¡À» Åõ¿µ */
+	/** ë„˜ê²¨ë°›ì€ ì¸ìë¥¼ ì‚¬ìš©í•´ì„œ ì ì„ íˆ¬ì˜ */
 	public void projectPoint(Vector orgPoint, Vector prjPoint, float addX, float addY) {
 	    orgPoint.get(tmp1);
 	    tmp2[0]=(distance * tmp1[0] / -tmp1[2]);

@@ -5,7 +5,7 @@ import android.graphics.Canvas;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
-/** °¡·Î°¡ ¾Æ´Ñ ¼¼·Î¹æÇâÀ¸·Î ÀÛµ¿ÇÏµµ·Ï »ó¼Ó¹ŞÀ½ */
+/** ê°€ë¡œê°€ ì•„ë‹Œ ì„¸ë¡œë°©í–¥ìœ¼ë¡œ ì‘ë™í•˜ë„ë¡ ìƒì†ë°›ìŒ */
 public class VerticalSeekBar extends SeekBar {
 
     public VerticalSeekBar(Context context) {

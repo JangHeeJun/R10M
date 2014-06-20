@@ -18,17 +18,17 @@ import com.r10m.gogoong.ui.PaintablePosition;
 import com.r10m.gogoong.util.Utilities;
 import com.r10m.gogoong.util.Vector;
 
-/** È­¸é¿¡ Ç¥½ÃµÇ´Â ¸¶Ä¿¿Í °ü·ÃµÈ ÄÚµåÀÇ ´ëºÎºĞÀ» ´ã´ç
- * È­¸é¿¡ ¸¶Ä¿°¡ º¸ÀÌ´ÂÁö À¯¹« °è»ê
- * ÀûÀıÇÏ°Ô ÀÌ¹ÌÁö¿Í ±ÛÀÚ¸¦ È­¸é¿¡ ±×¸² */
+/** í™”ë©´ì— í‘œì‹œë˜ëŠ” ë§ˆì»¤ì™€ ê´€ë ¨ëœ ì½”ë“œì˜ ëŒ€ë¶€ë¶„ì„ ë‹´ë‹¹
+ * í™”ë©´ì— ë§ˆì»¤ê°€ ë³´ì´ëŠ”ì§€ ìœ ë¬´ ê³„ì‚°
+ * ì ì ˆí•˜ê²Œ ì´ë¯¸ì§€ì™€ ê¸€ìë¥¼ í™”ë©´ì— ê·¸ë¦¼ */
 public class Marker implements Comparable<Marker> {
-	/** ·¹ÀÌ´õ¿¡ º¸¿©Áö´Â °Å¸®ÀÇ Çü½ÄÀ» ÁöÁ¤ */
+	/** ë ˆì´ë”ì— ë³´ì—¬ì§€ëŠ” ê±°ë¦¬ì˜ í˜•ì‹ì„ ì§€ì • */
     private static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("@#");
-    /** ±âÈ£ÀÇ À§Ä¡¸¦ È¸Àü¸ÅÆ®¸¯½º¸¦ ÀÌ¿ëÇØ¼­ Ã£À»¶§ »ç¿ë */
+    /** ê¸°í˜¸ì˜ ìœ„ì¹˜ë¥¼ íšŒì „ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ì´ìš©í•´ì„œ ì°¾ì„ë•Œ ì‚¬ìš© */
     private static final Vector symbolVector = new Vector(0, 0, 0);
-    /** ±ÛÀÚÀÇ À§Ä¡¸¦ È¸Àü¸ÅÆ®¸¯½º¸¦ ÀÌ¿ëÇØ¼­ Ã£À»¶§ »ç¿ë */
+    /** ê¸€ìì˜ ìœ„ì¹˜ë¥¼ íšŒì „ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ì´ìš©í•´ì„œ ì°¾ì„ë•Œ ì‚¬ìš© */
     private static final Vector textVector = new Vector(0, 1, 0);
-    /** ¸¶Ä¿±âÈ£¿Í ±×¿¡ µû¸¥ ±ÛÀÚ¸¦ ±×¸®°í À§Ä¡¸¦ Àâ´Âµ¥ »ç¿ë */
+    /** ë§ˆì»¤ê¸°í˜¸ì™€ ê·¸ì— ë”°ë¥¸ ê¸€ìë¥¼ ê·¸ë¦¬ê³  ìœ„ì¹˜ë¥¼ ì¡ëŠ”ë° ì‚¬ìš© */
     private final Vector screenPositionVector = new Vector();
     private final Vector tmpSymbolVector = new Vector();
     private final Vector tmpVector = new Vector();
@@ -37,7 +37,7 @@ public class Marker implements Comparable<Marker> {
     private final float[] locationArray = new float[3];
     private final float[] screenPositionArray = new float[3];
     
-    /** °¢ ¸¶Ä¿ÀÇ ÃÊ±â YÃà À§Ä¡ */
+    /** ê° ë§ˆì»¤ì˜ ì´ˆê¸° Yì¶• ìœ„ì¹˜ */
     private float initialY = 0.0f;
 
     private volatile static CameraModel cam = null;
@@ -45,39 +45,39 @@ public class Marker implements Comparable<Marker> {
     private volatile PaintableBoxedText textBox = null;
     private volatile PaintablePosition textContainer = null;
     
-    /** ±âÈ£¿Í ±ÛÀÚ¸¦ ±×¸±¶§ »ç¿ë */
+    /** ê¸°í˜¸ì™€ ê¸€ìë¥¼ ê·¸ë¦´ë•Œ ì‚¬ìš© */
     protected final float[] symbolArray = new float[3];
     protected final float[] textArray = new float[3];
-    /** GPS ±âÈ£ */
+    /** GPS ê¸°í˜¸ */
     protected volatile PaintableObject gpsSymbol = null;
-    /** GPS ±âÈ£¸¦ ÀúÀåÇÏ´Â ÀúÀå¼Ò */
+    /** GPS ê¸°í˜¸ë¥¼ ì €ì¥í•˜ëŠ” ì €ì¥ì†Œ */
     protected volatile PaintablePosition symbolContainer = null;
-    /** °¢ ¸¶Ä¿¿¡ ´ëÇÑ °íÀ¯ ½Äº°ÀÚÀÌ¸ç Á¦ÀÌ½¼¿¡¼­ ¹Ş¾Æ¿Â »ş½ÆÀ» ÀÌ¿ëÇØ¼­ ¼³Á¤ */
+    /** ê° ë§ˆì»¤ì— ëŒ€í•œ ê³ ìœ  ì‹ë³„ìì´ë©° ì œì´ìŠ¨ì—ì„œ ë°›ì•„ì˜¨ ìƒ¤ì‹£ì„ ì´ìš©í•´ì„œ ì„¤ì • */
     protected String name = null;
-    /** °¢ ¸¶Ä¿¿¡ ´ëÇÑ ÀÚ¼¼ÇÑ ¼³¸í */
+    /** ê° ë§ˆì»¤ì— ëŒ€í•œ ìì„¸í•œ ì„¤ëª… */
     protected String detail = null;
-    /** ¸¶Ä¿ÀÇ ½ÇÁ¦ ¼¼°è¿¡¼­ÀÇ ¹°¸®ÀûÀÎ À§Ä¡ */
+    /** ë§ˆì»¤ì˜ ì‹¤ì œ ì„¸ê³„ì—ì„œì˜ ë¬¼ë¦¬ì ì¸ ìœ„ì¹˜ */
     protected volatile PhysicalLocationUtility physicalLocation = new PhysicalLocationUtility();
-    /** »ç¿ëÀÚÀÇ À§Ä¡ºÎÅÍ ¸ñÇ¥ °Å¸®¸¦ ¹ÌÅÍ´ÜÀ§·Î ÀúÀå */
+    /** ì‚¬ìš©ìì˜ ìœ„ì¹˜ë¶€í„° ëª©í‘œ ê±°ë¦¬ë¥¼ ë¯¸í„°ë‹¨ìœ„ë¡œ ì €ì¥ */
     protected volatile double distance = 0.0;
-    /** ¸¶Ä¿ÀÇ °¡½Ã¼º ÇÃ·¡±× */
+    /** ë§ˆì»¤ì˜ ê°€ì‹œì„± í”Œë˜ê·¸ */
     protected volatile boolean isOnRadar = false;
     protected volatile boolean isInView = false;
-    /** Ä«¸Ş¶ó È­¸é¿¡¼­ ¸¶Ä¿ ±âÈ£¿Í ±ÛÀÚÀÇ À§Ä¡¸¦ °áÁ¤ÇÏ´Âµ¥ »ç¿ë
-     * ¹°¸®Àû À§Ä¡¿Í °ü·ÃÇØ¼­ »ç¿ëÀÚÀÇ À§Ä¡¸¦ °áÁ¤ÇÏ´Âµ¥ »ç¿ë 
-     * x´Â »óÇÏ, y´Â ÁÂ¿ì, z´Â »ç¿ëÇÏÁö ¾ÊÁö¸¸ º¤ÅÍ¸¦ ¿Ï¼ºÇÏ±â À§ÇØ »ç¿ë*/
+    /** ì¹´ë©”ë¼ í™”ë©´ì—ì„œ ë§ˆì»¤ ê¸°í˜¸ì™€ ê¸€ìì˜ ìœ„ì¹˜ë¥¼ ê²°ì •í•˜ëŠ”ë° ì‚¬ìš©
+     * ë¬¼ë¦¬ì  ìœ„ì¹˜ì™€ ê´€ë ¨í•´ì„œ ì‚¬ìš©ìì˜ ìœ„ì¹˜ë¥¼ ê²°ì •í•˜ëŠ”ë° ì‚¬ìš© 
+     * xëŠ” ìƒí•˜, yëŠ” ì¢Œìš°, zëŠ” ì‚¬ìš©í•˜ì§€ ì•Šì§€ë§Œ ë²¡í„°ë¥¼ ì™„ì„±í•˜ê¸° ìœ„í•´ ì‚¬ìš©*/
     protected final Vector symbolXyzRelativeToCameraView = new Vector();
     protected final Vector textXyzRelativeToCameraView = new Vector();
     protected final Vector locationXyzRelativeToPhysicalLocation = new Vector();
-    /** ¸¶Ä¿ÀÇ ±âº» »ö»ó */
+    /** ë§ˆì»¤ì˜ ê¸°ë³¸ ìƒ‰ìƒ */
     protected int color = Color.WHITE;
     
-    /** TouchZone È°¼º ºñÈ°¼º ÇÃ·¡±× ¹× µğ¹ö±ëÇÒ¶§ µµ¿ÍÁÙ ºÒÅõ¸íÇÑ »óÀÚ ±×¸®´Âµ¥ ÀÌ¿ëµÇ´Â ÇÊµå */
+    /** TouchZone í™œì„± ë¹„í™œì„± í”Œë˜ê·¸ ë° ë””ë²„ê¹…í• ë•Œ ë„ì™€ì¤„ ë¶ˆíˆ¬ëª…í•œ ìƒì ê·¸ë¦¬ëŠ”ë° ì´ìš©ë˜ëŠ” í•„ë“œ */
     private static boolean debugTouchZone = false;
     private static PaintableBox touchBox = null;
     private static PaintablePosition touchPosition = null;
     
-    /** CollisionZone È°¼º ºñÈ°¼º ÇÃ·¡±× ¹× µğ¹ö±ëÇÒ¶§ µµ¿ÍÁÙ ºÒÅõ¸íÇÑ »óÀÚ ±×¸®´Âµ¥ ÀÌ¿ëµÇ´Â ÇÊµå */
+    /** CollisionZone í™œì„± ë¹„í™œì„± í”Œë˜ê·¸ ë° ë””ë²„ê¹…í• ë•Œ ë„ì™€ì¤„ ë¶ˆíˆ¬ëª…í•œ ìƒì ê·¸ë¦¬ëŠ”ë° ì´ìš©ë˜ëŠ” í•„ë“œ */
     private static boolean debugCollisionZone = false;
     private static PaintableBox collisionBox = null;
     private static PaintablePosition collisionPosition = null;
@@ -132,7 +132,7 @@ public class Marker implements Comparable<Marker> {
     public synchronized boolean isInView() {
         return this.isInView;
     }
-    /** Ä«¸Ş¶ó ºä¿¡ °ü·ÃµÈ ±âÈ£¿Í ±ÛÀÚÀÇ À§Ä¡¸¦ ÀÌ¿ëÇØ¼­ È­¸é»óÀÇ ¸¶Ä¿ÀÇ À§Ä¡¸¦ °è»ê */
+    /** ì¹´ë©”ë¼ ë·°ì— ê´€ë ¨ëœ ê¸°í˜¸ì™€ ê¸€ìì˜ ìœ„ì¹˜ë¥¼ ì´ìš©í•´ì„œ í™”ë©´ìƒì˜ ë§ˆì»¤ì˜ ìœ„ì¹˜ë¥¼ ê³„ì‚° */
     public synchronized Vector getScreenPosition() {
         symbolXyzRelativeToCameraView.get(symbolArray);
         textXyzRelativeToCameraView.get(textArray);
@@ -161,19 +161,19 @@ public class Marker implements Comparable<Marker> {
         float w2 = symbolContainer.getWidth();
         return (w1>w2)?w1:w2;
     }
-    /** È­¸é ¾÷µ¥ÀÌÆ® ¹× ¸ÅÆ®¸¯½º »ı¼ºÇÒ¶§ »ç¿ë */
+    /** í™”ë©´ ì—…ë°ì´íŠ¸ ë° ë§¤íŠ¸ë¦­ìŠ¤ ìƒì„±í• ë•Œ ì‚¬ìš© */
     public synchronized void update(Canvas canvas, float addX, float addY) {
     	if (canvas==null) throw new NullPointerException();
     	
     	if (cam==null) cam = new CameraModel(canvas.getWidth(), canvas.getHeight(), true);
     	cam.set(canvas.getWidth(), canvas.getHeight(), false);
-        //½Ã¾ß°¢ ¼³Á¤
+        //ì‹œì•¼ê° ì„¤ì •
     	cam.setViewAngle(CameraModel.DEFAULT_VIEW_ANGLE);
         populateMatrices(cam, addX, addY);
         updateRadar();
         updateView();
     }
-    /** ARData¿¡¼­ ¾òÀº È¸Àü ¸ÅÆ®¸¯½º¸¦ ÀÌ¿ëÇØ ¸¶Ä¿ÀÇ ±âÈ­¿Í ¹®ÀÚÀÇ À§Ä¡¸¦ Ã£´Â´Ù */
+    /** ARDataì—ì„œ ì–»ì€ íšŒì „ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ì´ìš©í•´ ë§ˆì»¤ì˜ ê¸°í™”ì™€ ë¬¸ìì˜ ìœ„ì¹˜ë¥¼ ì°¾ëŠ”ë‹¤ */
 	private synchronized void populateMatrices(CameraModel cam, float addX, float addY) {
 		if (cam==null) throw new NullPointerException();
 		
@@ -190,7 +190,7 @@ public class Marker implements Comparable<Marker> {
 		cam.projectPoint(tmpTextVector, tmpVector, addX, addY);
 		textXyzRelativeToCameraView.set(tmpVector);
 	}
-	/** ·¹ÀÌ´õ »óÀÇ ¸¶Ä¿ÀÇ À§Ä¡¸¦ ¾÷µ¥ÀÌÆ® */
+	/** ë ˆì´ë” ìƒì˜ ë§ˆì»¤ì˜ ìœ„ì¹˜ë¥¼ ì—…ë°ì´íŠ¸ */
 	private synchronized void updateRadar() {
 		isOnRadar = false;
 
@@ -204,7 +204,7 @@ public class Marker implements Comparable<Marker> {
 			isOnRadar = true;
 		}
 	}
-	/** ¸¶Ä¿°¡ ÇöÀç º¸ÀÌ´ÂÁö °Ë»ç */
+	/** ë§ˆì»¤ê°€ í˜„ì¬ ë³´ì´ëŠ”ì§€ ê²€ì‚¬ */
     private synchronized void updateView() {
         isInView = false;
 
@@ -220,7 +220,7 @@ public class Marker implements Comparable<Marker> {
             isInView = true;
         }
     }
-    /** ÀÎÀÚ·Î ³Ñ°Ü¹ŞÀº À§Ä¡¸¦ »ç¿ëÇØ »õ·Î¿î »ó´ëÀûÀÎ À§Ä¡¸¦ °è»ê */
+    /** ì¸ìë¡œ ë„˜ê²¨ë°›ì€ ìœ„ì¹˜ë¥¼ ì‚¬ìš©í•´ ìƒˆë¡œìš´ ìƒëŒ€ì ì¸ ìœ„ì¹˜ë¥¼ ê³„ì‚° */
     public synchronized void calcRelativePosition(Location location) {
 		if (location==null) throw new NullPointerException();
 		
@@ -232,23 +232,23 @@ public class Marker implements Comparable<Marker> {
 		this.initialY = locationXyzRelativeToPhysicalLocation.getY();
 		updateRadar();
     }
-    /** ¸¶Ä¿ÀÇ ¹°¸®ÀûÀÎ À§Ä¡¿Í »ç¿ëÀÚÀÇ À§Ä¡»çÀÌÀÇ »õ·Î¿î °Å¸®¸¦ °è»ê */
+    /** ë§ˆì»¤ì˜ ë¬¼ë¦¬ì ì¸ ìœ„ì¹˜ì™€ ì‚¬ìš©ìì˜ ìœ„ì¹˜ì‚¬ì´ì˜ ìƒˆë¡œìš´ ê±°ë¦¬ë¥¼ ê³„ì‚° */
     private synchronized void updateDistance(Location location) {
         if (location==null) throw new NullPointerException();
 
         Location.distanceBetween(physicalLocation.getLatitude(), physicalLocation.getLongitude(), location.getLatitude(), location.getLongitude(), distanceArray);
         distance = distanceArray[0];
     }
-    /** Å¬¸¯ÀÇ x,y°ªÀ» ÀÎÀÚ·Î ³Ñ°Ü ¸¶Ä¿°¡ ·¹ÀÌ´õ¿Í ºä»ó¿¡ ÀÖÁö ¾Ê´Ù¸é false */
+    /** í´ë¦­ì˜ x,yê°’ì„ ì¸ìë¡œ ë„˜ê²¨ ë§ˆì»¤ê°€ ë ˆì´ë”ì™€ ë·°ìƒì— ìˆì§€ ì•Šë‹¤ë©´ false */
     public synchronized boolean handleClick(float x, float y) {
     	if (!isOnRadar || !isInView) return false;
     	return isPointOnMarker(x,y,this);
     }
-    /** ÀÎÀÚ·Î ¹ŞÀº ¸¶Ä¿°¡ ÇöÀç ¸¶Ä¿¿Í °ãÃÄÁö´ÂÁö¸¦ °Ë»ç */
+    /** ì¸ìë¡œ ë°›ì€ ë§ˆì»¤ê°€ í˜„ì¬ ë§ˆì»¤ì™€ ê²¹ì³ì§€ëŠ”ì§€ë¥¼ ê²€ì‚¬ */
     public synchronized boolean isMarkerOnMarker(Marker marker) {
         return isMarkerOnMarker(marker,true);
     }
-    /** ÀÎÀÚ·Î ¹ŞÀº ¸¶Ä¿°¡ ÇöÀç ¸¶Ä¿¿Í °ãÃÄÁö´ÂÁö¸¦ °Ë»ç */
+    /** ì¸ìë¡œ ë°›ì€ ë§ˆì»¤ê°€ í˜„ì¬ ë§ˆì»¤ì™€ ê²¹ì³ì§€ëŠ”ì§€ë¥¼ ê²€ì‚¬ */
     private synchronized boolean isMarkerOnMarker(Marker marker, boolean reflect) {
         marker.getScreenPosition().get(screenPositionArray);
         float x = screenPositionArray[0];
@@ -281,7 +281,7 @@ public class Marker implements Comparable<Marker> {
 
         return (reflect)?marker.isMarkerOnMarker(this,false):false;
     }
-    /** Àü´Ş¹ŞÀº ÁÂÇ¥°¡ ¸¶Ä¿À§¿¡ ÀÖ´ÂÁö °Ë»ç */
+    /** ì „ë‹¬ë°›ì€ ì¢Œí‘œê°€ ë§ˆì»¤ìœ„ì— ìˆëŠ”ì§€ ê²€ì‚¬ */
 	private synchronized boolean isPointOnMarker(float x, float y, Marker marker) {
 	    marker.getScreenPosition().get(screenPositionArray);
         float myX = screenPositionArray[0];
@@ -298,8 +298,8 @@ public class Marker implements Comparable<Marker> {
         
         return false;
 	}
-	/** ¸¶Ä¿°¡ º¸¿©ÁúÁö ÆÇ´Ü
-	 * ÇÊ¿ä¿¡ µş µğ¹ö±× »óÀÚ ±×¸®±â */
+	/** ë§ˆì»¤ê°€ ë³´ì—¬ì§ˆì§€ íŒë‹¨
+	 * í•„ìš”ì— ë”¸ ë””ë²„ê·¸ ìƒì ê·¸ë¦¬ê¸° */
     public synchronized void draw(Canvas canvas) {
         if (canvas==null) throw new NullPointerException();
 
@@ -310,7 +310,7 @@ public class Marker implements Comparable<Marker> {
         drawIcon(canvas);
         drawText(canvas);
     }
-    /** Ãæµ¹¿µ¿ªÀÌ ±×·ÁÁ®¾ß ÇÒ °æ¿ì¿¡ µÎ¸¶Ä¿ »çÀÌÀÇ Ãæµ¹¿µ¿ªÀ» ±×¸°´Ù */
+    /** ì¶©ëŒì˜ì—­ì´ ê·¸ë ¤ì ¸ì•¼ í•  ê²½ìš°ì— ë‘ë§ˆì»¤ ì‚¬ì´ì˜ ì¶©ëŒì˜ì—­ì„ ê·¸ë¦°ë‹¤ */
     protected synchronized void drawCollisionZone(Canvas canvas) {
         if (canvas==null) throw new NullPointerException();
         
@@ -349,7 +349,7 @@ public class Marker implements Comparable<Marker> {
         else collisionPosition.set(collisionBox, x1, y1, currentAngle, 1);
         collisionPosition.paint(canvas);
     }
-    /** ¸¶Ä¿¸¦ ÅÍÄ¡ÇßÀ» ¶§ ÇØ´ç ¿µ¿ª À§¿¡ »¡°£»ö »ç°¢ÇüÀ» ±×¸°´Ù */
+    /** ë§ˆì»¤ë¥¼ í„°ì¹˜í–ˆì„ ë•Œ í•´ë‹¹ ì˜ì—­ ìœ„ì— ë¹¨ê°„ìƒ‰ ì‚¬ê°í˜•ì„ ê·¸ë¦°ë‹¤ */
     protected synchronized void drawTouchZone(Canvas canvas) {
         if (canvas==null) throw new NullPointerException();
         
@@ -381,7 +381,7 @@ public class Marker implements Comparable<Marker> {
         else touchPosition.set(touchBox, adjX, adjY, currentAngle, 1);
         touchPosition.paint(canvas);
     }
-    /** ¾ÆÀÌÄÜ ±×¸®±â */
+    /** ì•„ì´ì½˜ ê·¸ë¦¬ê¸° */
     protected synchronized void drawIcon(Canvas canvas) {
     	if (canvas==null) throw new NullPointerException();
 
@@ -398,7 +398,7 @@ public class Marker implements Comparable<Marker> {
 
         symbolContainer.paint(canvas);
     }
-    /** °ü·ÃµÈ ¹®±¸ Ç¥½Ã */
+    /** ê´€ë ¨ëœ ë¬¸êµ¬ í‘œì‹œ */
     protected synchronized void drawText(Canvas canvas) {
 		if (canvas==null) throw new NullPointerException();
 		
@@ -427,13 +427,13 @@ public class Marker implements Comparable<Marker> {
 	    else textContainer.set(textBox, x, y, angle, 1);
 	    textContainer.paint(canvas);
 	}
-    /** µÎ ¸¶Ä¿ÀÇ ÀÌ¸§À» ºñ±³ */
+    /** ë‘ ë§ˆì»¤ì˜ ì´ë¦„ì„ ë¹„êµ */
     public synchronized int compareTo(Marker another) {
         if (another==null) throw new NullPointerException();
         
         return name.compareTo(another.getName());
     }
-    /** µÎ ¸¶Ä¿ÀÇ ÀÌ¸§ÀÌ °°ÀºÁö °Ë»ç */
+    /** ë‘ ë§ˆì»¤ì˜ ì´ë¦„ì´ ê°™ì€ì§€ ê²€ì‚¬ */
     @Override
     public synchronized boolean equals(Object marker) {
         if(marker==null || name==null) throw new NullPointerException();

@@ -1,5 +1,5 @@
 package com.r10m.gogoong.util;
-/** ÇÇÄ¡°¢µµ¸¦ °è»êÇÒ¶§¿Í °°Àº °æ¿ì¿¡ »ç¿ëµÇ´Â Å¬·¡½º */
+/** í”¼ì¹˜ê°ë„ë¥¼ ê³„ì‚°í• ë•Œì™€ ê°™ì€ ê²½ìš°ì— ì‚¬ìš©ë˜ëŠ” í´ë˜ìŠ¤ */
 public abstract class Utilities {
 
     private Utilities() { }

@@ -53,7 +53,7 @@ import com.r10m.gogoong.datasource.GgDataSource;
 import com.r10m.gogoong.datasource.LocalDataSource;
 import com.r10m.gogoong.datasource.NetworkDataSource;
 
-/** ¸ğµç ¾×Æ¼ºñÆ¼¸¦ »ó¼Ó¹ŞÀº CameraActivity */
+/** ëª¨ë“  ì•¡í‹°ë¹„í‹°ë¥¼ ìƒì†ë°›ì€ CameraActivity */
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "CameraActivity";
     private static String locale = "en";
@@ -78,8 +78,8 @@ public class CameraActivity extends AugmentedActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//¼³Á¤³»¿ëÀĞ¾î¿È
-    	setLocale(mainPreference.getString("LanguageList", "ko"));	//¾ğ¾î¼³Á¤
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//ì„¤ì •ë‚´ìš©ì½ì–´ì˜´
+    	setLocale(mainPreference.getString("LanguageList", "ko"));	//ì–¸ì–´ì„¤ì •
 
         
         LocalDataSource localData = new LocalDataSource(this.getResources());
@@ -95,7 +95,7 @@ public class CameraActivity extends AugmentedActivity {
         
     }
 	
-	//¾ğ¾î ¼³Á¤
+	//ì–¸ì–´ ì„¤ì •
     public void setLocale(String character) {
     	locale = character;
     	Locale locale = new Locale(character); 
@@ -203,7 +203,7 @@ public class CameraActivity extends AugmentedActivity {
                 new Runnable() {
                     
                     public void run() {
-                    	//Marker°¡ ÀûÀ»¶§ ´Ù¿î·Îµå ¹ŞÀ½ - ¸Ç Ã³À½¸¸ ¹ŞÀ½
+                    	//Markerê°€ ì ì„ë•Œ ë‹¤ìš´ë¡œë“œ ë°›ìŒ - ë§¨ ì²˜ìŒë§Œ ë°›ìŒ
                     	//if(ARData.getMarkersSize()<1)
 		                    for (NetworkDataSource source : sources.values())
 		                        download(source, lat, lon, alt);
@@ -217,7 +217,7 @@ public class CameraActivity extends AugmentedActivity {
         }
     }
     
-    // ¼­¹ö·Î ºÎÅÍ µ¥ÀÌÅÍ¸¦ ¹Ş¾Æ ¸¶Ä¿·Î º¯È¯ÈÄ ARData¿¡ ÀúÀå
+    // ì„œë²„ë¡œ ë¶€í„° ë°ì´í„°ë¥¼ ë°›ì•„ ë§ˆì»¤ë¡œ ë³€í™˜í›„ ARDataì— ì €ì¥
     private static boolean download(NetworkDataSource source, double lat, double lon, double alt) {
 		if (source==null) return false;
 		

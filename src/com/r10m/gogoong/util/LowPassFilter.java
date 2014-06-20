@@ -1,5 +1,5 @@
 package com.r10m.gogoong.util;
-/** ╪╬╪╜╟╙ю╩ ╨╦а╓го╢б е╛╥║╫╨ */
+/** Л└╪Л└°Й╟▓Л²└ КЁ╢Л═∙М∙≤К┼■ М│╢К·≤Л┼╓ */
 public class LowPassFilter {
 
     private static final float ALPHA_DEFAULT = 0.333f;

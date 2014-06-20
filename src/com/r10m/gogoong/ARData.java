@@ -15,37 +15,37 @@ import com.r10m.gogoong.util.Matrix;
 
 import android.location.Location;
 import android.util.Log;
-/** appÀÌ ±¸µ¿µÇ´Âµ¥ ÇÊ¼öÀûÀÎ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ÀúÀå Å¬·¡½º
- * Àü¿ª ÄÁÆ®·Ñ Å¬·¡½º */
+/** appì´ êµ¬ë™ë˜ëŠ”ë° í•„ìˆ˜ì ì¸ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” ì €ì¥ í´ë˜ìŠ¤
+ * ì „ì—­ ì»¨íŠ¸ë¡¤ í´ë˜ìŠ¤ */
 public class ARData {
 	 private static final String TAG = "ARData";
-	    /** ¸¶Ä¿ÀÇ Hashmap°ú ÀÌ¸§À» ÀúÀå */
+	    /** ë§ˆì»¤ì˜ Hashmapê³¼ ì´ë¦„ì„ ì €ì¥ */
 		private static final Map<String,Marker> markerList = new ConcurrentHashMap<String,Marker>();
-		/** Ä³½¬ ¿ªÇÒ */
+		/** ìºì‰¬ ì—­í•  */
 	    private static final List<Marker> cache = new CopyOnWriteArrayList<Marker>();
-	    /** »óÅÂ°¡ ±ú²ıÇÑÁö ÆÇº° */
+	    /** ìƒíƒœê°€ ê¹¨ë—í•œì§€ íŒë³„ */
 	    private static final AtomicBoolean dirty = new AtomicBoolean(false);
-	    /** À§Ä¡µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¹è¿­ */
+	    /** ìœ„ì¹˜ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” ë°°ì—´ */
 	    private static final float[] locationArray = new float[3];
-	    /** ATL ¸¶Ä¿¿Í °°Àº ±âº» À§Ä¡¸¦ ÀúÀå */
+	    /** ATL ë§ˆì»¤ì™€ ê°™ì€ ê¸°ë³¸ ìœ„ì¹˜ë¥¼ ì €ì¥ */
 	    public static final Location hardFix = new Location("ATL");
 	    static {
 	        hardFix.setLatitude(0);
 	        hardFix.setLongitude(0);
 	        hardFix.setAltitude(1);
 	    }
-	    /** Lock°¡ Ãß°¡µÈ º¯¼ö´Â ÀÌ º¯¼ö¸¦ µ¿±âÈ­ ÇÏ±â À§ÇÑ º¯¼ö */
+	    /** Lockê°€ ì¶”ê°€ëœ ë³€ìˆ˜ëŠ” ì´ ë³€ìˆ˜ë¥¼ ë™ê¸°í™” í•˜ê¸° ìœ„í•œ ë³€ìˆ˜ */
 	    private static final Object radiusLock = new Object();
-	    /** ·¹ÀÌ´õÀÇ ¹İ°æ */
+	    /** ë ˆì´ë”ì˜ ë°˜ê²½ */
 	    private static float radius = new Float(20);
-	    /** ÇöÀçÀÇ ÁÜ ·¹º§ */
+	    /** í˜„ì¬ì˜ ì¤Œ ë ˆë²¨ */
 	    private static String zoomLevel = new String();
 	    private static final Object zoomProgressLock = new Object();
-	    /** ¾Û¿¡¼­ ÁÜ °úÁ¤ */
+	    /** ì•±ì—ì„œ ì¤Œ ê³¼ì • */
 	    private static int zoomProgress = 0;
-	    /** ÇöÀç À§Ä¡ */
+	    /** í˜„ì¬ ìœ„ì¹˜ */
 	    private static Location currentLocation = hardFix;
-	    /** È¸Àü ¸ÅÆ®¸¯½º¸¦ ÀúÀå */
+	    /** íšŒì „ ë§¤íŠ¸ë¦­ìŠ¤ë¥¼ ì €ì¥ */
 	    private static Matrix rotationMatrix = new Matrix();
 	    
 	    private static final Object azimuthLock = new Object();
@@ -57,8 +57,8 @@ public class ARData {
 		private static int count;
 
 	    
-	    /** ¸ğµç ¸Ş¼­µå´Â µ¥ÀÌÅÍ°¡ ¾ÛÀÇ ´Ù¸¥ºÎºĞ¿¡ ÀÇÇØ º¯°æµÇÁö ¾Ê¾Ò´ÂÁö °Ë»çÇÏ´Â 
-	     * µ¿±âÈ­ ºí·ÏÀ» »ç¿ëÇØ¼­ ¸Ş¼ÒµåÀÇ ÀÌ¸§°ú °°Àº º¯¼ö¸¦ ¼³Á¤ÇÏ°Å³ª °ªÀ» ¾ò¾î¿À´Â ¿ªÇÒÀ» ÇÑ´Ù. */
+	    /** ëª¨ë“  ë©”ì„œë“œëŠ” ë°ì´í„°ê°€ ì•±ì˜ ë‹¤ë¥¸ë¶€ë¶„ì— ì˜í•´ ë³€ê²½ë˜ì§€ ì•Šì•˜ëŠ”ì§€ ê²€ì‚¬í•˜ëŠ” 
+	     * ë™ê¸°í™” ë¸”ë¡ì„ ì‚¬ìš©í•´ì„œ ë©”ì†Œë“œì˜ ì´ë¦„ê³¼ ê°™ì€ ë³€ìˆ˜ë¥¼ ì„¤ì •í•˜ê±°ë‚˜ ê°’ì„ ì–»ì–´ì˜¤ëŠ” ì—­í• ì„ í•œë‹¤. */
 	    
 	    
 	    public static void setZoomLevel(String zoomLevel) {
@@ -120,7 +120,7 @@ public class ARData {
 	            return rotationMatrix;
 	        }
 	    }
-	    /** ¸¶Ä¿¸¦ ¸ğµÎ µ¹·Á¼­ ¸ğµç ¸¶Ä¿ÀÇ °ªÀ» ¹İÈ¯½ÃÅ²´Ù. */
+	    /** ë§ˆì»¤ë¥¼ ëª¨ë‘ ëŒë ¤ì„œ ëª¨ë“  ë§ˆì»¤ì˜ ê°’ì„ ë°˜í™˜ì‹œí‚¨ë‹¤. */
 	    public static List<Marker> getMarkers() {
 	        if (dirty.compareAndSet(true, false)) {
 	            Log.v(TAG, "DIRTY flag found, resetting all marker heights to zero.");
@@ -181,7 +181,7 @@ public class ARData {
 	        }
 	    }
 	    
-	    /** ¸¶Ä¿°£ÀÇ °Å¸®¸¦ ºñ±³ÇÒ¶§ »ç¿ë */
+	    /** ë§ˆì»¤ê°„ì˜ ê±°ë¦¬ë¥¼ ë¹„êµí• ë•Œ ì‚¬ìš© */
 	    private static final Comparator<Marker> comparator = new Comparator<Marker>() {
 	        public int compare(Marker arg0, Marker arg1) {
 	            return Double.compare(arg0.getDistance(),arg1.getDistance());
@@ -193,7 +193,7 @@ public class ARData {
 	    }
 	    
 	    
-	    /** Àü´Ş¹ŞÀº ÄÃ·º¼ÇÀ¸·ÎºÎÅÍ »õ·Î¿î ¸¶Ä¿¸¦ Ãß°¡ */
+	    /** ì „ë‹¬ë°›ì€ ì»¬ë ‰ì…˜ìœ¼ë¡œë¶€í„° ìƒˆë¡œìš´ ë§ˆì»¤ë¥¼ ì¶”ê°€ */
 	    public static void addMarkers(Collection<Marker> markers) {
 	    	if (markers==null) throw new NullPointerException();
 
@@ -212,7 +212,7 @@ public class ARData {
 	    	    cache.clear();
 	    	}
 	    }
-	    /** »õ·Î¿î À§Ä¡¿¡ ´ëÇÑ ¸¶Ä¿ÀÇ »ó´ëÀûÀÎ À§Ä¡¸¦ ¾÷µ¥ÀÌÆ® */
+	    /** ìƒˆë¡œìš´ ìœ„ì¹˜ì— ëŒ€í•œ ë§ˆì»¤ì˜ ìƒëŒ€ì ì¸ ìœ„ì¹˜ë¥¼ ì—…ë°ì´íŠ¸ */
 	    private static void onLocationChanged(Location location) {
 	        Log.d(TAG, "New location, updating markers. location="+location.toString());
 	        for(Marker ma: markerList.values()) {

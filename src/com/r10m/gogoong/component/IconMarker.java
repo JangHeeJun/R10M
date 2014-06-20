@@ -7,7 +7,7 @@ import com.r10m.gogoong.util.Utilities;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 
-/** ºñÆ®¸ÊÀ» »ç¿ëÇØ¼­ ¾ÆÀÌÄÜÀ» ±×¸®´Â Å¬·¡½º */
+/** ë¹„íŠ¸ë§µì„ ì‚¬ìš©í•´ì„œ ì•„ì´ì½˜ì„ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class IconMarker extends Marker {
     private Bitmap bitmap = null;
 

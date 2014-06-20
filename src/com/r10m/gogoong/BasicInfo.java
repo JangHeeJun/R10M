@@ -3,7 +3,7 @@ package com.r10m.gogoong;
 import twitter4j.Twitter;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
-/** twitter ¿¬µ¿À» À§ÇÑ ±âº»Á¤º¸ */
+/** twitter ì—°ë™ì„ ìœ„í•œ ê¸°ë³¸ì •ë³´ */
 public class BasicInfo {
 	public static final String TWIT_API_KEY = "i5fGLf8rGw48DlSYb2CPOlDqO";
 	public static final String TWIT_CONSUMER_KEY = "i5fGLf8rGw48DlSYb2CPOlDqO";

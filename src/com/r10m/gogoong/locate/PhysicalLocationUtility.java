@@ -3,7 +3,7 @@ package com.r10m.gogoong.locate;
 import com.r10m.gogoong.util.Vector;
 
 import android.location.Location;
-/** »ç¿ëÀÚÀÇ ½ÇÁ¦ À§Ä¡¸¦ 3Â÷¿øÀ¸·Î Ç¥ÇöÇÏ´Âµ¥ »ç¿ë */
+/** ì‚¬ìš©ìì˜ ì‹¤ì œ ìœ„ì¹˜ë¥¼ 3ì°¨ì›ìœ¼ë¡œ í‘œí˜„í•˜ëŠ”ë° ì‚¬ìš© */
 public class PhysicalLocationUtility {
 	private double latitude = 0.0;
 	private double longitude = 0.0;
@@ -50,7 +50,7 @@ public class PhysicalLocationUtility {
 	public double getAltitude() {
 		return altitude;
 	}
-	/** À§Ä¡¸¦ º¤ÅÍ·Î º¯È¯ÇÒ¶§ ¾²ÀÓ */
+	/** ìœ„ì¹˜ë¥¼ ë²¡í„°ë¡œ ë³€í™˜í• ë•Œ ì“°ì„ */
 	public static synchronized void convLocationToVector(Location org, PhysicalLocationUtility gp, Vector v) {
 		if (org==null || gp==null || v==null) 
 		    throw new NullPointerException("Location, PhysicalLocationUtility, and Vector cannot be NULL.");

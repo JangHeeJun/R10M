@@ -1,7 +1,7 @@
 package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
-/** È­¸é¿¡ ¿øÀ» ±×¸®´Â Å¬·¡½º */
+/** í™”ë©´ì— ì›ì„ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class PaintableCircle extends PaintableObject {
     private int color = 0;
     private float radius = 0;

@@ -1,7 +1,7 @@
 package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
-/** È­¸é¿¡ ÇÑ°³ÀÇ Á¡À» ÂïÀ»¶§ »ç¿ë - ·¹ÀÌ´õ¸¦ ±×¸±¶§ »ç¿ëÇÏ´Â Å¬·¡½º */
+/** í™”ë©´ì— í•œê°œì˜ ì ì„ ì°ì„ë•Œ ì‚¬ìš© - ë ˆì´ë”ë¥¼ ê·¸ë¦´ë•Œ ì‚¬ìš©í•˜ëŠ” í´ë˜ìŠ¤ */
 public class PaintablePoint extends PaintableObject {
     private static int width=5;
     private static int height=5;

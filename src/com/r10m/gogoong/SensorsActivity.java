@@ -19,43 +19,43 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
-/** 1. ¼¾¼­ ¹× À§Ä¡Á¤º¸¸¦ ¾ò±âÀ§ÇØ È®ÀåÇÏ´Â Activity*/
+/** 1. ì„¼ì„œ ë° ìœ„ì¹˜ì •ë³´ë¥¼ ì–»ê¸°ìœ„í•´ í™•ì¥í•˜ëŠ” Activity*/
 public class SensorsActivity extends Activity implements SensorEventListener, LocationListener {
-	/** ´Ü¼øÇÑ Å¬·¡½º ÀÌ¸§*/
+	/** ë‹¨ìˆœí•œ í´ë˜ìŠ¤ ì´ë¦„*/
 	private static final String TAG = "SensorsActivity";
-	/** ÇÃ·¡±×Ã³·³ ÀÛ¾÷ÀÌ ÇöÀç ÁøÇàÁßÀÎÁö È®ÀÎÇÏ´Âµ¥ »ç¿ë*/
+	/** í”Œë˜ê·¸ì²˜ëŸ¼ ì‘ì—…ì´ í˜„ì¬ ì§„í–‰ì¤‘ì¸ì§€ í™•ì¸í•˜ëŠ”ë° ì‚¬ìš©*/
     private static final AtomicBoolean computing = new AtomicBoolean(false); 
     
-    /** À§Ä¡¾÷µ¥ÀÌÆ®°¡ ÀÌ·ç¾îÁö´Â ÃÖ¼Ò ½Ã°£ ¹× °Å¸®*/
+    /** ìœ„ì¹˜ì—…ë°ì´íŠ¸ê°€ ì´ë£¨ì–´ì§€ëŠ” ìµœì†Œ ì‹œê°„ ë° ê±°ë¦¬*/
     private static final int MIN_TIME = 30*1000;
     private static final int MIN_DISTANCE = 10;
     
-    /** È¸ÀüÇÏ´Â µ¿¾È »ç¿ëµÇ´Â ÀÓ½Ã ¹è¿­*/
+    /** íšŒì „í•˜ëŠ” ë™ì•ˆ ì‚¬ìš©ë˜ëŠ” ì„ì‹œ ë°°ì—´*/
     private static final float temp[] = new float[9];
-    /** ÃÖÁ¾ÀûÀ¸·Î È¸ÀüµÈ Çà·Ä*/
+    /** ìµœì¢…ì ìœ¼ë¡œ íšŒì „ëœ í–‰ë ¬*/
     private static final float rotation[] = new float[9];
-    /** Áß·Â °ª*/
+    /** ì¤‘ë ¥ ê°’*/
     private static final float grav[] = new float[3];
-    /** ÀÚ±âÀå °ª*/
+    /** ìê¸°ì¥ ê°’*/
     private static final float mag[] = new float[3];
 
-    /** ±â±âÀÇ À§Ä¡*/
+    /** ê¸°ê¸°ì˜ ìœ„ì¹˜*/
     private static final Matrix worldCoord = new Matrix();
-    /** ÁøºÏ°ú ÀÚºÏÀÇ Â÷ÀÌ¸¦ º¸Á¤ÇÏ´Âµ¥ »ç¿ë*/
+    /** ì§„ë¶ê³¼ ìë¶ì˜ ì°¨ì´ë¥¼ ë³´ì •í•˜ëŠ”ë° ì‚¬ìš©*/
     private static final Matrix magneticCompensatedCoord = new Matrix();
     private static final Matrix magneticNorthCompensation = new Matrix();
-    /** XÃàÀ¸·Î ºÎÅÍ 90µµ È¸ÀüµÇ¾úÀ» ¶§ Çà·Ä*/
+    /** Xì¶•ìœ¼ë¡œ ë¶€í„° 90ë„ íšŒì „ë˜ì—ˆì„ ë•Œ í–‰ë ¬*/
     private static final Matrix xAxisRotation = new Matrix();
     
-    /** GeomagneticFieldÀÇ ÀÎ½ºÅÏ½º ÀúÀå*/
+    /** GeomagneticFieldì˜ ì¸ìŠ¤í„´ìŠ¤ ì €ì¥*/
     private static GeomagneticField gmf = null;
-    /** grav¿Í magÀÇ °ª¿¡ ·Î¿ìÆĞ½º ÇÊÅÍ Àû¿ë½Ã »ç¿ë*/
+    /** gravì™€ magì˜ ê°’ì— ë¡œìš°íŒ¨ìŠ¤ í•„í„° ì ìš©ì‹œ ì‚¬ìš©*/
     private static float smooth[] = new float[3];
     /** SensorManager*/
     private static SensorManager sensorMgr = null;
-    /** sensorÀÇ ¸ñ·Ï*/
+    /** sensorì˜ ëª©ë¡*/
     private static List<Sensor> sensors = null;
-    /** ±âº» ¼³Á¤µÈ Áß·Â°¡¼Óµµ ¼¾¼­¿Í ÀÚ±â ¼¾¼­¸¦ ÀúÀå*/
+    /** ê¸°ë³¸ ì„¤ì •ëœ ì¤‘ë ¥ê°€ì†ë„ ì„¼ì„œì™€ ìê¸° ì„¼ì„œë¥¼ ì €ì¥*/
     private static Sensor sensorGrav = null;
     private static Sensor sensorMag = null;
     /** LocationManager*/
@@ -83,40 +83,40 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
 			                (float) Math.sin(angleX), 
 			                (float) Math.cos(angleX));
 
-        try {//½Ã½ºÅÛÀ¸·ÎºÎÅÍ ¼¾¼­ ·¹ÆÛ·±½º¸¦ ¾ò¾î ÀúÀå
+        try {//ì‹œìŠ¤í…œìœ¼ë¡œë¶€í„° ì„¼ì„œ ë ˆí¼ëŸ°ìŠ¤ë¥¼ ì–»ì–´ ì €ì¥
             sensorMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
-            //Áß·Â°¡¼Óµµ ¼¾¼­ ÀúÀå
+            //ì¤‘ë ¥ê°€ì†ë„ ì„¼ì„œ ì €ì¥
             sensors = sensorMgr.getSensorList(Sensor.TYPE_ACCELEROMETER);
             
             if (sensors.size() > 0) 
-            {// xAxis ¾ò±â
+            {// xAxis ì–»ê¸°
             	sensorGrav = sensors.get(0);
             }
-            //ÀÚ±â ¼¾¼­ ÀúÀå
+            //ìê¸° ì„¼ì„œ ì €ì¥
             sensors = sensorMgr.getSensorList(Sensor.TYPE_MAGNETIC_FIELD);
             
             if (sensors.size() > 0) 
-            {// ??? ¾ò±â
+            {// ??? ì–»ê¸°
             	sensorMag = sensors.get(0);
             }
-            // °¢ ¼¾¼­ ¸®½º³Ê µî·Ï
+            // ê° ì„¼ì„œ ë¦¬ìŠ¤ë„ˆ ë“±ë¡
             sensorMgr.registerListener(this, sensorGrav, SensorManager.SENSOR_DELAY_NORMAL);
             sensorMgr.registerListener(this, sensorMag, SensorManager.SENSOR_DELAY_NORMAL);
-            // LocationManager ½Ã½ºÅÛ¿¡¼­ ¾ò±â ¹× GPS Location Á¤º¸ ¾ò±â
+            // LocationManager ì‹œìŠ¤í…œì—ì„œ ì–»ê¸° ë° GPS Location ì •ë³´ ì–»ê¸°
             locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_TIME, MIN_DISTANCE, this);
 
             try {
 
-                try {//gps, network ¸¦ ÅëÇØ location ÀúÀåµÈ Á¤º¸ ¾ò±â
+                try {//gps, network ë¥¼ í†µí•´ location ì €ì¥ëœ ì •ë³´ ì–»ê¸°
                     Location gps=locationMgr.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                     Location network=locationMgr.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                     if(gps!=null)
-                    {//ÃÖ½Å Á¤º¸ ¾ò±â
+                    {//ìµœì‹  ì •ë³´ ì–»ê¸°
                         onLocationChanged(gps);
                     }
                     else if (network!=null)
-                    {//ÃÖ½Å Á¤º¸ ¾ò±â
+                    {//ìµœì‹  ì •ë³´ ì–»ê¸°
                         onLocationChanged(network);
                     }
                     else
@@ -133,11 +133,11 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
                                            (float) ARData.getCurrentLocation().getAltitude(), 
                                            System.currentTimeMillis());
                 
-                // À½ÀÇ ÆíÂ÷·Î Àç¼³Á¤ - ¶óµğ¾È °ª - gmfÀÇ ÁøºÏ(½ÇÁ¦ ºÏ±ØÁ¡)°ú 
-                // ÀÚºÏ(±×¸°·£µå ÇØ¾È°¡ÂÊ ÇØ¸¶´Ù 40¸¶ÀÏ¾¿ ½Ãº£¸®¾Æ·Î ÀÌµ¿)ÀÇ Â÷ÀÌ¸¦ ÀÇ¹ÌÇÔ
+                // ìŒì˜ í¸ì°¨ë¡œ ì¬ì„¤ì • - ë¼ë””ì•ˆ ê°’ - gmfì˜ ì§„ë¶(ì‹¤ì œ ë¶ê·¹ì )ê³¼ 
+                // ìë¶(ê·¸ë¦°ëœë“œ í•´ì•ˆê°€ìª½ í•´ë§ˆë‹¤ 40ë§ˆì¼ì”© ì‹œë² ë¦¬ì•„ë¡œ ì´ë™)ì˜ ì°¨ì´ë¥¼ ì˜ë¯¸í•¨
                 angleY = Math.toRadians(-gmf.getDeclination());
                 
-                // magneticNorthCompensation¸¦ ÃÖÃÊ ¼³Á¤
+                // magneticNorthCompensationë¥¼ ìµœì´ˆ ì„¤ì •
                 synchronized (magneticNorthCompensation) {
 
                     magneticNorthCompensation.toIdentity();
@@ -151,14 +151,14 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
                                                   (float) -Math.sin(angleY), 
                                                   0f, 
                                                   (float) Math.cos(angleY));
-                    // °öÇÏ±â
+                    // ê³±í•˜ê¸°
                     magneticNorthCompensation.prod(xAxisRotation);
                 }
             } catch (Exception ex) {
             	ex.printStackTrace();
             }
         } catch (Exception ex1) {
-            try {//¼¾¼­ ¹× ·ÎÄÉÀÌ¼Ç ÀÚ¿ø ÇØÁ¦
+            try {//ì„¼ì„œ ë° ë¡œì¼€ì´ì…˜ ìì› í•´ì œ
                 if (sensorMgr != null) {
                     sensorMgr.unregisterListener(this, sensorGrav);
                     sensorMgr.unregisterListener(this, sensorMag);
@@ -180,7 +180,7 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
 
         try {
             try {
-            	//¼¾¼­ ÇØÁ¦
+            	//ì„¼ì„œ í•´ì œ
                 sensorMgr.unregisterListener(this, sensorGrav);
                 sensorMgr.unregisterListener(this, sensorMag);
             } catch (Exception ex) {
@@ -189,7 +189,7 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
             sensorMgr = null;
 
             try {
-            	//gps ÇØÁ¦
+            	//gps í•´ì œ
                 locationMgr.removeUpdates(this);
             } catch (Exception ex) {
             	ex.printStackTrace();
@@ -217,7 +217,7 @@ public class SensorsActivity extends Activity implements SensorEventListener, Lo
 	public void onSensorChanged(SensorEvent event) {
 if (!computing.compareAndSet(false, true)) return;
     	
-    	// Áß·Â°¡¼Óµµ ¿Í ÀÚ±â ¼¾¼­·Î ºÎÅÍ ·Î¿ìÆĞ½ºÇÊÅÍ¸¦ °ÅÃÄ °ªÀ» ¹Ş¾Æ¿Í ÀúÀå
+    	// ì¤‘ë ¥ê°€ì†ë„ ì™€ ìê¸° ì„¼ì„œë¡œ ë¶€í„° ë¡œìš°íŒ¨ìŠ¤í•„í„°ë¥¼ ê±°ì³ ê°’ì„ ë°›ì•„ì™€ ì €ì¥
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             smooth = LowPassFilter.filter(0.5f, 1.0f, event.values, grav);
             grav[0] = smooth[0];
@@ -230,32 +230,32 @@ if (!computing.compareAndSet(false, true)) return;
             mag[2] = smooth[2];
         }
 
-        // ½ÇÁ¦ ÁÂÇ¥¸¦ ¾ò¾î¼­ temp¿¡ ÀúÀå
+        // ì‹¤ì œ ì¢Œí‘œë¥¼ ì–»ì–´ì„œ tempì— ì €ì¥
         SensorManager.getRotationMatrix(temp, null, grav, mag);
-        // ÁÂÇ¥¸¦ Àç¹èÄ¡, °¡·Î¸ğµå·Î
+        // ì¢Œí‘œë¥¼ ì¬ë°°ì¹˜, ê°€ë¡œëª¨ë“œë¡œ
         SensorManager.remapCoordinateSystem(temp, SensorManager.AXIS_Y, SensorManager.AXIS_MINUS_X, rotation);
-        // ÁÂÇ¥ º¯È¯
+        // ì¢Œí‘œ ë³€í™˜
         worldCoord.set(rotation[0], rotation[1], rotation[2], rotation[3], rotation[4], rotation[5], rotation[6], rotation[7], rotation[8]);
 
         magneticCompensatedCoord.toIdentity();
         synchronized (magneticNorthCompensation) {
             magneticCompensatedCoord.prod(magneticNorthCompensation);
         }
-        // °öÇÏ±â
+        // ê³±í•˜ê¸°
         magneticCompensatedCoord.prod(worldCoord);
-        // ¹İÀü
+        // ë°˜ì „
         magneticCompensatedCoord.invert(); 
-        // È¸ÀüµÈ ÁÂÇ¥ ÀúÀå - À§µµ¿Í °æµµ¸¦ ±â±âÀÇ µğ½ºÇÃ·¹ÀÌ¿¡¼­ X,YÁÂÇ¥·Î º¯È¯ÇÏ´Âµ¥ »ç¿ë
+        // íšŒì „ëœ ì¢Œí‘œ ì €ì¥ - ìœ„ë„ì™€ ê²½ë„ë¥¼ ê¸°ê¸°ì˜ ë””ìŠ¤í”Œë ˆì´ì—ì„œ X,Yì¢Œí‘œë¡œ ë³€í™˜í•˜ëŠ”ë° ì‚¬ìš©
         ARData.setRotationMatrix(magneticCompensatedCoord);
 
         computing.set(false);
 	}
-	// Á¤È®µµ???
+	// ì •í™•ë„???
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// ¼¾¼­ µ¥ÀÌÅÍ°¡ ³ÎÀÎÁö È®ÀÎ
+		// ì„¼ì„œ ë°ì´í„°ê°€ ë„ì¸ì§€ í™•ì¸
     	if (sensor==null) throw new NullPointerException();
-		// ³ªÄ§¹İÀÌ ºÎÁ¤È® ÇÒ¶§ ·Î±× Ãâ·Â
+		// ë‚˜ì¹¨ë°˜ì´ ë¶€ì •í™• í• ë•Œ ë¡œê·¸ ì¶œë ¥
         if(sensor.getType() == Sensor.TYPE_MAGNETIC_FIELD && accuracy==SensorManager.SENSOR_STATUS_UNRELIABLE) {
             Log.e(TAG, "Compass data unreliable");
         }
@@ -263,9 +263,9 @@ if (!computing.compareAndSet(false, true)) return;
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// ¿ì¼± À§Ä¡¸¦ ¾÷µ¥ÀÌÆ®
+		// ìš°ì„  ìœ„ì¹˜ë¥¼ ì—…ë°ì´íŠ¸
         ARData.setCurrentLocation(location);
-        // »õ·Î¿î µ¥ÀÌÅÍ·Î ´Ù½Ã °è»ê
+        // ìƒˆë¡œìš´ ë°ì´í„°ë¡œ ë‹¤ì‹œ ê³„ì‚°
         gmf = new GeomagneticField((float) ARData.getCurrentLocation().getLatitude(), 
                 (float) ARData.getCurrentLocation().getLongitude(),
                 (float) ARData.getCurrentLocation().getAltitude(), 

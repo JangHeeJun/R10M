@@ -1,7 +1,7 @@
 package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
-/** ±×·ÁÁö´Â ¿ÀºêÁ§Æ®¸¦ È¸Àü,Å©±âÁ¶ÀıÇÏ´Â Å¬·¡½º */
+/** ê·¸ë ¤ì§€ëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ íšŒì „,í¬ê¸°ì¡°ì ˆí•˜ëŠ” í´ë˜ìŠ¤ */
 public class PaintablePosition extends PaintableObject {
     private float width=0, height=0;
     private float objX=0, objY=0, objRotation=0, objScale=0;

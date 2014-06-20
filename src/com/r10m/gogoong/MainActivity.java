@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements OnClickListener{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         
         
-        //¾ğ¾î ¼³Á¤
+        //ì–¸ì–´ ì„¤ì •
         Locale systemLocale = getResources().getConfiguration().locale;
         String strLanguage = systemLocale.getLanguage();
         
@@ -112,38 +112,38 @@ public class MainActivity extends Activity implements OnClickListener{
 		Intent intent = null;
 		
 		switch(v.getId()){
-		//Ä«¸Ş¶ó ÇÁ¸®ºä
+		//ì¹´ë©”ë¼ í”„ë¦¬ë·°
 		case R.id.btn_start :
 			progBar.setVisibility(View.VISIBLE);
 			intent = new Intent(MainActivity.this, CameraActivity.class);
 		    startActivity(intent); 
 		    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//ÁÖº¯ Áöµµ
+		//ì£¼ë³€ ì§€ë„
 		case R.id.btn_AroundView :
 			progBar.setVisibility(View.VISIBLE);
       	  	intent = new Intent(MainActivity.this, AroundActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//È¨ÆäÀÌÁö
+		//í™ˆí˜ì´ì§€
 		case R.id.btn_homepage :
 			progBar.setVisibility(View.VISIBLE);
 			intent=new Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/"));
 			startActivityForResult(intent, -1);
 			break;
-		//¼³Á¤Ã¢
+		//ì„¤ì •ì°½
 		case R.id.btn_setting :
 			intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 			break;
-		//ÆäÀÌ½ººÏ ¿¬µ¿
+		//í˜ì´ìŠ¤ë¶ ì—°ë™
 		case R.id.btn_fb :
 			progBar.setVisibility(View.VISIBLE);
 	    	facebookLogin(MainActivity.this);
 			break;
-		//Æ®À§ÅÍ ¿¬µ¿
+		//íŠ¸ìœ„í„° ì—°ë™
 		case R.id.btn_tw :
 			progBar.setVisibility(View.VISIBLE);
 	    	twitLogin(); 
@@ -152,7 +152,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		
 	}
 	
-	// GPS alertDialog ¼³Á¤	
+	// GPS alertDialog ì„¤ì •	
 	private void alertCheckGPS() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(getString(R.string.gps1_key))
@@ -172,13 +172,13 @@ public class MainActivity extends Activity implements OnClickListener{
         AlertDialog alert = builder.create();
         alert.show();
     }
-    // GPS ¼³Á¤Ã¢ ÀÌµ¿
+    // GPS ì„¤ì •ì°½ ì´ë™
     private void moveConfigGPS() {
         Intent gpsOptionsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         startActivity(gpsOptionsIntent);
     }
     
-    //¾ğ¾î ¼³Á¤
+    //ì–¸ì–´ ì„¤ì •
     public void setLocale(String character) {
     	Locale locale = new Locale(character); 
     	Locale.setDefault(locale);
@@ -187,7 +187,7 @@ public class MainActivity extends Activity implements OnClickListener{
     	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
     
-  	//facebook ¿¬µ¿ ½ÃÀÛ-----------------------------------------------------------------
+  	//facebook ì—°ë™ ì‹œì‘-----------------------------------------------------------------
     private void facebookLogin(Context context) {
     	
     	
@@ -211,7 +211,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
     
     
-    // ±ÇÇÑ ¼³Á¤
+    // ê¶Œí•œ ì„¤ì •
     private void checkFacebookLogin(Session session) {
     	
     	String permission = "publish_actions";
@@ -222,7 +222,7 @@ public class MainActivity extends Activity implements OnClickListener{
     			isContainPermit = false;
     		}			
     		if(!isContainPermit){
-    			// ±ÇÇÑ ¼³Á¤
+    			// ê¶Œí•œ ì„¤ì •
     			Session.NewPermissionsRequest newPermissionsRequest = 
     					new Session.NewPermissionsRequest(MainActivity.this, permission);
     			session.requestNewPublishPermissions(newPermissionsRequest);
@@ -248,12 +248,12 @@ public class MainActivity extends Activity implements OnClickListener{
 			checkFacebookLogin(session);
 		}
 	}
-  	//facebook ¿¬µ¿ ³¡-----------------------------------------------------------------
+  	//facebook ì—°ë™ ë-----------------------------------------------------------------
     
-    //tiwtter ¿¬µ¿ ½ÃÀÛ-----------------------------------------------------------------
+    //tiwtter ì—°ë™ ì‹œì‘-----------------------------------------------------------------
     private void twitLogin() {
 		Log.d(TAG, "connect() called.");
-		// ·Î±×ÀÎ µÇ¾îÀÖÀ»¶§
+		// ë¡œê·¸ì¸ ë˜ì–´ìˆì„ë•Œ
 		if (BasicInfo.TwitLogin) {
 			Log.d(TAG, "twitter already logged in.");
 			Toast.makeText(getBaseContext(), getString(R.string.twitLogin_main), Toast.LENGTH_LONG).show();
@@ -274,7 +274,7 @@ public class MainActivity extends Activity implements OnClickListener{
 				ex.printStackTrace();
 			}
 
-	        //»õ·Î ÀÎÁõ ¹ŞÀ»¶§	
+	        //ìƒˆë¡œ ì¸ì¦ ë°›ì„ë•Œ	
 			} else {
 			
 			RequestTokenThread thread = new RequestTokenThread();
@@ -285,7 +285,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
 
     /**
-     * RequestToken ¾ò´Â ½º·¹µå    */
+     * RequestToken ì–»ëŠ” ìŠ¤ë ˆë“œ    */
     class RequestTokenThread extends Thread {
     	public void run() {
 
@@ -326,7 +326,7 @@ public class MainActivity extends Activity implements OnClickListener{
     }
     
     /**
-     * ÀÎÁõ ÆäÀÌÁö °¬´Ù ¿Â ÈÄ¿¡ ÇÏ´Â ÀÏ
+     * ì¸ì¦ í˜ì´ì§€ ê°”ë‹¤ ì˜¨ í›„ì— í•˜ëŠ” ì¼
      */
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 		super.onActivityResult(requestCode, resultCode, resultIntent);
@@ -405,7 +405,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		BasicInfo.TWIT_KEY_TOKEN_SECRET = pref.getString("TWIT_KEY_TOKEN_SECRET", "");
 		BasicInfo.TwitScreenName = pref.getString("TwitScreenName", "");
 	}
-	//twitter ¿¬µ¿ ³¡---------------------------------------------------------------
+	//twitter ì—°ë™ ë---------------------------------------------------------------
     
    
 	@Override

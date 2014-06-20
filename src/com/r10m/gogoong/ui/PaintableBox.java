@@ -2,7 +2,7 @@ package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-/** »óÀÚÀÇ À±°ûÀ» ±×¸®´Â Å¬·¡½º */
+/** ìƒìì˜ ìœ¤ê³½ì„ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class PaintableBox extends PaintableObject {
     private float width=0, height=0;
 	private int borderColor = Color.rgb(255, 255, 255);
@@ -34,7 +34,7 @@ public class PaintableBox extends PaintableObject {
 		setFill(true);
 		setColor(backgroundColor);
 		paintRect(canvas, 0, 0, width, height);
-		//Å×µÎ¸®
+		//í…Œë‘ë¦¬
 		setFill(false);
 		setColor(borderColor);
 		paintRect(canvas, 0, 0, width, height);

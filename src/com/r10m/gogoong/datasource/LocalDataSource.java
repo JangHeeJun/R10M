@@ -21,7 +21,7 @@ public class LocalDataSource extends DataSource {
         
         createIcon(res);
     }
-    /** ¾ÛÀÇ ±âº» ¾ÆÀÌÄÜÀ» ÇÒ´ç */
+    /** ì•±ì˜ ê¸°ë³¸ ì•„ì´ì½˜ì„ í• ë‹¹ */
     protected void createIcon(Resources res) {
         if (res==null) throw new NullPointerException();
         

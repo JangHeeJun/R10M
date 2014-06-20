@@ -2,7 +2,7 @@ package com.r10m.gogoong.ui;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
-/** ·¹ÀÌ´õ»ó¿¡ ±ÛÀÚ¸¦ Ç¥½ÃÇÒ¶§ »ç¿ëÇÏ´Â Å¬·¡½º */
+/** ë ˆì´ë”ìƒì— ê¸€ìë¥¼ í‘œì‹œí• ë•Œ ì‚¬ìš©í•˜ëŠ” í´ë˜ìŠ¤ */
 public class PaintableText extends PaintableObject {
     private static final float WIDTH_PAD = 4;
     private static final float HEIGHT_PAD = 2;

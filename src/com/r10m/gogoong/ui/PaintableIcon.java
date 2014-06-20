@@ -2,7 +2,7 @@ package com.r10m.gogoong.ui;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-/** Ä«¸Ş¶ó¿¡ Åõ¿µµÉ ÀÌ¹ÌÁö ±×¸®´Â Å¬·¡½º */
+/** ì¹´ë©”ë¼ì— íˆ¬ì˜ë  ì´ë¯¸ì§€ ê·¸ë¦¬ëŠ” í´ë˜ìŠ¤ */
 public class PaintableIcon extends PaintableObject {
     private Bitmap bitmap=null;
 

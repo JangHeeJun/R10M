@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.r10m.gogoong.component.Marker;
 
-/** ¸ğµç DataSourceÀÇ ±âÃÊ°¡ µÇ´Â abstract class */
+/** ëª¨ë“  DataSourceì˜ ê¸°ì´ˆê°€ ë˜ëŠ” abstract class */
 public abstract class DataSource {
-	/** ¸¶Ä¿ °¡Á®¿À±â */
+	/** ë§ˆì»¤ ê°€ì ¸ì˜¤ê¸° */
     public abstract List<Marker> getMarkers();
 }
