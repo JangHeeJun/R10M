@@ -61,10 +61,11 @@
            android:layout_width="wrap_content"
            android:layout_height="80dp"
            android:layout_alignParentLeft="true"
+           android:layout_alignParentRight="true"
            android:layout_alignParentTop="true"
            android:layout_marginTop="26dp"
            android:src="@string/text_main"
-           android:textSize="400pt"/>
+           android:textSize="400pt" />
 
        <ImageView
            android:id="@+id/imageView2"
