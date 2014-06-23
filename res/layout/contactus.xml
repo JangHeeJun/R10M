@@ -31,14 +31,86 @@
         android:textSize="20sp"
         android:textColor="#ffffff" />
 
-
-     <Spinner
-        android:id="@+id/spinner1"
+    <EditText
+        android:id="@+id/editText4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/editText2"
+        android:layout_marginTop="20dp"
+        android:ems="13"
+        android:hint="내용을 입력하세요"
+        android:inputType="textMultiLine" 
+        android:lines="13"/>
+	
+    <View
+        android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/editText4"
+        android:layout_marginTop="20dp"
+        android:background="#19000000"/>
+    
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/barView"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp" />
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:ems="13"
+        android:hint="답변 받을 이메일 주소"
+        android:inputType="textEmailAddress" >
 
-     
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/bt_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_below="@+id/line2"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="5dp"
+        android:text="Send" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="3dp"
+        android:textSize="7pt"
+        android:text="위 내용에 동의합니다." />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/line1"
+        android:layout_marginTop="15dp"
+        android:text="문의하신 상황에 대한 정확한 원인 파악을 위하여 사용중이신 단말기에 관한 정보(단말기 모델, OS정보), 휴대폰번호, 이메일주소를 수집합니다. 고객문의 해결을 위한 용도로만 사용되며, 문의 해결 후 달리 관련 법령에 따른 보관 의무가 있지 않는 한 지체 없이 삭제됩니다."
+        android:textSize="4pt" />
+    
+    <View
+        android:id="@+id/line2"
+        android:layout_width="wrap_content"
+        android:layout_height="1px"
+        android:layout_alignLeft="@+id/editText2"
+        android:layout_alignRight="@+id/editText2"
+        android:layout_below="@+id/checkBox1"
+        android:layout_marginTop="10dp"
+        android:background="#19000000"/>
+
 </RelativeLayout>
