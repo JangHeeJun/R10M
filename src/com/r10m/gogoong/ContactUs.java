@@ -1,5 +1,6 @@
 package com.r10m.gogoong;
 
+import java.io.File;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -8,10 +9,16 @@ import com.r10m.gogoong.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Looper;
+import android.os.StatFs;
+import android.telephony.TelephonyManager;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +34,7 @@ public class ContactUs extends Activity implements OnClickListener {
 	EditText fromEt;
 	GMailSender sender;
 	CheckBox agreeCheck;
+	StringBuffer phoneInfo = new StringBuffer();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,23 +60,34 @@ public class ContactUs extends Activity implements OnClickListener {
 	public void onBackPressed() {
 		Intent intent = new Intent(ContactUs.this, SettingActivity.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+	    startActivity(intent);
 		super.onBackPressed();
 	}
 	
 	
 	//이메일 유효성
-	   public static boolean isEmailPattern(String email){
-		   if( android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
-			   return true;
-		   }else{
-			   return false;
-		   }
+	public static boolean isEmailPattern(String email){
+	   if( android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ){
+		   return true;
+	   }else{
+		   return false;
 	   }
+	}
 	   
+	//Send 버튼 클릭
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
+		
+		phoneInfo.append("Phone Number : "+getPhoneNumber()+", \n");
+		phoneInfo.append("OperatorName : "+getSimOperatorName()+", \n");
+		phoneInfo.append("ModelName : "+getModelName()+", \n");
+		phoneInfo.append("FirwareVer : "+getFirmwareVersion()+", \n");
+		phoneInfo.append("OSVer : "+getOSVersion()+", \n");
+		phoneInfo.append("Internal Storage : "+getInternalStorageSize()+", \n");
+		phoneInfo.append("External Storage : "+getExternalStorageSize()+", \n");
+		phoneInfo.append("Internal Storage Per: "+getInternalStoragePercent() + "%\n");
+		
 		contentEt = (EditText) this.findViewById(R.id.editText4);
 		String contentStr = contentEt.getText()+"";
 		fromEt = (EditText) this.findViewById(R.id.editText2);
@@ -88,9 +107,11 @@ public class ContactUs extends Activity implements OnClickListener {
 			timeThread();
 		}
 	}
-	
-	public void timeThread() {
 
+	public void timeThread() {
+		
+		//final String contentText = contentEt.getText().toString();
+		phoneInfo.append(contentEt.getText().toString());
 		dialog = new ProgressDialog(this);
 		dialog = new ProgressDialog(this);
 		dialog.setTitle("Wait...");
@@ -104,7 +125,7 @@ public class ContactUs extends Activity implements OnClickListener {
 				Looper.prepare();
 				// TODO Auto-generated method stub
 				try {
-					sender.sendMail("의견보내기", contentEt.getText().toString(), 
+					sender.sendMail("의견보내기", phoneInfo.toString(),
 							fromEt.getText().toString(), "drp2pp@gmail.com"
 					);
 					sleep(3000);
@@ -141,21 +162,104 @@ public class ContactUs extends Activity implements OnClickListener {
 		}).start();
 		
 	}
-	/*
-	public void okPopup(){
-		AlertDialog.Builder alert = new AlertDialog.Builder(ContactUs.this);
-		alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-		    @Override
-		    public void onClick(DialogInterface dialog, int which) {
-			    dialog.dismiss(); //닫기
-			    
-			    Intent intent = new Intent(ContactUs.this, SettingActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		        startActivity(intent);
-		    }
-		});
-		alert.setMessage("테스트 메세지");
-		alert.show();
+	
+	
+	
+	/*@Override
+	protected void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	 
+	Log.d("maluchi", "Phone Number : "+getPhoneNumber());
+	Log.d("maluchi", "OperatorName : "+getSimOperatorName());
+	Log.d("maluchi", "ModelName : "+getModelName());
+	Log.d("maluchi", "FirwareVer : "+getFirmwareVersion());
+	Log.d("maluchi", "OSVer : "+getOSVersion());
+	Log.d("maluchi", "Internal Storage : "+getInternalStorageSize());
+	Log.d("maluchi", "External Storage : "+getExternalStorageSize());
+	Log.d("maluchi", "Internal Storage Per: "+getInternalStoragePercent() + "%");
 	}
-*/
+	 */
+	
+	public String getPhoneNumber() {
+	TelephonyManager mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+	if (mTelephonyMgr.getLine1Number() == null || mTelephonyMgr.getLine1Number().trim().equals("")) {
+	return "EMPTY";
+	} else {
+	return mTelephonyMgr.getLine1Number();
+	}
+	}
+	
+	public String getSimOperatorName() {
+	TelephonyManager telephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+	if (telephonyMgr.getSimOperatorName() == null || telephonyMgr.getSimOperatorName().equals("")) {
+	return "EMPTY";
+	} else {
+	return telephonyMgr.getSimOperatorName();
+	}
+	}
+	 
+	public String getModelName() {
+	return Build.MODEL;
+	}
+	 
+	public String getFirmwareVersion() {
+	return Build.VERSION.RELEASE;
+	}
+	 
+	public String getOSVersion() {
+	return System.getProperty("os.version");
+	}
+	 
+	public String getInternalStorageSize() {
+	String[] sizes = getStorageInfo(Environment.getDataDirectory());
+	return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
+	}
+	 
+	public String getExternalStorageSize() {
+	String state = Environment.getExternalStorageState( );
+	if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) || Environment.MEDIA_MOUNTED.equals(state)) {
+	File externalPath = Environment.getExternalStorageDirectory();
+	
+	String[] sizes = getStorageInfo(externalPath);
+	 
+	Log.d("maluchi", externalPath.getAbsolutePath() + " : " + sizes[0] + " - " + sizes[1]);
+	 
+	 
+	if (sizes != null) {
+	return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
+	} else {
+	return "EMPTY";
+	}
+	}
+	return "EMPTY";
+	}
+	 
+	private int getInternalStoragePercent() {
+	StatFs stat = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+	long blockSize = stat.getBlockSize();
+	long totalSize = stat.getBlockCount() * blockSize;
+	long availableSize = stat.getAvailableBlocks() * blockSize;
+	 
+	int percent = (int)((((double)(totalSize - availableSize)) / (double)totalSize) * 100);
+	if (percent < 1) percent = 1;
+	return percent;
+	}
+	 
+	private String[] getStorageInfo( File path ) {
+	if ( path != null ) {
+	try {
+	StatFs stat = new StatFs( path.getAbsolutePath( ) );
+	long blockSize = stat.getBlockSize( );
+	 
+	String[] info = new String[2];
+	info[0] = Formatter.formatFileSize( this, stat.getBlockCount() * blockSize );
+	info[1] = Formatter.formatFileSize( this, stat.getAvailableBlocks() * blockSize );
+	return info;
+	} catch ( Exception e ) {
+	Log.d( "maluchi", "Cannot access path: " + path.getAbsolutePath( ), e );
+	}
+	}
+	return null;
+	}
 }
