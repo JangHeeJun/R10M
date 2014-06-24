@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.nhn.android.maps.NMapActivity;
 import com.nhn.android.maps.NMapController;
@@ -20,10 +19,10 @@ import com.nhn.android.maps.overlay.NMapPOIdata;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
-import com.nhn.android.mapviewer.overlay.NMapOverlayManager.OnCalloutOverlayListener;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
+import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay.OnStateChangeListener;
 
-public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnCalloutOverlayListener, OnMapViewTouchEventListener {
+public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnStateChangeListener, OnMapViewTouchEventListener {
 
 	// API-KEY
 	public static final String API_KEY = "94cbae417dfa6aa0f0b9f103e04dd903";
@@ -38,6 +37,7 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 	AroundMapViewerResourceProvider mMapViewerResourceProvider = null;
 	// 오버레이 관리자
 	NMapOverlayManager mOverlayManager;
+	private OnStateChangeListener onPOIdataStateChangeListener;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -86,8 +86,34 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		poiData.beginPOIdata(2);
 		poiData.addPOIitem(126.976916, 37.575997, getString(R.string.map1_key), markerId, 0);
 		poiData.addPOIitem(126.976930, 37.578588, getString(R.string.map2_key), markerId, 0);
-		poiData.addPOIitem(126.991023, 37.579468, getString(R.string.map3_key), markerId, 0);
-		poiData.addPOIitem(126.983083, 37.575395, getString(R.string.map4_key), markerId, 0);
+		poiData.addPOIitem(126.991003, 37.579476, getString(R.string.map3_key), markerId, 0);
+		poiData.addPOIitem(126.983696, 37.575003, getString(R.string.map4_key), markerId, 0);
+		
+		poiData.addPOIitem(126.993932, 37.574910, getString(R.string.map5_key), markerId, 0);
+		// 종묘
+		poiData.addPOIitem(126.985874, 37.577321, getString(R.string.map6_key), markerId, 0);
+		//북촌로
+		poiData.addPOIitem(126.967915, 37.575876, getString(R.string.map7_key), markerId, 0);
+		//사직공원
+		poiData.addPOIitem(126.956435, 37.573886, getString(R.string.map8_key), markerId, 0);
+		//서대문독립공원
+		poiData.addPOIitem(126.968215, 37.571335, getString(R.string.map9_key), markerId, 0);
+		//경희궁
+		poiData.addPOIitem(126.970570, 37.570417, getString(R.string.map10_key), markerId, 0);
+		//서울역사박물관
+		poiData.addPOIitem(126.988294, 37.571263, getString(R.string.map11_key), markerId, 0);
+		//탑골공원
+		poiData.addPOIitem(127.001811, 37.582331, getString(R.string.map12_key), markerId, 0);
+		//대학로
+		poiData.addPOIitem(126.974839, 37.565767, getString(R.string.map13_key), markerId, 0);
+		//덕수궁
+		poiData.addPOIitem(126.977843, 37.569169, getString(R.string.map14_key), markerId, 0);
+		//청계광장
+		poiData.addPOIitem(126.977870, 37.566167, getString(R.string.map15_key), markerId, 0);
+		//서울시청 및 서울광장
+		poiData.addPOIitem(126.976768, 37.574028, getString(R.string.map16_key), markerId, 0);
+		//광화문광장
+		
 		poiData.endPOIdata();
 		//getString(R.string.map4_key) .java에서 프리퍼런스에 있는 스트링을 불러올 때는 이와 같이 사용한다.
 		//@string/name 은 xml에서 불러올때 사용한다.
@@ -100,8 +126,8 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		
 		
 		
-		// 오버레이 이벤트 등록
-		mOverlayManager.setOnCalloutOverlayListener(this);
+		// 오버레이 이벤트 등록(마커 클릭후 말풍선 크기 조절)
+		poiDataOverlay.setOnStateChangeListener(onPOIdataStateChangeListener);
 		/******************* 오버레이 관련 코드 끝 ********************/
 	}
 	
@@ -197,6 +223,12 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 
 	@Override
 	public void onTouchDown(NMapView arg0, MotionEvent arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCalloutClick(NMapPOIdataOverlay arg0, NMapPOIitem arg1) {
 		// TODO Auto-generated method stub
 		
 	}
