@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="map1_key">Gwanghwamun</string>
-    <string name="map1_title">Gwanghwamun</string>
+    <string name="map1_key">Gwanghwamun.</string>
     
-    <string name="map2_key">Geunjeongjeon</string>
-    <string name="map2_title">Geunjeongjeon</string>
+    <string name="map2_key">Gyeong bok gung.</string>
     
-    <string name="map3_key">Chang Duk gung</string>
-    <string name="map3_title">Chang Duk gung</string>
+    <string name="map3_key">Chang Duk gung.</string>
     
-    <string name="map4_key">Insa-dong</string>
-    <string name="map4_title">Insa-dong</string>
-        
+    <string name="map4_key">Insa-dong.</string>
+    
+    <string name="map5_key">Jongmyo Shrine.</string>
+    
+    <string name="map6_key">Bukchon.</string>
+    
+    <string name="map7_key">Sajik Park.</string>
+   
+    <string name="map8_key">Seodaemun Independence Park.</string>
+    
+    <string name="map9_key">Gyeong hui gung.</string>
+    
+    <string name="map10_key">Seoul Historical Museum.</string>
+    
+    <string name="map11_key">Tapgol Park.</string>
+   
+    <string name="map12_key">Hyehwa station.</string>
+    
+    <string name="map13_key">Duk Soo gung.</string>
+    
+    <string name="map14_key">Cheonggye Square.</string>
+    
+    <string name="map15_key">Seoul City Hall.</string>
+   
+    <string name="map16_key">Gwanghwamun square.</string>    
 </resources>

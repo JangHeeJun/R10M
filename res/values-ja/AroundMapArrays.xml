@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="map1_key">クァンファムン</string>
-    <string name="map1_title">クァンファムン</string>
+    <string name="map1_key">クァンファムン.</string>
     
-    <string name="map2_key">クンジョンジョン</string>
-    <string name="map2_title">クンジョンジョン</string>
+    <string name="map2_key">クンジョンジョン.</string>
     
-    <string name="map3_key">キョンボックン</string>
-    <string name="map3_title">キョンボックン</string>
+    <string name="map3_key">キョンボックン.</string>
     
-    <string name="map4_key">インサドン</string>
-    <string name="map4_title">インサドン</string>
+    <string name="map4_key">インサドン.</string>
+    
+    <string name="map5_key">宗廟です.</string>
+    
+    <string name="map6_key">北村でいます.</string>
+    
+    <string name="map7_key">社稷公園です.</string>
+   
+    <string name="map8_key">西大門独立公園です.</string>
+    
+    <string name="map9_key">慶熙宮です.</string>
+    
+    <string name="map10_key">ソウル歴史博物館です.</string>
+    
+    <string name="map11_key">タプコル公園です.</string>
+   
+    <string name="map12_key">ヘファヨクです.</string>
+    
+    <string name="map13_key">徳寿宮です.</string>
+    
+    <string name="map14_key">清渓広場です.</string>
+    
+    <string name="map15_key">ソウル市庁です.</string>
+   
+    <string name="map16_key">光化門広場です.</string>
         
 </resources>

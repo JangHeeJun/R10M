@@ -1,16 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
    
-     <string name="map1_key">현재 위치는 광화문입니다.</string>
-    <string name="map1_title">현재 위치는 광화문입니다.</string>
+    <string name="map1_key">현재 위치는 광화문입니다.</string>
     
-    <string name="map2_key">이곳은 경복궁의 근정전입니다.</string>
-    <string name="map2_title">이곳은 경복궁의 근정전입니다.</string>
+    <string name="map2_key">이곳은 경복궁 입니다.</string>
     
-    <string name="map3_key">이곳은 창덕궁의 한 장소 입니다.</string>
-    <string name="map3_title">이곳은 창덕궁의 한 장소 입니다.</string>
-    
+    <string name="map3_key">이곳은 창덕궁 입니다.</string>
+   
     <string name="map4_key">이곳은 인사동입니다.</string>
-    <string name="map4_title">이곳은 인사동입니다.</string>
     
+    <string name="map5_key">이곳은 종묘 입니다.</string>
+    
+    <string name="map6_key">이곳은 북촌로 입니다.</string>
+    
+    <string name="map7_key">이곳은 사직공원 입니다.</string>
+   
+    <string name="map8_key">이곳은 서대문독립공원 입니다.</string>
+    
+    <string name="map9_key">이곳은 경희궁 입니다.</string>
+    
+    <string name="map10_key">이곳은 서울역사박물관 입니다.</string>
+    
+    <string name="map11_key">이곳은 탑골공원 입니다.</string>
+   
+    <string name="map12_key">이곳은 대학로 입니다.</string>
+    
+    <string name="map13_key">이곳은 덕수궁 입니다.</string>
+    
+    <string name="map14_key">이곳은 청계광장 입니다.</string>
+    
+    <string name="map15_key">이곳은 서울시청 입니다.</string>
+   
+    <string name="map16_key">이곳은 광화문광장 입니다.</string>
 </resources>
