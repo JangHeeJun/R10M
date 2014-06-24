@@ -110,7 +110,6 @@ public class ContactUs extends Activity implements OnClickListener {
 
 	public void timeThread() {
 		
-		//final String contentText = contentEt.getText().toString();
 		phoneInfo.append(contentEt.getText().toString());
 		dialog = new ProgressDialog(this);
 		dialog = new ProgressDialog(this);
@@ -162,24 +161,6 @@ public class ContactUs extends Activity implements OnClickListener {
 		}).start();
 		
 	}
-	
-	
-	
-	/*@Override
-	protected void onResume() {
-	// TODO Auto-generated method stub
-	super.onResume();
-	 
-	Log.d("maluchi", "Phone Number : "+getPhoneNumber());
-	Log.d("maluchi", "OperatorName : "+getSimOperatorName());
-	Log.d("maluchi", "ModelName : "+getModelName());
-	Log.d("maluchi", "FirwareVer : "+getFirmwareVersion());
-	Log.d("maluchi", "OSVer : "+getOSVersion());
-	Log.d("maluchi", "Internal Storage : "+getInternalStorageSize());
-	Log.d("maluchi", "External Storage : "+getExternalStorageSize());
-	Log.d("maluchi", "Internal Storage Per: "+getInternalStoragePercent() + "%");
-	}
-	 */
 	
 	public String getPhoneNumber() {
 	TelephonyManager mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
