@@ -187,6 +187,7 @@ public class CameraActivity extends AugmentedActivity {
         Intent intent = new Intent(this, DetailPopUp.class);
         intent.putExtra("name", marker.getName());
         intent.putExtra("detail", marker.getDetail());
+        intent.putExtra("kind", "location");
 		startActivity(intent);
 	}
 
@@ -265,6 +266,7 @@ public class CameraActivity extends AugmentedActivity {
 					Intent intent = new Intent(CameraActivity.this, DetailPopUp.class);
 					intent.putExtra("name", regionName);
 					intent.putExtra("detail", regionDetail);
+					intent.putExtra("kind", "beacon");
 					startActivity(intent);
 				}
 			}

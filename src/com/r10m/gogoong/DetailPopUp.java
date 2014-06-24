@@ -24,6 +24,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
 	private String name; 
 	private String detail;
 	private String locale;
+	private String kind;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         Intent intent = getIntent();
         name = intent.getExtras().get("name").toString();
         detail = intent.getExtras().get("detail").toString();
+        kind = intent.getExtras().getString("kind");
         textName.setText(name);
         textDetail.setText(detail);
         
@@ -87,6 +89,7 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
 		if(v.getId()==R.id.imageButton_detail){
 			Intent intent = new Intent(DetailPopUp.this, VideoActivity.class);
 			intent.putExtra("name", name);
+			intent.putExtra("kind", kind);
 			
 			if (mTts != null) {
 	            mTts.stop();

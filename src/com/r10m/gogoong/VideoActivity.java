@@ -22,6 +22,7 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -29,13 +30,15 @@ public class VideoActivity extends Activity {
 
 	/** 톰캣 서버 주소 */
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
-	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/location/video/kr/해치.json";
+	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/";
 	
-	//private String name;
+	private String name;
+	private String kind;
 	private Uri videoUri;
 	private VideoView vv;
 	private MediaController mc;
 
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -56,8 +59,10 @@ public class VideoActivity extends Activity {
 		mc = new MediaController(this);
 		mc.setAnchorView(vv);
 		
-		//Intent intent = getIntent();
-		//name = intent.getExtras().getString("name");
+		Intent intent = getIntent();
+		name = intent.getExtras().getString("name");
+		kind = intent.getExtras().getString("kind");
+		
 		
 		/**스트리밍 쓰레드 실행*/
 		new streamingVideoTask().execute("");
@@ -81,10 +86,10 @@ public class VideoActivity extends Activity {
 			
 			/**스트리밍 주소 파싱*/
 			//videoUri = Uri.parse( getJsonData(MOVIE_URL+name+".json") );
-			videoUri = Uri.parse( getJsonData(MOVIE_URL) );
+			videoUri = Uri.parse( getJsonData(createRequestURL(name)) );
 			return null;
 		}
-	      
+	
 	}
 	
 	/**스트리밍 주소 파싱 메소드*/
@@ -150,4 +155,14 @@ public class VideoActivity extends Activity {
 		
 	}
 
+	private String createRequestURL(String name) {		
+		if(kind.equals("location")){
+			return MOVIE_URL+"location/video/kr/"+name+".json";
+		}else if(kind.equals("beacon")){
+			return MOVIE_URL+"beacon/video/kr/"+name+".json";
+		}
+		Log.e("Video", "========================================");
+		return MOVIE_URL;
+	}
+	
 }
