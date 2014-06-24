@@ -82,8 +82,8 @@ public class AroundActivity extends NMapActivity implements OnMapStateChangeList
 		int markerId = AroundMapPOIflagType.PIN;
 
 		// 표시할 위치 데이터를 지정한다. -- 마지막 인자가 오버레이를 인식하기 위한 id값
-		NMapPOIdata poiData = new NMapPOIdata(2, mMapViewerResourceProvider);
-		poiData.beginPOIdata(2);
+		NMapPOIdata poiData = new NMapPOIdata(16, mMapViewerResourceProvider);
+		poiData.beginPOIdata(16);
 		poiData.addPOIitem(126.976916, 37.575997, getString(R.string.map1_key), markerId, 0);
 		poiData.addPOIitem(126.976930, 37.578588, getString(R.string.map2_key), markerId, 0);
 		poiData.addPOIitem(126.991003, 37.579476, getString(R.string.map3_key), markerId, 0);
