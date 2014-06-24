@@ -29,7 +29,7 @@ public class VideoActivity extends Activity {
 
 	/** 톰캣 서버 주소 */
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
-	private static final String MOVIE_URL = "http://192.168.200.13:8080/app/video/Geunjeongjeon.json";
+	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/location/video/kr/해치.json";
 	
 	//private String name;
 	private Uri videoUri;

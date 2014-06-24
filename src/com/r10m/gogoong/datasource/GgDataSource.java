@@ -29,7 +29,7 @@ import com.r10m.gogoong.component.IconMarker;
 import com.r10m.gogoong.component.Marker;
 
 public class GgDataSource extends NetworkDataSource {
-	private static final String URL = "http://192.168.200.13:8080/app/";
+	private static final String URL = "http://mycafe24kim.cafe24.com/app/";
 
 	private static Bitmap icon = null;
 
@@ -48,7 +48,14 @@ public class GgDataSource extends NetworkDataSource {
 	@Override
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale) {
-		return URL+(locale.equals("ko")? "kr/gyungbokgung.json":"eng/gyungbokgung.json");
+		if(locale.equals("ko")){
+			return URL+"kr/gyungbokgung.json";
+		}else if(locale.equals("en")){
+			return URL+"eng/gyungbokgung.json";
+		}else if(locale.equals("jp")){
+			return URL+"jp/gyungbokgung.json";
+		}
+		return URL;
 	}
 	
 	@Override
@@ -110,7 +117,7 @@ public class GgDataSource extends NetworkDataSource {
     	List<Marker> markers=new ArrayList<Marker>();
 
 		try {
-				dataArray = root.getJSONArray("gyungbokgung");
+				dataArray = root.getJSONArray("경복궁");
 			if (dataArray == null) return markers;
 			int top = Math.min(MAX, dataArray.length());
 			for (int i = 0; i < top; i++) {					

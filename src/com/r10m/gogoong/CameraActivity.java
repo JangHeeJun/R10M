@@ -69,7 +69,7 @@ public class CameraActivity extends AugmentedActivity {
 	private Button beaconButton;
 	private LinearLayout beaconLayout;
 	
-	private static final String URL = "http://192.168.200.93:8080/app/beacon/";
+	private static final String URL = "http://mycafe24kim.cafe24.com/app/beacon/";
 	private ArrayList<Beacon> beacons = new ArrayList<Beacon>();
 	private String regionName;
 	private String regionDetail;
@@ -390,10 +390,15 @@ public class CameraActivity extends AugmentedActivity {
 		
 	}
 	
-	private String createRequestURL(String uuid, int major, int minor, String locale) {
-		return URL+(locale.equals("ko")? 
-				"kr/"+uuid+"/"+major+"/"+minor+".json"
-				:"eng/"+uuid+"/"+major+"/"+minor+".json");
+	private String createRequestURL(String uuid, int major, int minor, String locale) {		
+		if(locale.equals("ko")){
+			return URL+"kr/"+uuid+"/"+major+"/"+minor+".json";
+		}else if(locale.equals("en")){
+			return URL+"eng/"+uuid+"/"+major+"/"+minor+".json";
+		}else if(locale.equals("jp")){
+			return URL+"jp/"+uuid+"/"+major+"/"+minor+".json";
+		}
+		return URL;
 	}
     
 }
