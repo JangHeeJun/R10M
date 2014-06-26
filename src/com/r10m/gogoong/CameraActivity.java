@@ -89,7 +89,7 @@ public class CameraActivity extends AugmentedActivity {
         sources.put("gG",gG);
         
         Drawable alpha = ((ImageView)findViewById(R.id.imageView_camera_map)).getDrawable();
-        alpha.setAlpha(50);
+        alpha.setAlpha(200);
         
         setBeacon();
         
