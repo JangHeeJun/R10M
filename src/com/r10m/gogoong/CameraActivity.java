@@ -91,7 +91,7 @@ public class CameraActivity extends AugmentedActivity {
         Drawable alpha = ((ImageView)findViewById(R.id.imageView_camera_map)).getDrawable();
         alpha.setAlpha(200);
         
-        setBeacon();
+     //   setBeacon();
         
     }
 	
@@ -114,27 +114,27 @@ public class CameraActivity extends AugmentedActivity {
         updateData(last.getLatitude(),last.getLongitude(),last.getAltitude());
         
         /**beacon start ranging*/
-        bm.connect(new BeaconManager.ServiceReadyCallback() {
-			@Override
-			public void onServiceReady() {
-				try {
-					bm.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
-				} catch (RemoteException e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//        bm.connect(new BeaconManager.ServiceReadyCallback() {
+//			@Override
+//			public void onServiceReady() {
+//				try {
+//					bm.startRanging(ALL_ESTIMOTE_BEACONS_REGION);
+//				} catch (RemoteException e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
     }
 	
 	@Override
 	protected void onStop() {
 		
-		/**beacon stop ranging*/
-		try {
-			bm.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+//		/**beacon stop ranging*/
+//		try {
+//			bm.stopRanging(ALL_ESTIMOTE_BEACONS_REGION);
+//		} catch (RemoteException e) {
+//			e.printStackTrace();
+//		}
 		super.onStop();
 	}
 	
@@ -144,7 +144,7 @@ public class CameraActivity extends AugmentedActivity {
 		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 		
 		/**beacon finish ranging*/
-		bm.disconnect();
+		//bm.disconnect();
 	}
 
     @Override
@@ -239,168 +239,168 @@ public class CameraActivity extends AugmentedActivity {
     	ARData.addMarkers(markers);
     	return true;
     }
-    
-    /**beacon method*/
-    private void setBeacon(){
-    	
-        beaconLayout = new LinearLayout(this);
-        beaconLayout.setOrientation(LinearLayout.HORIZONTAL);
-        
-        beaconButton = new Button(this);
-        beaconButton.setBackgroundResource(R.drawable.button_selector);
-        beaconLayout.addView(beaconButton, new LayoutParams(100, 100));
-        
-        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(
-        		LayoutParams.WRAP_CONTENT, 
-                LayoutParams.MATCH_PARENT, 
-                Gravity.LEFT);
-        frameLayoutParams.setMarginStart(300);
-        addContentView(beaconLayout, frameLayoutParams);
-        
-        beaconButton.setVisibility(Button.INVISIBLE);
-        beaconButton.setEnabled(false);
-        beaconButton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if(!(regionName == null || regionDetail == null)){
-					Intent intent = new Intent(CameraActivity.this, DetailPopUp.class);
-					intent.putExtra("name", regionName);
-					intent.putExtra("detail", regionDetail);
-					intent.putExtra("kind", "beacon");
-					startActivity(intent);
-				}
-			}
-		});
-        
-        bm = new BeaconManager(this);
-		bm.setRangingListener(new BeaconManager.RangingListener() {
-			@Override
-			public void onBeaconsDiscovered(Region region, final List<Beacon> beacons) {
-				
-				setBeaconButton(beacons);
-				
-			}
-		});
-		
-	}
-    
-    private void setBeaconButton(List<Beacon> beacons){
-		
-		Log.e("beacons size ================= ", beacons.size()+"");
-		
-		if( !(beacons.isEmpty()) ){
-			Log.e("beacons size ================= ", beacons.size()+"");
-			this.beacons.clear();
-			this.beacons.addAll(beacons);
-			
-			if(beaconButton.getVisibility() == Button.INVISIBLE){
-				Log.e("", "=================VISIBLE==================");
-				beaconButton.setVisibility(Button.VISIBLE);
-				Log.e("getVisibility", (beaconButton.getVisibility())+"");
-				beaconButton.setEnabled(true);
-				
-				new BeaconTask().execute();
-			}
-		}else{
-			Log.e("", "=================INVISIBLE==================");
-			beaconButton.setVisibility(Button.INVISIBLE);
-			Log.e("getVisibility", (beaconButton.getVisibility())+"");
-	        beaconButton.setEnabled(false);
-		}
-		
-	}
-    
-    class BeaconTask extends AsyncTask<Void, Void, Void>{
-		
-		@Override
-		protected void onPostExecute(Void result) {
-			
-		}
-
-		@Override
-		protected Void doInBackground(Void... params) {
-			
-			downloadBeaconData(beacons.get(0));
-
-			return null;
-		}
-		
-	}
-	
-	private void downloadBeaconData(Beacon beacon){
-		
-		InputStream is = null;
-		String result = null;
-
-		try {
-			HttpClient httpClient = new DefaultHttpClient();
-			HttpGet httpGet = new HttpGet(
-					createRequestURL(beacon.getProximityUUID(), beacon.getMajor(), beacon.getMinor(),
-							(PreferenceManager.getDefaultSharedPreferences(this)).getString("LanguageList", "ko")));
-			HttpResponse httpResponse = httpClient.execute(httpGet);
-			HttpEntity httpEntity = httpResponse.getEntity();
-
-			is = httpEntity.getContent();
-		} catch (Exception ex) {
-			ex.printStackTrace();
-		}
-
-		if (is == null)
-			throw new NullPointerException();
-
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(is,
-					"UTF-8"));
-			StringBuilder sb = new StringBuilder();
-
-			String line = null;
-			while ((line = br.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			result = sb.toString();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		if(result == null)
-			throw new NullPointerException();
-		
-		try {
-			
-			Log.e("result", result);
-			
-			JSONObject jo = new JSONObject(result);
-			regionName = jo.getString("regionName");
-			regionDetail = jo.getString("regionDetail");
-			
-			Log.e("regionName", regionName);
-			Log.e("regionDetail", regionDetail);
-			
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	private String createRequestURL(String uuid, int major, int minor, String locale) {		
-		if(locale.equals("ko")){
-			return URL+"kr/"+uuid+"/"+major+"/"+minor+".json";
-		}else if(locale.equals("en")){
-			return URL+"eng/"+uuid+"/"+major+"/"+minor+".json";
-		}else if(locale.equals("jp")){
-			return URL+"jp/"+uuid+"/"+major+"/"+minor+".json";
-		}
-		return URL;
-	}
+//    
+//    /**beacon method*/
+//    private void setBeacon(){
+//    	
+//        beaconLayout = new LinearLayout(this);
+//        beaconLayout.setOrientation(LinearLayout.HORIZONTAL);
+//        
+//        beaconButton = new Button(this);
+//        beaconButton.setBackgroundResource(R.drawable.button_selector);
+//        beaconLayout.addView(beaconButton, new LayoutParams(100, 100));
+//        
+//        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(
+//        		LayoutParams.WRAP_CONTENT, 
+//                LayoutParams.MATCH_PARENT, 
+//                Gravity.LEFT);
+//        frameLayoutParams.setMarginStart(300);
+//        addContentView(beaconLayout, frameLayoutParams);
+//        
+//        beaconButton.setVisibility(Button.INVISIBLE);
+//        beaconButton.setEnabled(false);
+//        beaconButton.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				if(!(regionName == null || regionDetail == null)){
+//					Intent intent = new Intent(CameraActivity.this, DetailPopUp.class);
+//					intent.putExtra("name", regionName);
+//					intent.putExtra("detail", regionDetail);
+//					intent.putExtra("kind", "beacon");
+//					startActivity(intent);
+//				}
+//			}
+//		});
+//        
+//        bm = new BeaconManager(this);
+//		bm.setRangingListener(new BeaconManager.RangingListener() {
+//			@Override
+//			public void onBeaconsDiscovered(Region region, final List<Beacon> beacons) {
+//				
+//				setBeaconButton(beacons);
+//				
+//			}
+//		});
+//		
+//	}
+//    
+//    private void setBeaconButton(List<Beacon> beacons){
+//		
+//		Log.e("beacons size ================= ", beacons.size()+"");
+//		
+//		if( !(beacons.isEmpty()) ){
+//			Log.e("beacons size ================= ", beacons.size()+"");
+//			this.beacons.clear();
+//			this.beacons.addAll(beacons);
+//			
+//			if(beaconButton.getVisibility() == Button.INVISIBLE){
+//				Log.e("", "=================VISIBLE==================");
+//				beaconButton.setVisibility(Button.VISIBLE);
+//				Log.e("getVisibility", (beaconButton.getVisibility())+"");
+//				beaconButton.setEnabled(true);
+//				
+//				new BeaconTask().execute();
+//			}
+//		}else{
+//			Log.e("", "=================INVISIBLE==================");
+//			beaconButton.setVisibility(Button.INVISIBLE);
+//			Log.e("getVisibility", (beaconButton.getVisibility())+"");
+//	        beaconButton.setEnabled(false);
+//		}
+//		
+//	}
+//    
+//    class BeaconTask extends AsyncTask<Void, Void, Void>{
+//		
+//		@Override
+//		protected void onPostExecute(Void result) {
+//			
+//		}
+//
+//		@Override
+//		protected Void doInBackground(Void... params) {
+//			
+//			downloadBeaconData(beacons.get(0));
+//
+//			return null;
+//		}
+//		
+//	}
+//	
+//	private void downloadBeaconData(Beacon beacon){
+//		
+//		InputStream is = null;
+//		String result = null;
+//
+//		try {
+//			HttpClient httpClient = new DefaultHttpClient();
+//			HttpGet httpGet = new HttpGet(
+//					createRequestURL(beacon.getProximityUUID(), beacon.getMajor(), beacon.getMinor(),
+//							(PreferenceManager.getDefaultSharedPreferences(this)).getString("LanguageList", "ko")));
+//			HttpResponse httpResponse = httpClient.execute(httpGet);
+//			HttpEntity httpEntity = httpResponse.getEntity();
+//
+//			is = httpEntity.getContent();
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
+//
+//		if (is == null)
+//			throw new NullPointerException();
+//
+//		try {
+//			BufferedReader br = new BufferedReader(new InputStreamReader(is,
+//					"UTF-8"));
+//			StringBuilder sb = new StringBuilder();
+//
+//			String line = null;
+//			while ((line = br.readLine()) != null) {
+//				sb.append(line + "\n");
+//			}
+//			result = sb.toString();
+//		} catch (UnsupportedEncodingException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				is.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		if(result == null)
+//			throw new NullPointerException();
+//		
+//		try {
+//			
+//			Log.e("result", result);
+//			
+//			JSONObject jo = new JSONObject(result);
+//			regionName = jo.getString("regionName");
+//			regionDetail = jo.getString("regionDetail");
+//			
+//			Log.e("regionName", regionName);
+//			Log.e("regionDetail", regionDetail);
+//			
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
+//	
+//	private String createRequestURL(String uuid, int major, int minor, String locale) {		
+//		if(locale.equals("ko")){
+//			return URL+"kr/"+uuid+"/"+major+"/"+minor+".json";
+//		}else if(locale.equals("en")){
+//			return URL+"eng/"+uuid+"/"+major+"/"+minor+".json";
+//		}else if(locale.equals("jp")){
+//			return URL+"jp/"+uuid+"/"+major+"/"+minor+".json";
+//		}
+//		return URL;
+//	}
     
 }
