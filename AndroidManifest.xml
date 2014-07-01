@@ -48,6 +48,11 @@
             android:name="CameraActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
         
+        <!-- 카메라 프리뷰 - openCV -->
+        <activity 
+            android:name="CvCameraActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+        
         <!-- 동영상 스트리밍 -->
         <activity 
             android:name="VideoActivity"
