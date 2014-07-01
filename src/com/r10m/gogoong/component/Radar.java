@@ -3,9 +3,9 @@ package com.r10m.gogoong.component;
 import android.graphics.Canvas;
 import android.graphics.Color;
 
-import com.r10m.gogoong.ARData;
 import com.r10m.gogoong.camera.CameraModel;
 import com.r10m.gogoong.locate.ScreenPositionUtility;
+import com.r10m.gogoong.resource.ARData;
 import com.r10m.gogoong.ui.PaintableCircle;
 import com.r10m.gogoong.ui.PaintableLine;
 import com.r10m.gogoong.ui.PaintablePosition;

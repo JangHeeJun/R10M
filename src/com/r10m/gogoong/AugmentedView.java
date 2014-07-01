@@ -12,6 +12,7 @@ import android.view.View;
 
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.component.Radar;
+import com.r10m.gogoong.resource.ARData;
 
 /** 2. 마커와 레이더 그리는 뷰 */
 public class AugmentedView extends View {

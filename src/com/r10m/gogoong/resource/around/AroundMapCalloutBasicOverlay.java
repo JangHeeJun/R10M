@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource.around;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

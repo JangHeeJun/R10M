@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource;
 
 import java.util.ArrayList;
 import java.util.Collection;

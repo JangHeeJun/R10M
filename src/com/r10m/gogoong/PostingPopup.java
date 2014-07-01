@@ -11,6 +11,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import com.facebook.model.GraphObject;
 import com.facebook.widget.FacebookDialog;
+import com.r10m.gogoong.resource.twitter.BasicInfo;
 
 import android.app.Activity;
 import android.app.AlertDialog;

@@ -7,6 +7,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import com.facebook.Session;
+import com.r10m.gogoong.resource.twitter.BasicInfo;
 
 import android.app.Activity;
 import android.content.Intent;

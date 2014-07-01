@@ -48,14 +48,7 @@ public class GgDataSource extends NetworkDataSource {
 	@Override
 	public String createRequestURL(double lat, double lon, double alt,
 			float radius, String locale) {
-		if(locale.equals("ko")){
-			return URL+"location/kr/경복궁.json";
-		}else if(locale.equals("en")){
-			return URL+"location/eng/경복궁.json";
-		}else if(locale.equals("jp")){
-			return URL+"location/jp/경복궁.json";
-		}
-		return URL;
+		return URL+"location/"+locale+"/경복궁.json";
 	}
 	
 	@Override

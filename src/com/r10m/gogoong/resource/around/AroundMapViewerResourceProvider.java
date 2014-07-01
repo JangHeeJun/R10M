@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource.around;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,6 +15,9 @@ import android.widget.ListView;
 import com.nhn.android.maps.NMapOverlayItem;
 import com.nhn.android.maps.overlay.NMapPOIitem;
 import com.nhn.android.mapviewer.overlay.NMapResourceProvider;
+import com.r10m.gogoong.R;
+import com.r10m.gogoong.R.drawable;
+import com.r10m.gogoong.R.string;
 
 
 public class AroundMapViewerResourceProvider extends NMapResourceProvider {

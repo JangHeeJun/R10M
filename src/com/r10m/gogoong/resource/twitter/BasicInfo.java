@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource.twitter;
 
 import twitter4j.Twitter;
 import twitter4j.auth.AccessToken;

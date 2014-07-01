@@ -5,6 +5,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.r10m.gogoong.R;
+import com.r10m.gogoong.resource.around.GMailSender;
 
 import android.app.Activity;
 import android.app.AlertDialog;

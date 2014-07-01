@@ -1,8 +1,8 @@
 package com.r10m.gogoong.ui;
 
-import com.r10m.gogoong.ARData;
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.component.Radar;
+import com.r10m.gogoong.resource.ARData;
 
 import android.graphics.Canvas;
 /** 레이더상에서 모든 마커의 상대적인 위치를 그리는 클래스 */

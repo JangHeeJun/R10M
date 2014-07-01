@@ -21,6 +21,9 @@ import com.nhn.android.mapviewer.overlay.NMapCalloutOverlay;
 import com.nhn.android.mapviewer.overlay.NMapOverlayManager;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay;
 import com.nhn.android.mapviewer.overlay.NMapPOIdataOverlay.OnStateChangeListener;
+import com.r10m.gogoong.resource.around.AroundMapCalloutBasicOverlay;
+import com.r10m.gogoong.resource.around.AroundMapPOIflagType;
+import com.r10m.gogoong.resource.around.AroundMapViewerResourceProvider;
 
 public class AroundActivity extends NMapActivity implements OnMapStateChangeListener, OnStateChangeListener, OnMapViewTouchEventListener {
 

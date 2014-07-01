@@ -3,6 +3,7 @@ package com.r10m.gogoong;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.r10m.gogoong.resource.ARData;
 import com.r10m.gogoong.util.LowPassFilter;
 import com.r10m.gogoong.util.Matrix;
 

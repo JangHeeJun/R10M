@@ -33,11 +33,16 @@ public class TermsOfService extends Activity {
 	       btn_back.setOnClickListener(new OnClickListener(){
 		       @Override
 		       public void onClick(View v) {
-					Intent intent = new Intent(TermsOfService.this, SettingActivity.class);
-		            startActivity(intent);
+					finish();
 		       }
 	       });   
 
+	}
+
+	@Override
+	public void finish() {
+		super.finish();
+    	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
 
 

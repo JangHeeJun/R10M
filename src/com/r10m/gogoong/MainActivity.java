@@ -10,6 +10,7 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import com.facebook.Session;
 import com.facebook.SessionState;
+import com.r10m.gogoong.resource.twitter.BasicInfo;
 
 import android.app.Activity;
 import android.app.AlertDialog;

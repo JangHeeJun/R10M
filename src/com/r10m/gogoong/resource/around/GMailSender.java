@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource.around;
 
 import java.io.ByteArrayInputStream;  
 import java.io.IOException;  

@@ -28,6 +28,7 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
+import com.r10m.gogoong.resource.twitter.BasicInfo;
 
 import android.content.Context;
 import android.content.Intent;

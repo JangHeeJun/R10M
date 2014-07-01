@@ -7,9 +7,9 @@ import android.graphics.Color;
 import android.location.Location;
 import android.util.Log;
 
-import com.r10m.gogoong.ARData;
 import com.r10m.gogoong.camera.CameraModel;
 import com.r10m.gogoong.locate.PhysicalLocationUtility;
+import com.r10m.gogoong.resource.ARData;
 import com.r10m.gogoong.ui.PaintableBox;
 import com.r10m.gogoong.ui.PaintableBoxedText;
 import com.r10m.gogoong.ui.PaintableGps;

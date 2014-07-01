@@ -1,4 +1,4 @@
-package com.r10m.gogoong;
+package com.r10m.gogoong.resource.facebook;
 
 import android.os.Bundle;
 import android.util.Log;

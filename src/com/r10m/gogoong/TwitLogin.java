@@ -1,5 +1,7 @@
 package com.r10m.gogoong;
 
+import com.r10m.gogoong.resource.twitter.BasicInfo;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
