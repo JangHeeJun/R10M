@@ -14,5 +14,6 @@
     <string name="help_centeryellowtext">@drawable/help_centeryellowtext</string>
     <string name="help_pyellowtext">@drawable/help_pyellowtext</string>
     <string name="help_topdownyellowtext">@drawable/help_topdownyellowtext</string>
-
+  <string name="help_opencv">@drawable/help_opencvyellowtext_en</string>
+    <string name="help_beacon">@drawable/help_beaconyellowtext</string>
 </resources>

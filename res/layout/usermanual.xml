@@ -7,17 +7,26 @@
     android:orientation="horizontal" >
 
     <RelativeLayout
-        android:layout_width="105dp"
+              android:layout_width="86dp"
         android:layout_height="match_parent" >
 
         <ImageView
             android:id="@+id/imageView4_manual"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_marginBottom="67dp"
             android:src="@string/help_left" />
+
+        <ImageView
+            android:id="@+id/imageView1_manual"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+             android:layout_marginTop="30dp"
+            android:src="@string/help_pyellowtext" />
 
     </RelativeLayout>
 
@@ -28,29 +37,30 @@
 
         <ImageView
             android:id="@+id/imageView3_manual"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:src="@string/help_bottomyellowtext" />
 
         <ImageView
-            android:id="@+id/imageView2_manual"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_above="@id/imageView3_manual"
-            android:layout_alignLeft="@id/imageView3_manual"
-            android:layout_marginBottom="19dp"
-            android:src="@string/help_centeryellowtext" />
-
-        <ImageView
-            android:id="@+id/imageView1_manual"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="15dp"
-            android:src="@string/help_pyellowtext" />
+           
+            android:layout_marginTop="10dp"
+            android:src="@string/help_beacon" />
+
+        <ImageView
+            android:id="@+id/imageView2_manual"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_above="@+id/imageView3_manual"
+            android:layout_alignLeft="@+id/imageView3_manual"
+            android:layout_marginBottom="48dp"
+            android:src="@string/help_centeryellowtext" />
 
     </RelativeLayout>
 
@@ -60,11 +70,21 @@
 
         <ImageView
             android:id="@+id/imageView5_manual"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:src="@string/help_topdownyellowtext" />
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:src="@string/help_opencv" />
 
     </RelativeLayout>
 
