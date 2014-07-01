@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.Locale;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -17,11 +18,14 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -31,6 +35,9 @@ public class VideoActivity extends Activity {
 	/** 톰캣 서버 주소 */
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
 	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/";
+	
+	private SharedPreferences preferences;
+	private static String locale = "en";
 	
 	private String name;
 	private String kind;
@@ -43,6 +50,9 @@ public class VideoActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
+		
+		preferences = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	setLocale(preferences.getString("LanguageList", "ko"));	//언어설정
 		
 		/**비디오 뷰 세팅*/
 		vv = (VideoView) findViewById(R.id.videoView);
@@ -68,6 +78,16 @@ public class VideoActivity extends Activity {
 		new streamingVideoTask().execute("");
 			
 	}
+	
+	//언어 설정
+    public void setLocale(String character) {
+    	locale = character;
+    	Locale locale = new Locale(character); 
+    	Locale.setDefault(locale);
+    	Configuration config = new Configuration();
+    	config.locale = locale;
+    	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
+    }
 	
 	private class streamingVideoTask extends AsyncTask<String, Void, Void>{
 		 
@@ -157,9 +177,9 @@ public class VideoActivity extends Activity {
 
 	private String createRequestURL(String name) {		
 		if(kind.equals("location")){
-			return MOVIE_URL+"location/video/kr/"+name+".json";
+			return MOVIE_URL+"location/video/"+locale+"/"+name+".json";
 		}else if(kind.equals("beacon")){
-			return MOVIE_URL+"beacon/video/kr/"+name+".json";
+			return MOVIE_URL+"beacon/video/"+locale+"/"+name+".json";
 		}
 		Log.e("Video", "========================================");
 		return MOVIE_URL;

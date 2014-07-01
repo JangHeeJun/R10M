@@ -92,7 +92,7 @@ public class AugmentedActivity extends SensorsActivity implements OnClickListene
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        setContentView(R.layout.cvcamera);
+        setContentView(R.layout.camera);
         
         camScreen = (CameraSurface)findViewById(R.id.surface_camera);
         mpHolder = camScreen.getHolder();
