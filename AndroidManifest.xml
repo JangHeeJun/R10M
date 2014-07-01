@@ -100,7 +100,7 @@
         <provider android:authorities="com.facebook.app.NativeAppCallContentProvider1508804796002299"
                   android:name="com.facebook.NativeAppCallContentProvider"
                   android:exported="true"/>
-        <receiver android:name="GoFacebookBroadcastReceiver">
+        <receiver android:name="com.r10m.gogoong.resource.facebook.GoFacebookBroadcastReceiver">
             <intent-filter>
                 <action android:name="com.facebook.platform.AppCallResultBroadcast" />
             </intent-filter>
