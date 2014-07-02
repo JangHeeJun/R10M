@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 /** Marker를 click했을시 텍스트 및 음성 출력 */
 public class DetailPopUp extends Activity implements OnClickListener,TextToSpeech.OnInitListener{
 	private SharedPreferences mainPreference;
@@ -109,13 +110,13 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
         		result = mTts.setLanguage(Locale.KOREA);
     		}else if(locale.equals("en")){
     			result = mTts.setLanguage(Locale.ENGLISH);
-    		}else if(locale.equals("jp")){
+    		}else if(locale.equals("ja")){
     			result = mTts.setLanguage(Locale.JAPAN);
     		}
             if (result == TextToSpeech.LANG_MISSING_DATA ||
                 result == TextToSpeech.LANG_NOT_SUPPORTED) {
                // Lanuage data is missing or the language is not supported.
-                Log.e("TTS", "Language is not available.");
+                Toast.makeText(this, "Language is not available.", Toast.LENGTH_SHORT).show();
             } else {
                 say();
             }

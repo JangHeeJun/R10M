@@ -1,7 +1,8 @@
 package com.r10m.gogoong;
 
 import java.io.IOException;
-import java.util.Locale;
+import java.text.DecimalFormat;
+import java.util.List;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.JavaCameraView;
@@ -12,15 +13,22 @@ import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import com.facebook.AppEventsLogger;
+import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.filter.Filter;
 import com.r10m.gogoong.filter.ar.ImageDetectionFilter;
+import com.r10m.gogoong.resource.ARData;
+import com.r10m.gogoong.wizet.VerticalSeekBar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.hardware.Camera;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
 import android.hardware.Camera.CameraInfo;
 import android.os.Build;
 import android.os.Bundle;
@@ -29,29 +37,37 @@ import android.os.Looper;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.preference.PreferenceManager;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.ViewGroup.LayoutParams;
+import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
+import android.widget.TextView;
 
-/** 3. SensorsActivity를 확장, 터치 구현한 액티비티 */
+/** 3. SensorsActivity */
 public class CvCameraActivity extends SensorsActivity implements CvCameraViewListener2{
 	
-	//manual activity 설정 저장
-	private SharedPreferences preferences;
-	private static String locale = "en";
-
+	//manual activity
+	SharedPreferences mainPreferences;
+		
     private static final String TAG = "CvCameraActivity";
     
     protected static WakeLock wakeLock = null;
-    protected static JavaCameraView mCameraView = null;
-
+    protected static JavaCameraView camScreen = null;
+  
+    //opencv
     private boolean flag;
     
     // A key for storing the index of the active camera.
@@ -76,11 +92,12 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
     
     // The number of cameras on the device.
     private int mNumCameras;
-    
     private boolean mIsRunning;
     private Mat rgba;
-    private Button btnCv;
-	private LinearLayout cvLayout;
+    private Button btn;
+    private ProgressBar prog;
+    private Marker marker;
+    private String imgName;
     
     // The OpenCV loader callback.
     private BaseLoaderCallback mLoaderCallback =
@@ -90,12 +107,16 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             switch (status) {
                 case LoaderCallbackInterface.SUCCESS:
                     Log.d(TAG, "OpenCV loaded successfully");
-                    mCameraView.enableView();
-                    try {
+                    camScreen.enableView();
+                    
+					try {
 						mImageDetectionFilters=new ImageDetectionFilter(
-								CvCameraActivity.this,R.drawable.hadchi1);
+								CvCameraActivity.this,
+								CvCameraActivity.this.getResources().getIdentifier(imgName,
+										"drawable", CvCameraActivity.this.getPackageName()));
 					} catch (IOException e) {
 						e.printStackTrace();
+						break;
 					}
                 default:
                     super.onManagerConnected(status);
@@ -104,14 +125,17 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
         }
     };
     
+    
+    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-  
-        preferences = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(preferences.getString("LanguageList", "ko"));	//언어설정
-        
+       
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setContentView(R.layout.cvcamera);
+              
         final Window window = getWindow();
         window.addFlags(
         		WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -140,76 +164,59 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             mNumCameras = 1;
         }
         
-        mCameraView = new JavaCameraView(this, mCameraIndex);
-        mCameraView.setCvCameraViewListener(this);
-        setContentView(mCameraView);
-      
-        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "DimScreen");
         
-        setCv();     
-    }
-
-	//언어 설정
-    public void setLocale(String character) {
-    	locale = character;
-    	Locale locale = new Locale(character); 
-    	Locale.setDefault(locale);
-    	Configuration config = new Configuration();
-    	config.locale = locale;
-    	getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
-    }
-	
-    private void setCv(){
-    	
-        cvLayout = new LinearLayout(this);
-        cvLayout.setOrientation(LinearLayout.HORIZONTAL);
-        
-        btnCv = new Button(this);
-        btnCv.setBackgroundResource(R.drawable.opencv2);
-        cvLayout.addView(btnCv, new LayoutParams(100, 100));
-        
-        FrameLayout.LayoutParams frameLayoutParams = new FrameLayout.LayoutParams(
-        		LayoutParams.WRAP_CONTENT, 
-                LayoutParams.MATCH_PARENT, 
-                Gravity.RIGHT);
-        frameLayoutParams.setMarginEnd(75);
-        addContentView(cvLayout, frameLayoutParams);
-       
-        btnCv.setOnClickListener(new View.OnClickListener() {
+        btn = (Button)findViewById(R.id.button_cv);
+        btn.setOnClickListener(new OnClickListener() {
+			
 			@Override
 			public void onClick(View v) {
-				if(v.getId() == R.id.button_camera){
-		        	finish();
+				if(v.getId() == R.id.button_cv){
+					finish();
 				}
 			}
 		});
-	}
-    
-    
+        
+        prog = (ProgressBar)findViewById(R.id.progressBar_cv);
+        
+        camScreen = (JavaCameraView)findViewById(R.id.surface_cv);
+        camScreen.setCvCameraViewListener(this);
+
+        PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+        wakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "DimScreen");
+    }
+
 	@Override
-    public void onPause() {
-        if (mCameraView != null) {
-            mCameraView.disableView();
-        }
-        super.onPause();
-    }
-    
-    @Override
-    public void onResume() {
-        super.onResume();
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3,
-                this, mLoaderCallback);
-    }
-    
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if (mCameraView != null) {
-            mCameraView.disableView();
-        }
-    }
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
 	
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		AppEventsLogger.activateApp(this);
+		wakeLock.acquire();
+		
+    	marker = ARData.getMarkers().get(9);
+		prog.setVisibility(View.VISIBLE);
+		
+		imgName = "haechi";
+		Log.e(TAG, "=================="+imgName);
+		OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3,
+                this, mLoaderCallback);
+	}
+
+	@Override
+	public void onPause() {
+		super.onPause();
+		wakeLock.release();
+		if (camScreen != null) {
+			camScreen.disableView();
+        }
+	}	
+	
+	//opencv
 	@Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save the current camera index.
@@ -222,6 +229,14 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
         super.onSaveInstanceState(savedInstanceState);
     }
     
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (camScreen != null) {
+        	camScreen.disableView();
+        }
+    }
+  
     @Override
     public void onCameraViewStarted(final int width,
     		final int height) {
@@ -247,21 +262,26 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             	flag = false;
             	Log.e(TAG, "if  "+flag);
             	Intent intent = new Intent(CvCameraActivity.this,DetailPopUp.class);
-            	intent.putExtra("name", "해치");
-            	intent.putExtra("detail", "해치입니다.");
+            	intent.putExtra("name", marker.getName());
+            	intent.putExtra("detail", marker.getDetail());
             	startActivity(intent);	
             }else{
             	 // Apply the active filters.
-                flag = mImageDetectionFilters.apply(rgba, rgba);
+            	flag = mImageDetectionFilters.apply(rgba, rgba);
                 Log.e(TAG, "else  "+flag);
             }
         	
 	        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
 	            @Override
 	            public void run() {
+	            	prog.setVisibility(View.GONE);
 	            	mIsRunning = false;
+	            	imgName = marker.getName().toLowerCase();
+	            	Log.e(TAG, "=================="+imgName);
+	            	//marker = ARData.getMarkers().get(0);
+	            	
 	            }
-	        }, 1000);
+	        }, 1500);
         }        
         
         
@@ -272,13 +292,4 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
         
         return rgba;
     }
-	
-	@Override
-	public void finish() {
-		super.finish();
-    	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-	}
-	
-	
-	
 }

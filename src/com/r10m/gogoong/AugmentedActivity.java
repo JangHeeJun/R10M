@@ -33,12 +33,13 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 /** 3. SensorsActivity를 확장, 터치 구현한 액티비티 */
-public class AugmentedActivity extends SensorsActivity implements OnClickListener{
+public class AugmentedActivity extends SensorsActivity {
 	
 	//manual activity 설정 저장
 	SharedPreferences preferences;
@@ -79,6 +80,7 @@ public class AugmentedActivity extends SensorsActivity implements OnClickListene
     ImageView mImage;
     
     private Button btn;
+    private ProgressBar prog;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -138,8 +140,21 @@ public class AugmentedActivity extends SensorsActivity implements OnClickListene
         
         //openCV 
         btn = (Button)findViewById(R.id.button_camera);
-        btn.setBackgroundResource(R.drawable.opencv);
-        btn.setOnClickListener(this);
+        btn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if(v.getId() == R.id.button_camera){
+		        	Intent intent = new Intent(AugmentedActivity.this,CvCameraActivity.class);
+		        	camScreen.surfaceDestroyed(mpHolder);
+		        	startActivity(intent);
+		        	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+				}
+			}
+		});
+        
+        prog = (ProgressBar)findViewById(R.id.progressBar_camera);
+        prog.setVisibility(View.INVISIBLE);
     }
 
 	@Override
@@ -279,14 +294,5 @@ public class AugmentedActivity extends SensorsActivity implements OnClickListene
 	// 구현 필요
 	protected void markerTouched(Marker marker) {
 		Log.w(TAG,"markerTouched() not implemented.");
-	}
-
-	@Override
-	public void onClick(View v) {
-		if(v.getId() == R.id.button_camera){
-        	Intent intent = new Intent(this,CvCameraActivity.class);
-        	startActivity(intent);
-        	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-		}
 	}
 }

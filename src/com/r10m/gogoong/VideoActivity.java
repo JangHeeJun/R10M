@@ -36,7 +36,7 @@ public class VideoActivity extends Activity {
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
 	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/";
 	
-	private SharedPreferences preferences;
+	private SharedPreferences mainPreferences;
 	private static String locale = "en";
 	
 	private String name;
@@ -51,8 +51,8 @@ public class VideoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
 		
-		preferences = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(preferences.getString("LanguageList", "ko"));	//언어설정
+		mainPreferences = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
+    	setLocale(mainPreferences.getString("LanguageList", "ko"));	//언어설정
 		
 		/**비디오 뷰 세팅*/
 		vv = (VideoView) findViewById(R.id.videoView);
@@ -175,14 +175,15 @@ public class VideoActivity extends Activity {
 		
 	}
 
-	private String createRequestURL(String name) {		
+	private String createRequestURL(String name) {	
+		String url = "";
 		if(kind.equals("location")){
-			return MOVIE_URL+"location/video/"+locale+"/"+name+".json";
+			url = MOVIE_URL+"location/video/"+locale+"/"+name+".json";
 		}else if(kind.equals("beacon")){
-			return MOVIE_URL+"beacon/video/"+locale+"/"+name+".json";
+			url = MOVIE_URL+"beacon/video/"+locale+"/"+name+".json";
 		}
-		Log.e("Video", "========================================");
-		return MOVIE_URL;
+		Log.e("Video", "==================="+url+"=====================");
+		return url;
 	}
 	
 }
