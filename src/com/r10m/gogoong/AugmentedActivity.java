@@ -42,7 +42,7 @@ import android.widget.TextView;
 public class AugmentedActivity extends SensorsActivity {
 	
 	//manual activity 설정 저장
-	SharedPreferences preferences;
+	SharedPreferences mainPreferences;
 	
 	
     private static final String TAG = "AugmentedActivity";
@@ -165,15 +165,15 @@ public class AugmentedActivity extends SensorsActivity {
 		
 		
 		// ManualActivity intent start!!!
-		preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		mainPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
-		String turn= preferences.getString("on/off", "on");
+		String turn= mainPreferences.getString("on/off", "on");
 			
 		if(turn.equals("on")){
 			Intent ManualIntent = new Intent(AugmentedActivity.this,ManualActivity.class);
 			startActivity(ManualIntent);
 			   
-			SharedPreferences.Editor editor = preferences.edit();
+			SharedPreferences.Editor editor = mainPreferences.edit();
 			editor.putString("on/off","off");
 			editor.commit();  	
 			   

@@ -57,7 +57,7 @@ import com.r10m.gogoong.resource.ARData;
 /** 모든 액티비티를 상속받은 CameraActivity */
 public class CameraActivity extends AugmentedActivity {
 	private static final String TAG = "CameraActivity";
-    private static String locale = "en";
+    private static String locale;
     private static final BlockingQueue<Runnable> queue = new SynchronousQueue<Runnable>();//new ArrayBlockingQueue<Runnable>(1);
     private static final ThreadPoolExecutor exeService = new ThreadPoolExecutor(1, Integer.MAX_VALUE, 20, TimeUnit.SECONDS, queue);
 	private static final Map<String,NetworkDataSource> sources = new ConcurrentHashMap<String,NetworkDataSource>();
@@ -79,8 +79,11 @@ public class CameraActivity extends AugmentedActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreference.getString("LanguageList", "ko"));	//언어설정
+        Locale systemLocale = getResources().getConfiguration().locale;
+	    String strLanguage = systemLocale.getLanguage();
+		
+		mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		setLocale(mainPreference.getString("LanguageList", strLanguage));
 
         
         LocalDataSource localData = new LocalDataSource(this.getResources());

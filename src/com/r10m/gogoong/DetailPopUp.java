@@ -35,9 +35,12 @@ public class DetailPopUp extends Activity implements OnClickListener,TextToSpeec
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
         
         setContentView(R.layout.detail);
-        
-        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	locale = mainPreference.getString("LanguageList", "ko");
+    	
+    	Locale systemLocale = getResources().getConfiguration().locale;
+	    String strLanguage = systemLocale.getLanguage();
+		
+		mainPreference = PreferenceManager.getDefaultSharedPreferences(this);
+		locale = mainPreference.getString("LanguageList", strLanguage);
         
         // 텍스트 출력 준비
         TextView textName = (TextView)findViewById(R.id.textView_detail_name);

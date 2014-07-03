@@ -50,21 +50,22 @@ public class ContactUs extends Activity implements OnClickListener {
 	    btn_back.setOnClickListener(new OnClickListener(){
 		       @Override
 		       public void onClick(View v) {
-					Intent intent = new Intent(ContactUs.this, SettingActivity.class);
-					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		            startActivity(intent);
+					finish();
 		       }
 	    });
 	}
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(ContactUs.this, SettingActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	    startActivity(intent);
 		super.onBackPressed();
+		finish();
 	}
 	
+	@Override
+	public void finish() {
+		super.finish();
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+	}
 	
 	//이메일 유효성
 	public static boolean isEmailPattern(String email){
@@ -164,84 +165,83 @@ public class ContactUs extends Activity implements OnClickListener {
 	}
 	
 	public String getPhoneNumber() {
-	TelephonyManager mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-	if (mTelephonyMgr.getLine1Number() == null || mTelephonyMgr.getLine1Number().trim().equals("")) {
-	return "EMPTY";
-	} else {
-	return mTelephonyMgr.getLine1Number();
-	}
+		TelephonyManager mTelephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		if (mTelephonyMgr.getLine1Number() == null || mTelephonyMgr.getLine1Number().trim().equals("")) {
+			return "EMPTY";
+		} else {
+			return mTelephonyMgr.getLine1Number();
+		}
 	}
 	
 	public String getSimOperatorName() {
-	TelephonyManager telephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-	if (telephonyMgr.getSimOperatorName() == null || telephonyMgr.getSimOperatorName().equals("")) {
-	return "EMPTY";
-	} else {
-	return telephonyMgr.getSimOperatorName();
-	}
+		TelephonyManager telephonyMgr = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+		if (telephonyMgr.getSimOperatorName() == null || telephonyMgr.getSimOperatorName().equals("")) {
+			return "EMPTY";
+		} else {
+			return telephonyMgr.getSimOperatorName();
+		}
 	}
 	 
 	public String getModelName() {
-	return Build.MODEL;
+		return Build.MODEL;
 	}
 	 
 	public String getFirmwareVersion() {
-	return Build.VERSION.RELEASE;
+		return Build.VERSION.RELEASE;
 	}
 	 
 	public String getOSVersion() {
-	return System.getProperty("os.version");
+		return System.getProperty("os.version");
 	}
 	 
 	public String getInternalStorageSize() {
-	String[] sizes = getStorageInfo(Environment.getDataDirectory());
-	return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
+		String[] sizes = getStorageInfo(Environment.getDataDirectory());
+		return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
 	}
 	 
 	public String getExternalStorageSize() {
-	String state = Environment.getExternalStorageState( );
-	if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) || Environment.MEDIA_MOUNTED.equals(state)) {
-	File externalPath = Environment.getExternalStorageDirectory();
-	
-	String[] sizes = getStorageInfo(externalPath);
-	 
-	Log.d("maluchi", externalPath.getAbsolutePath() + " : " + sizes[0] + " - " + sizes[1]);
-	 
-	 
-	if (sizes != null) {
-	return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
-	} else {
-	return "EMPTY";
-	}
-	}
-	return "EMPTY";
+		String state = Environment.getExternalStorageState( );
+		if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state) || Environment.MEDIA_MOUNTED.equals(state)) {
+			File externalPath = Environment.getExternalStorageDirectory();
+			
+			String[] sizes = getStorageInfo(externalPath);
+			 
+			Log.d("maluchi", externalPath.getAbsolutePath() + " : " + sizes[0] + " - " + sizes[1]);
+			 
+			if (sizes != null) {
+				return sizes[0] + "(TOTAL)" + " / " + sizes[1] + "(AVAILABLE)";
+			} else {
+				return "EMPTY";
+			}
+		}
+		return "EMPTY";
 	}
 	 
 	private int getInternalStoragePercent() {
-	StatFs stat = new StatFs(Environment.getDataDirectory().getAbsolutePath());
-	long blockSize = stat.getBlockSize();
-	long totalSize = stat.getBlockCount() * blockSize;
-	long availableSize = stat.getAvailableBlocks() * blockSize;
-	 
-	int percent = (int)((((double)(totalSize - availableSize)) / (double)totalSize) * 100);
-	if (percent < 1) percent = 1;
-	return percent;
-	}
-	 
-	private String[] getStorageInfo( File path ) {
-	if ( path != null ) {
-	try {
-	StatFs stat = new StatFs( path.getAbsolutePath( ) );
-	long blockSize = stat.getBlockSize( );
-	 
-	String[] info = new String[2];
-	info[0] = Formatter.formatFileSize( this, stat.getBlockCount() * blockSize );
-	info[1] = Formatter.formatFileSize( this, stat.getAvailableBlocks() * blockSize );
-	return info;
-	} catch ( Exception e ) {
-	Log.d( "maluchi", "Cannot access path: " + path.getAbsolutePath( ), e );
-	}
-	}
-	return null;
+		StatFs stat = new StatFs(Environment.getDataDirectory().getAbsolutePath());
+		long blockSize = stat.getBlockSize();
+		long totalSize = stat.getBlockCount() * blockSize;
+		long availableSize = stat.getAvailableBlocks() * blockSize;
+		 
+		int percent = (int)((((double)(totalSize - availableSize)) / (double)totalSize) * 100);
+		if (percent < 1) percent = 1;
+			return percent;
+		}
+		 
+		private String[] getStorageInfo( File path ) {
+		if ( path != null ) {
+			try {
+				StatFs stat = new StatFs( path.getAbsolutePath( ) );
+				long blockSize = stat.getBlockSize( );
+				 
+				String[] info = new String[2];
+				info[0] = Formatter.formatFileSize( this, stat.getBlockCount() * blockSize );
+				info[1] = Formatter.formatFileSize( this, stat.getAvailableBlocks() * blockSize );
+				return info;
+			} catch ( Exception e ) {
+				Log.d( "maluchi", "Cannot access path: " + path.getAbsolutePath( ), e );
+			}
+		}
+		return null;
 	}
 }

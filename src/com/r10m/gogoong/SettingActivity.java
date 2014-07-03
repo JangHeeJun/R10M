@@ -74,18 +74,13 @@ public class SettingActivity extends PreferenceActivity {
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
+		finish();
 		super.onBackPressed();
 	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		
-		
 		
 		// 1. \res\xml\preferences.xml로 부터 Preference 계층구조를 읽어와
 		// 2. 이 PreferenceActivity의 계층구조로 지정/표현 하고
@@ -106,11 +101,11 @@ public class SettingActivity extends PreferenceActivity {
 	         
 	         @Override
 	         public boolean onPreferenceChange(Preference preference, Object newValue) {
-	        	 Intent intent = getIntent();
-	        	 overridePendingTransition(0, 0);
-	        	 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	 finish();
+	        	 Intent intent = preference.getIntent();
+	        	 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	 //finish();
 	        	 startActivity(intent);
+	        	 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	             return true;
 	         }
 	     });
@@ -121,9 +116,10 @@ public class SettingActivity extends PreferenceActivity {
        btn_back.setOnClickListener(new OnClickListener(){
 	       @Override
 	       public void onClick(View v) {
-				Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
+//				Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//	            startActivity(intent);
+	    	   finish();
 	       }
        });   
 

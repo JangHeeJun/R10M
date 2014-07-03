@@ -36,7 +36,7 @@ public class VideoActivity extends Activity {
 	//private String MOVIE_URL = "http://192.168.200.93:8080/app/video/";
 	private static final String MOVIE_URL = "http://mycafe24kim.cafe24.com/app/";
 	
-	private SharedPreferences mainPreferences;
+	private SharedPreferences mainPreference;
 	private static String locale = "en";
 	
 	private String name;
@@ -51,8 +51,12 @@ public class VideoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.video);
 		
-		mainPreferences = PreferenceManager.getDefaultSharedPreferences(this);	//설정내용읽어옴
-    	setLocale(mainPreferences.getString("LanguageList", "ko"));	//언어설정
+		//언어 설정
+        Locale systemLocale = getResources().getConfiguration().locale;
+        String strLanguage = systemLocale.getLanguage();
+        
+        mainPreference = PreferenceManager.getDefaultSharedPreferences(this);	
+        setLocale(mainPreference.getString("LanguageList", strLanguage));	
 		
 		/**비디오 뷰 세팅*/
 		vv = (VideoView) findViewById(R.id.videoView);
@@ -61,7 +65,6 @@ public class VideoActivity extends Activity {
 			@Override
 			public void onCompletion(MediaPlayer mp) {
 				finish();
-				
 			}
 		});
 		
@@ -184,6 +187,12 @@ public class VideoActivity extends Activity {
 		}
 		Log.e("Video", "==================="+url+"=====================");
 		return url;
+	}
+	
+	@Override
+	public void finish() {
+		overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+		super.finish();
 	}
 	
 }

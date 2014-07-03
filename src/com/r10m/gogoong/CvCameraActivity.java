@@ -125,8 +125,6 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
         }
     };
     
-    
-    
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
