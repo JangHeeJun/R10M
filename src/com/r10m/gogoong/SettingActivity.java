@@ -101,7 +101,7 @@ public class SettingActivity extends PreferenceActivity {
 	         
 	         @Override
 	         public boolean onPreferenceChange(Preference preference, Object newValue) {
-	        	 Intent intent = preference.getIntent();
+	        	 Intent intent = getIntent();
 	        	 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	        	 //finish();
 	        	 startActivity(intent);
