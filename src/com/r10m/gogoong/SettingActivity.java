@@ -74,8 +74,11 @@ public class SettingActivity extends PreferenceActivity {
 	
 	@Override
 	public void onBackPressed() {
-		finish();
 		super.onBackPressed();
+		Intent intent = new Intent(this,MainActivity.class);
+	   	intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	   	startActivity(intent);
+	   	overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	}
 	
 	@Override
@@ -102,8 +105,8 @@ public class SettingActivity extends PreferenceActivity {
 	         @Override
 	         public boolean onPreferenceChange(Preference preference, Object newValue) {
 	        	 Intent intent = getIntent();
-	        	 //intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	 //finish();
+	        	 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	        	 finish();
 	        	 startActivity(intent);
 	        	 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	             return true;
@@ -116,10 +119,10 @@ public class SettingActivity extends PreferenceActivity {
        btn_back.setOnClickListener(new OnClickListener(){
 	       @Override
 	       public void onClick(View v) {
-//				Intent intent = new Intent(SettingActivity.this, MainActivity.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//	            startActivity(intent);
-	    	   finish();
+				Intent intent = new Intent(SettingActivity.this, MainActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 	       }
        });   
 
