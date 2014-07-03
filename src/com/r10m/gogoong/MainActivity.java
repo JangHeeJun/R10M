@@ -130,7 +130,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		//홈페이지
 		case R.id.btn_homepage :
 			progBar.setVisibility(View.VISIBLE);
-			intent=new Intent(Intent.ACTION_VIEW,Uri.parse("http://mycafe24kim.cafe24.com/gogoong/app/main.do"));
+			intent=new Intent(Intent.ACTION_VIEW,Uri.parse("http://mycafe24kim.cafe24.com/gogoong/app/main_.do"));
 			startActivityForResult(intent, -1);
 			break;
 		//설정창
