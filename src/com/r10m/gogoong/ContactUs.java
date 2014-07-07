@@ -105,7 +105,7 @@ public class ContactUs extends Activity implements OnClickListener {
 			Toast toastContent = Toast.makeText(this, "동의는 필수 항목입니다.", Toast.LENGTH_SHORT);
 			toastContent.show();
 		}else {
-			sender = new GMailSender("drp2pp@gmail.com", "rlagywls"); // SUBSTITUTE ID PASSWORD
+			sender = new GMailSender("drp2pp@gmail.com", "rlagywls87"); // SUBSTITUTE ID PASSWORD
 			timeThread();
 		}
 	}

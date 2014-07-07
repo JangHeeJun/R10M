@@ -13,6 +13,9 @@ import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 
+import com.estimote.sdk.Beacon;
+import com.estimote.sdk.BeaconManager;
+import com.estimote.sdk.Region;
 import com.facebook.AppEventsLogger;
 import com.r10m.gogoong.component.Marker;
 import com.r10m.gogoong.filter.Filter;
@@ -124,6 +127,9 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             }
         }
     };
+
+	private BeaconManager bm;
+	protected boolean beaconFlag;
     
 
 	@Override
@@ -162,6 +168,16 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             mNumCameras = 1;
         }
         
+        bm = new BeaconManager(this);
+		bm.setRangingListener(new BeaconManager.RangingListener() {
+			@Override
+			public void onBeaconsDiscovered(Region region, final List<Beacon> beacons) {
+				
+				beaconFlag = true;
+				
+			}
+		});
+        
         
         btn = (Button)findViewById(R.id.button_cv);
         btn.setOnClickListener(new OnClickListener() {
@@ -196,7 +212,6 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
 		AppEventsLogger.activateApp(this);
 		wakeLock.acquire();
 		
-    	marker = ARData.getMarkers().get(9);
 		prog.setVisibility(View.VISIBLE);
 		
 		imgName = "haechi";
@@ -262,6 +277,7 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
             	Intent intent = new Intent(CvCameraActivity.this,DetailPopUp.class);
             	intent.putExtra("name", marker.getName());
             	intent.putExtra("detail", marker.getDetail());
+            	intent.putExtra("kind", "location");
             	startActivity(intent);	
             }else{
             	 // Apply the active filters.
@@ -272,12 +288,17 @@ public class CvCameraActivity extends SensorsActivity implements CvCameraViewLis
 	        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
 	            @Override
 	            public void run() {
+	            	if(beaconFlag){
+	            		//수정 요망
+	            		marker = ARData.getMarkers().get(9);
+	            		imgName = marker.getName().toLowerCase();
+	            	}else{
+	            		marker = ARData.getMarkers().get(9);
+	            		imgName = marker.getName().toLowerCase();
+	            	}
 	            	prog.setVisibility(View.GONE);
 	            	mIsRunning = false;
-	            	imgName = marker.getName().toLowerCase();
 	            	Log.e(TAG, "=================="+imgName);
-	            	//marker = ARData.getMarkers().get(0);
-	            	
 	            }
 	        }, 1500);
         }        
